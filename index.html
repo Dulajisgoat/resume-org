@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Résumé</title>
+<title>Résumé — Read Only</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -150,10 +150,8 @@
   .kicker{ font-family:inherit; font-weight:500; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--sanguine-bright); margin-bottom:14px; display:block; }
   .section-hint{ font-size:14px; color:var(--ink-faint); max-width:52ch; margin-bottom:48px; font-weight:300; }
 
-  [contenteditable="true"]{ border-radius:7px; outline-offset:4px; transition:background .2s ease; cursor:text; }
-  [contenteditable="true"]:hover{ background:rgba(176,58,63,0.08); }
-  [contenteditable="true"]:focus{ outline:1px dashed var(--sanguine-bright); background:rgba(176,58,63,0.1); }
-  [contenteditable="true"]:empty:before{ content:attr(data-placeholder); color:var(--ink-faint); font-style:normal; pointer-events:none; }
+  [data-field]{ border-radius:7px; cursor:default; }
+  [data-field]:empty:before{ content:attr(data-placeholder); color:var(--ink-faint); font-style:normal; pointer-events:none; }
 
   #hero{ min-height:92vh; display:flex; flex-direction:column; justify-content:center; padding:150px 0 100px; }
 
@@ -167,12 +165,11 @@
   .hero-top{ display:flex; align-items:center; gap:26px; margin-bottom:38px; flex-wrap:wrap; position: relative; z-index: 2; }
 
   .avatar-upload{
-    width:88px; height:88px; border-radius:50%; flex:none; position:relative; cursor:pointer;
+    width:88px; height:88px; border-radius:50%; flex:none; position:relative;
     border:1px solid var(--glass-border); display:flex; align-items:center; justify-content:center;
     background:rgba(255,255,255,0.05);
-    overflow:hidden; transition:all .2s var(--ease);
+    overflow:hidden;
   }
-  .avatar-upload:hover{ border-color:var(--sanguine-bright); background:rgba(176,58,63,0.15); box-shadow: 0 0 20px rgba(176,58,63,0.2); }
   .avatar-upload img{ width:100%; height:100%; object-fit:cover; display:none; }
   .avatar-upload.has-photo img{ display:block; }
   .avatar-upload.has-photo .avatar-plus{ display:none; }
@@ -180,39 +177,33 @@
 
   .eyebrow-line{ display:flex; align-items:center; gap:14px; color:var(--ink-dim); font-size:13px; font-weight:300; letter-spacing: 0.05em; }
   .eyebrow-line .rule{ width:34px; height:1px; background:var(--sanguine); }
-  .eyebrow-line [contenteditable]{ min-width:160px; }
+  .eyebrow-line [data-field]{ min-width:160px; }
 
   .hero-name{ font-weight:300; font-size:clamp(48px, 7.5vw, 96px); line-height:0.98; letter-spacing:-0.045em; max-width:900px; position: relative; z-index: 2; }
-  .hero-name [contenteditable]{ display:inline-block; min-width:1ch; }
+  .hero-name [data-field]{ display:inline-block; min-width:1ch; }
   .hero-name em{ font-style:normal; color:var(--sanguine-bright); font-weight: 400; }
 
   .hero-role{ margin-top:24px; font-size:clamp(16px, 1.6vw, 19px); color:var(--ink-dim); max-width:560px; font-weight:300; min-height:1.6em; letter-spacing:-0.01em; position: relative; z-index: 2; }
 
   .hero-meta{ margin-top:44px; display:flex; flex-wrap:wrap; gap:10px; font-size:13px; color:var(--ink-faint); align-items:center; position: relative; z-index: 2; }
-  .meta-pill{ padding:9px 14px; border-radius:999px; background:rgba(255,255,255,0.05); border:1px solid var(--line); min-width:70px; font-weight:400; transition: all .2s ease; }
-  .meta-pill:hover { border-color: var(--sanguine-bright); color: var(--ink); }
+  .meta-pill{ padding:9px 14px; border-radius:999px; background:rgba(255,255,255,0.05); border:1px solid var(--line); min-width:70px; font-weight:400; }
 
   .cv-upload{
-    display:inline-flex; align-items:center; gap:8px; cursor:pointer; padding:9px 16px 9px 12px;
+    display:inline-flex; align-items:center; gap:8px; padding:9px 16px 9px 12px;
     border-radius:999px; background:rgba(255,255,255,0.05); border:1px solid var(--line);
-    font-size:12px; font-weight:400; color:var(--ink-dim); transition:all .2s var(--ease);
+    font-size:12px; font-weight:400; color:var(--ink-dim);
   }
-  .cv-upload:hover{ border-color:var(--sanguine-bright); background:rgba(176,58,63,0.15); color: var(--ink); }
-  .cv-upload.filled{ border-color:var(--glass-border); }
   .cv-upload svg{ width:14px; height:14px; flex:none; opacity:.85; }
-  .cv-remove{ all:unset; cursor:pointer; color:var(--ink-faint); font-size:14px; padding:0 2px; }
-  .cv-remove:hover{ color:var(--sanguine-bright); }
 
   .two-col{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:80px; }
   @media (max-width:860px){ .two-col{ grid-template-columns:1fr; gap:32px; } }
   .lede{ font-family:inherit; font-weight:300; font-size:26px; letter-spacing:-0.02em; line-height:1.45; max-width:36ch; min-height:1.6em; }
   .body-copy{ color:var(--ink-dim); font-size:15px; max-width:56ch; font-weight: 300; }
-  .body-copy [contenteditable]{ display:block; min-height:1.6em; }
-  .body-copy [contenteditable] + [contenteditable]{ margin-top:18px; }
+  .body-copy [data-field]{ display:block; min-height:1.6em; }
+  .body-copy [data-field] + [data-field]{ margin-top:18px; }
 
   .ed-list{ display:flex; flex-direction:column; }
-  .ed-item{ display:grid; grid-template-columns:150px 1fr; gap:32px; padding:28px 0; border-top:1px solid var(--line-soft); transition: padding-left .3s var(--ease); }
-  .ed-item:hover { padding-left: 8px; }
+  .ed-item{ display:grid; grid-template-columns:150px 1fr; gap:32px; padding:28px 0; border-top:1px solid var(--line-soft); }
   .ed-list .ed-item:last-child{ border-bottom:1px solid var(--line-soft); }
   @media (max-width:640px){ .ed-item{ grid-template-columns:1fr; gap:8px; } }
   .ed-years{ color:var(--sanguine-bright); font-size:11px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; padding-top:3px; min-height:1.4em; }
@@ -227,8 +218,7 @@
   .values-panel{ margin-top:8px; }
   .values-grid{ display:grid; grid-template-columns:repeat(3, 1fr); }
   @media (max-width:860px){ .values-grid{ grid-template-columns:1fr; } }
-  .value-card{ padding:38px 32px; border-right:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft); transition: background .3s var(--ease); }
-  .value-card:hover { background: rgba(255,255,255,0.02); }
+  .value-card{ padding:38px 32px; border-right:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft); }
   .values-grid .value-card:nth-child(3n){ border-right:none; }
   .values-grid .value-card:nth-last-child(-n+3){ border-bottom:none; }
   @media (max-width:860px){ .value-card { border-right: none !important; } .values-grid .value-card:last-child { border-bottom: none; } }
@@ -252,12 +242,10 @@
   @media (max-width:640px){ .skill-groups{ grid-template-columns:1fr; } }
   .skill-group-title{ font-weight:500; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--sanguine-bright); margin-bottom:18px; min-height:1.3em; }
   .skill-tags{ display:flex; flex-wrap:wrap; gap:9px; }
-  .skill-tag{ padding:8px 14px; font-size:12.5px; font-weight:400; color:var(--ink-dim); border-radius:999px; background:rgba(255,255,255,0.03); border:1px solid var(--line); min-width:56px; transition: all .2s var(--ease); }
-  .skill-tag:hover { border-color: var(--sanguine-bright); color: var(--ink); background: rgba(176, 58, 63, 0.1); }
+  .skill-tag{ padding:8px 14px; font-size:12.5px; font-weight:400; color:var(--ink-dim); border-radius:999px; background:rgba(255,255,255,0.03); border:1px solid var(--line); min-width:56px; }
 
   .flat-list{ display:flex; flex-direction:column; }
-  .flat-item{ display:grid; grid-template-columns:1fr auto; gap:20px; align-items:baseline; padding:22px 0; border-top:1px solid var(--line-soft); transition: padding-left .3s var(--ease); }
-  .flat-item:hover { padding-left: 8px; }
+  .flat-item{ display:grid; grid-template-columns:1fr auto; gap:20px; align-items:baseline; padding:22px 0; border-top:1px solid var(--line-soft); }
   .flat-list .flat-item:last-child{ border-bottom:1px solid var(--line-soft); }
   .flat-title{ font-weight:500; font-size:16px; letter-spacing:-0.01em; min-height:1.3em; }
   .flat-sub{ color:var(--ink-dim); font-size:13.5px; font-weight:300; margin-top:4px; min-height:1.3em; }
@@ -266,22 +254,16 @@
   .cert-panel{ margin-top:8px; }
   .cert-grid{ display:grid; grid-template-columns:repeat(2, 1fr); }
   @media (max-width:640px){ .cert-grid{ grid-template-columns:1fr; } }
-  .cert-item{ padding:28px 32px; border-right:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft); position: relative; z-index: 2; transition: background .3s var(--ease); }
-  .cert-item:hover { background: rgba(255,255,255,0.02); }
+  .cert-item{ padding:28px 32px; border-right:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft); position: relative; z-index: 2; }
   .cert-grid .cert-item:nth-child(2n){ border-right:none; }
   .cert-grid .cert-item:nth-last-child(-n+2){ border-bottom:none; }
   @media (max-width:640px){ .cert-item { border-right: none !important; } .cert-grid .cert-item:last-child { border-bottom: none; } }
 
   .cert-name{ font-size:15px; font-weight:500; margin-bottom:5px; min-height:1.4em; }
   .cert-meta{ font-size:12px; color:var(--ink-faint); font-weight:300; margin-bottom:12px; min-height:1.4em; }
-  .cert-attach{ display:inline-flex; align-items:center; gap:6px; cursor:pointer; font-size:11px; font-weight:400; color:var(--ink-faint); padding:6px 12px; border-radius:999px; border:1px solid var(--line); transition:all .2s var(--ease); text-transform: uppercase; letter-spacing: 0.05em; }
-  .cert-attach:hover{ border-color:var(--sanguine-bright); color:var(--ink); background: rgba(176, 58, 63, 0.1); }
-  .cert-attach svg{ width:11px; height:11px; }
   .cert-file-chip{ display:none; align-items:center; gap:6px; font-size:12px; color:var(--ink-dim); margin-top:8px; }
   .cert-file-chip.show{ display:inline-flex; }
   .cert-file-chip a{ text-decoration:underline; text-decoration-color:var(--line); }
-  .cert-file-remove{ all:unset; cursor:pointer; color:var(--ink-faint); }
-  .cert-file-remove:hover{ color:var(--sanguine-bright); }
 
   .ref-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:36px; }
   @media (max-width:860px){ .ref-grid{ grid-template-columns:1fr; } }
@@ -306,7 +288,7 @@
     .glass::before, .glass::after { display: none !important; }
     main{ padding-left:0; }
     section{ padding:40px 0; }
-    .avatar-upload, .cv-upload, .cert-attach{ display:none !important; }
+    .avatar-upload, .cv-upload { display:none !important; }
   }
 </style>
 </head>
@@ -330,9 +312,8 @@
 </nav>
 
 <div class="toolbar glass">
-  <span class="hint" id="save-hint">Click any field to edit — autosaves to cloud</span>
+  <span class="hint" id="save-hint">Read only view</span>
   <button id="btn-print">Save as PDF</button>
-  <button id="btn-reset">Reset</button>
 </div>
 
 <main>
@@ -342,29 +323,26 @@
   <section id="hero">
     <div class="hero-card glass">
       <div class="hero-top">
-        <label class="avatar-upload" id="avatar-zone">
-          <span class="avatar-plus">＋<br>photo</span>
+        <div class="avatar-upload" id="avatar-zone">
+          <span class="avatar-plus">no photo</span>
           <img id="avatar-img" alt="Profile photo">
-          <input type="file" accept="image/*" data-role="avatar">
-        </label>
-        <div class="eyebrow-line"><span class="rule"></span><span contenteditable="true" data-placeholder="Your title / role"></span></div>
+        </div>
+        <div class="eyebrow-line"><span class="rule"></span><span data-field data-placeholder="Edited by: someone">Edited by: someone</span></div>
       </div>
 
-      <h1 class="hero-name"><span contenteditable="true" data-placeholder="First"></span> <em contenteditable="true" data-placeholder="Last"></em></h1>
-      <p class="hero-role" contenteditable="true" data-placeholder="Write a one- to two-sentence summary of who you are and what you do."></p>
+      <h1 class="hero-name"><span data-field data-placeholder="Edited by: someone">Edited by: someone</span> <em data-field data-placeholder="Edited by: someone">Edited by: someone</em></h1>
+      <p class="hero-role" data-field data-placeholder="Edited by: someone">Edited by: someone</p>
 
       <div class="hero-meta">
-        <span class="meta-pill" contenteditable="true" data-placeholder="email@example.com"></span>
-        <span class="meta-pill" contenteditable="true" data-placeholder="+1 (000) 000-0000"></span>
-        <span class="meta-pill" contenteditable="true" data-placeholder="City, Country"></span>
-        <span class="meta-pill" contenteditable="true" data-placeholder="linkedin.com/in/yourname"></span>
+        <span class="meta-pill" data-field data-placeholder="Edited by: someone">Edited by: someone</span>
+        <span class="meta-pill" data-field data-placeholder="Edited by: someone">Edited by: someone</span>
+        <span class="meta-pill" data-field data-placeholder="Edited by: someone">Edited by: someone</span>
+        <span class="meta-pill" data-field data-placeholder="Edited by: someone">Edited by: someone</span>
 
-        <label class="cv-upload" id="cv-zone">
+        <div class="cv-upload" id="cv-zone">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8.5L21 10.5z"/><path d="M14 3v7h7"/></svg>
-          <span id="cv-label">Attach CV (PDF)</span>
-          <button type="button" class="cv-remove" id="cv-remove" style="display:none;">✕</button>
-          <input type="file" accept="application/pdf,.pdf" data-role="cv">
-        </label>
+          <span id="cv-label">No CV attached</span>
+        </div>
       </div>
     </div>
   </section>
@@ -373,11 +351,11 @@
     <div class="two-col">
       <div>
         <span class="kicker">Background</span>
-        <p class="lede" contenteditable="true" data-placeholder="A short, memorable line about how you approach your work."></p>
+        <p class="lede" data-field data-placeholder="Edited by: someone">Edited by: someone</p>
       </div>
       <div class="body-copy">
-        <div contenteditable="true" data-placeholder="Write a paragraph about your background and experience."></div>
-        <div contenteditable="true" data-placeholder="Write a second paragraph about what drives you professionally."></div>
+        <div data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+        <div data-field data-placeholder="Edited by: someone">Edited by: someone</div>
       </div>
     </div>
   </section>
@@ -387,24 +365,24 @@
     <p class="section-hint">List your degrees and training, most recent first.</p>
     <div class="ed-list">
       <div class="ed-item">
-        <div class="ed-years" contenteditable="true" data-placeholder="20XX — 20XX"></div>
+        <div class="ed-years" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
         <div>
-          <div class="ed-degree" contenteditable="true" data-placeholder="Degree / Program name"></div>
-          <div class="ed-school" contenteditable="true" data-placeholder="Institution · Department"></div>
+          <div class="ed-degree" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+          <div class="ed-school" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
         </div>
       </div>
       <div class="ed-item">
-        <div class="ed-years" contenteditable="true" data-placeholder="20XX — 20XX"></div>
+        <div class="ed-years" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
         <div>
-          <div class="ed-degree" contenteditable="true" data-placeholder="Degree / Program name"></div>
-          <div class="ed-school" contenteditable="true" data-placeholder="Institution · Department"></div>
+          <div class="ed-degree" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+          <div class="ed-school" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
         </div>
       </div>
       <div class="ed-item">
-        <div class="ed-years" contenteditable="true" data-placeholder="20XX"></div>
+        <div class="ed-years" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
         <div>
-          <div class="ed-degree" contenteditable="true" data-placeholder="Certificate / Additional training"></div>
-          <div class="ed-school" contenteditable="true" data-placeholder="Institution · Department"></div>
+          <div class="ed-degree" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+          <div class="ed-school" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
         </div>
       </div>
     </div>
@@ -413,10 +391,10 @@
   <section id="philosophy">
     <span class="kicker">Professional Philosophy</span>
     <p class="section-hint">Your guiding approach to the work.</p>
-    <blockquote class="philosophy-quote" contenteditable="true" data-placeholder="Add a short line that captures how you approach your work."></blockquote>
+    <blockquote class="philosophy-quote" data-field data-placeholder="Edited by: someone">Edited by: someone</blockquote>
     <div class="body-copy" style="margin-top:36px; max-width:60ch;">
-      <div contenteditable="true" data-placeholder="Expand on your philosophy in a sentence or two."></div>
-      <div contenteditable="true" data-placeholder="Add what this looks like in practice."></div>
+      <div data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+      <div data-field data-placeholder="Edited by: someone">Edited by: someone</div>
     </div>
   </section>
 
@@ -425,12 +403,12 @@
     <p class="section-hint">The principles that guide how you work.</p>
     <div class="values-panel glass">
       <div class="values-grid">
-        <div class="value-card"><div class="value-mark"></div><div class="value-title" contenteditable="true" data-placeholder="Value name"></div><div class="value-text" contenteditable="true" data-placeholder="Briefly describe what this means in how you work."></div></div>
-        <div class="value-card"><div class="value-mark"></div><div class="value-title" contenteditable="true" data-placeholder="Value name"></div><div class="value-text" contenteditable="true" data-placeholder="Briefly describe what this means in how you work."></div></div>
-        <div class="value-card"><div class="value-mark"></div><div class="value-title" contenteditable="true" data-placeholder="Value name"></div><div class="value-text" contenteditable="true" data-placeholder="Briefly describe what this means in how you work."></div></div>
-        <div class="value-card"><div class="value-mark"></div><div class="value-title" contenteditable="true" data-placeholder="Value name"></div><div class="value-text" contenteditable="true" data-placeholder="Briefly describe what this means in how you work."></div></div>
-        <div class="value-card"><div class="value-mark"></div><div class="value-title" contenteditable="true" data-placeholder="Value name"></div><div class="value-text" contenteditable="true" data-placeholder="Briefly describe what this means in how you work."></div></div>
-        <div class="value-card"><div class="value-mark"></div><div class="value-title" contenteditable="true" data-placeholder="Value name"></div><div class="value-text" contenteditable="true" data-placeholder="Briefly describe what this means in how you work."></div></div>
+        <div class="value-card"><div class="value-mark"></div><div class="value-title" data-field data-placeholder="Edited by: someone">Edited by: someone</div><div class="value-text" data-field data-placeholder="Edited by: someone">Edited by: someone</div></div>
+        <div class="value-card"><div class="value-mark"></div><div class="value-title" data-field data-placeholder="Edited by: someone">Edited by: someone</div><div class="value-text" data-field data-placeholder="Edited by: someone">Edited by: someone</div></div>
+        <div class="value-card"><div class="value-mark"></div><div class="value-title" data-field data-placeholder="Edited by: someone">Edited by: someone</div><div class="value-text" data-field data-placeholder="Edited by: someone">Edited by: someone</div></div>
+        <div class="value-card"><div class="value-mark"></div><div class="value-title" data-field data-placeholder="Edited by: someone">Edited by: someone</div><div class="value-text" data-field data-placeholder="Edited by: someone">Edited by: someone</div></div>
+        <div class="value-card"><div class="value-mark"></div><div class="value-title" data-field data-placeholder="Edited by: someone">Edited by: someone</div><div class="value-text" data-field data-placeholder="Edited by: someone">Edited by: someone</div></div>
+        <div class="value-card"><div class="value-mark"></div><div class="value-title" data-field data-placeholder="Edited by: someone">Edited by: someone</div><div class="value-text" data-field data-placeholder="Edited by: someone">Edited by: someone</div></div>
       </div>
     </div>
   </section>
@@ -441,31 +419,31 @@
     <div class="timeline">
       <div class="tl-item">
         <div class="tl-node glass"></div>
-        <div class="tl-period" contenteditable="true" data-placeholder="20XX — Present"></div>
-        <div class="tl-role" contenteditable="true" data-placeholder="Job title"></div>
-        <div class="tl-org" contenteditable="true" data-placeholder="Company / Organization"></div>
-        <div class="tl-desc" contenteditable="true" data-placeholder="Describe your responsibilities and impact in this role."></div>
+        <div class="tl-period" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+        <div class="tl-role" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+        <div class="tl-org" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+        <div class="tl-desc" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
       </div>
       <div class="tl-item">
         <div class="tl-node glass"></div>
-        <div class="tl-period" contenteditable="true" data-placeholder="20XX — 20XX"></div>
-        <div class="tl-role" contenteditable="true" data-placeholder="Job title"></div>
-        <div class="tl-org" contenteditable="true" data-placeholder="Company / Organization"></div>
-        <div class="tl-desc" contenteditable="true" data-placeholder="Describe your responsibilities and impact in this role."></div>
+        <div class="tl-period" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+        <div class="tl-role" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+        <div class="tl-org" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+        <div class="tl-desc" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
       </div>
       <div class="tl-item">
         <div class="tl-node glass"></div>
-        <div class="tl-period" contenteditable="true" data-placeholder="20XX — 20XX"></div>
-        <div class="tl-role" contenteditable="true" data-placeholder="Job title"></div>
-        <div class="tl-org" contenteditable="true" data-placeholder="Company / Organization"></div>
-        <div class="tl-desc" contenteditable="true" data-placeholder="Describe your responsibilities and impact in this role."></div>
+        <div class="tl-period" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+        <div class="tl-role" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+        <div class="tl-org" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+        <div class="tl-desc" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
       </div>
       <div class="tl-item">
         <div class="tl-node glass"></div>
-        <div class="tl-period" contenteditable="true" data-placeholder="20XX — 20XX"></div>
-        <div class="tl-role" contenteditable="true" data-placeholder="Job title"></div>
-        <div class="tl-org" contenteditable="true" data-placeholder="Company / Organization"></div>
-        <div class="tl-desc" contenteditable="true" data-placeholder="Describe your responsibilities and impact in this role."></div>
+        <div class="tl-period" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+        <div class="tl-role" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+        <div class="tl-org" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+        <div class="tl-desc" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
       </div>
     </div>
   </section>
@@ -475,36 +453,36 @@
     <p class="section-hint">Group your skills however makes sense to you.</p>
     <div class="skill-groups">
       <div>
-        <div class="skill-group-title" contenteditable="true" data-placeholder="Skill category"></div>
+        <div class="skill-group-title" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
         <div class="skill-tags">
-          <span class="skill-tag" contenteditable="true" data-placeholder="Skill"></span>
-          <span class="skill-tag" contenteditable="true" data-placeholder="Skill"></span>
-          <span class="skill-tag" contenteditable="true" data-placeholder="Skill"></span>
-          <span class="skill-tag" contenteditable="true" data-placeholder="Skill"></span>
+          <span class="skill-tag" data-field data-placeholder="Edited by: someone">Edited by: someone</span>
+          <span class="skill-tag" data-field data-placeholder="Edited by: someone">Edited by: someone</span>
+          <span class="skill-tag" data-field data-placeholder="Edited by: someone">Edited by: someone</span>
+          <span class="skill-tag" data-field data-placeholder="Edited by: someone">Edited by: someone</span>
         </div>
       </div>
       <div>
-        <div class="skill-group-title" contenteditable="true" data-placeholder="Skill category"></div>
+        <div class="skill-group-title" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
         <div class="skill-tags">
-          <span class="skill-tag" contenteditable="true" data-placeholder="Skill"></span>
-          <span class="skill-tag" contenteditable="true" data-placeholder="Skill"></span>
-          <span class="skill-tag" contenteditable="true" data-placeholder="Skill"></span>
+          <span class="skill-tag" data-field data-placeholder="Edited by: someone">Edited by: someone</span>
+          <span class="skill-tag" data-field data-placeholder="Edited by: someone">Edited by: someone</span>
+          <span class="skill-tag" data-field data-placeholder="Edited by: someone">Edited by: someone</span>
         </div>
       </div>
       <div>
-        <div class="skill-group-title" contenteditable="true" data-placeholder="Skill category"></div>
+        <div class="skill-group-title" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
         <div class="skill-tags">
-          <span class="skill-tag" contenteditable="true" data-placeholder="Skill"></span>
-          <span class="skill-tag" contenteditable="true" data-placeholder="Skill"></span>
-          <span class="skill-tag" contenteditable="true" data-placeholder="Skill"></span>
+          <span class="skill-tag" data-field data-placeholder="Edited by: someone">Edited by: someone</span>
+          <span class="skill-tag" data-field data-placeholder="Edited by: someone">Edited by: someone</span>
+          <span class="skill-tag" data-field data-placeholder="Edited by: someone">Edited by: someone</span>
         </div>
       </div>
       <div>
-        <div class="skill-group-title" contenteditable="true" data-placeholder="Skill category"></div>
+        <div class="skill-group-title" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
         <div class="skill-tags">
-          <span class="skill-tag" contenteditable="true" data-placeholder="Skill"></span>
-          <span class="skill-tag" contenteditable="true" data-placeholder="Skill"></span>
-          <span class="skill-tag" contenteditable="true" data-placeholder="Skill"></span>
+          <span class="skill-tag" data-field data-placeholder="Edited by: someone">Edited by: someone</span>
+          <span class="skill-tag" data-field data-placeholder="Edited by: someone">Edited by: someone</span>
+          <span class="skill-tag" data-field data-placeholder="Edited by: someone">Edited by: someone</span>
         </div>
       </div>
     </div>
@@ -515,16 +493,16 @@
     <p class="section-hint">Volunteering, coaching, clubs, or civic involvement.</p>
     <div class="flat-list">
       <div class="flat-item">
-        <div><div class="flat-title" contenteditable="true" data-placeholder="Activity / Organization name"></div><div class="flat-sub" contenteditable="true" data-placeholder="Brief description of your involvement."></div></div>
-        <div class="flat-year" contenteditable="true" data-placeholder="20XX — Present"></div>
+        <div><div class="flat-title" data-field data-placeholder="Edited by: someone">Edited by: someone</div><div class="flat-sub" data-field data-placeholder="Edited by: someone">Edited by: someone</div></div>
+        <div class="flat-year" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
       </div>
       <div class="flat-item">
-        <div><div class="flat-title" contenteditable="true" data-placeholder="Activity / Organization name"></div><div class="flat-sub" contenteditable="true" data-placeholder="Brief description of your involvement."></div></div>
-        <div class="flat-year" contenteditable="true" data-placeholder="20XX — 20XX"></div>
+        <div><div class="flat-title" data-field data-placeholder="Edited by: someone">Edited by: someone</div><div class="flat-sub" data-field data-placeholder="Edited by: someone">Edited by: someone</div></div>
+        <div class="flat-year" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
       </div>
       <div class="flat-item">
-        <div><div class="flat-title" contenteditable="true" data-placeholder="Activity / Organization name"></div><div class="flat-sub" contenteditable="true" data-placeholder="Brief description of your involvement."></div></div>
-        <div class="flat-year" contenteditable="true" data-placeholder="20XX — 20XX"></div>
+        <div><div class="flat-title" data-field data-placeholder="Edited by: someone">Edited by: someone</div><div class="flat-sub" data-field data-placeholder="Edited by: someone">Edited by: someone</div></div>
+        <div class="flat-year" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
       </div>
     </div>
   </section>
@@ -535,28 +513,24 @@
     <div class="cert-panel glass">
       <div class="cert-grid">
         <div class="cert-item">
-          <div class="cert-name" contenteditable="true" data-placeholder="Certification / Training name"></div>
-          <div class="cert-meta" contenteditable="true" data-placeholder="Issuing organization · Year"></div>
-          <label class="cert-attach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.4 11.6 12.6 20.4a4 4 0 0 1-5.6-5.6l8.4-8.4a2.7 2.7 0 0 1 3.8 3.8L10.8 18.6"/></svg><span>Attach document</span><input type="file" data-role="cert"></label>
-          <div class="cert-file-chip"><a target="_blank"></a><button class="cert-file-remove" type="button">✕</button></div>
+          <div class="cert-name" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+          <div class="cert-meta" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+          <div class="cert-file-chip"><a target="_blank"></a></div>
         </div>
         <div class="cert-item">
-          <div class="cert-name" contenteditable="true" data-placeholder="Certification / Training name"></div>
-          <div class="cert-meta" contenteditable="true" data-placeholder="Issuing organization · Year"></div>
-          <label class="cert-attach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.4 11.6 12.6 20.4a4 4 0 0 1-5.6-5.6l8.4-8.4a2.7 2.7 0 0 1 3.8 3.8L10.8 18.6"/></svg><span>Attach document</span><input type="file" data-role="cert"></label>
-          <div class="cert-file-chip"><a target="_blank"></a><button class="cert-file-remove" type="button">✕</button></div>
+          <div class="cert-name" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+          <div class="cert-meta" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+          <div class="cert-file-chip"><a target="_blank"></a></div>
         </div>
         <div class="cert-item">
-          <div class="cert-name" contenteditable="true" data-placeholder="Certification / Training name"></div>
-          <div class="cert-meta" contenteditable="true" data-placeholder="Issuing organization · Year"></div>
-          <label class="cert-attach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.4 11.6 12.6 20.4a4 4 0 0 1-5.6-5.6l8.4-8.4a2.7 2.7 0 0 1 3.8 3.8L10.8 18.6"/></svg><span>Attach document</span><input type="file" data-role="cert"></label>
-          <div class="cert-file-chip"><a target="_blank"></a><button class="cert-file-remove" type="button">✕</button></div>
+          <div class="cert-name" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+          <div class="cert-meta" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+          <div class="cert-file-chip"><a target="_blank"></a></div>
         </div>
         <div class="cert-item">
-          <div class="cert-name" contenteditable="true" data-placeholder="Certification / Training name"></div>
-          <div class="cert-meta" contenteditable="true" data-placeholder="Issuing organization · Year"></div>
-          <label class="cert-attach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.4 11.6 12.6 20.4a4 4 0 0 1-5.6-5.6l8.4-8.4a2.7 2.7 0 0 1 3.8 3.8L10.8 18.6"/></svg><span>Attach document</span><input type="file" data-role="cert"></label>
-          <div class="cert-file-chip"><a target="_blank"></a><button class="cert-file-remove" type="button">✕</button></div>
+          <div class="cert-name" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+          <div class="cert-meta" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+          <div class="cert-file-chip"><a target="_blank"></a></div>
         </div>
       </div>
     </div>
@@ -567,35 +541,35 @@
     <p class="section-hint">People who can speak to your character and work.</p>
     <div class="ref-grid">
       <div class="ref-card">
-        <div class="ref-name" contenteditable="true" data-placeholder="Reference name"></div>
-        <div class="ref-role" contenteditable="true" data-placeholder="Title, Organization"></div>
+        <div class="ref-name" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+        <div class="ref-role" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
         <div class="ref-contact">
-          <div contenteditable="true" data-placeholder="email@example.com"></div>
-          <div contenteditable="true" data-placeholder="+1 (000) 000-0000"></div>
+          <div data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+          <div data-field data-placeholder="Edited by: someone">Edited by: someone</div>
         </div>
       </div>
       <div class="ref-card">
-        <div class="ref-name" contenteditable="true" data-placeholder="Reference name"></div>
-        <div class="ref-role" contenteditable="true" data-placeholder="Title, Organization"></div>
+        <div class="ref-name" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+        <div class="ref-role" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
         <div class="ref-contact">
-          <div contenteditable="true" data-placeholder="email@example.com"></div>
-          <div contenteditable="true" data-placeholder="+1 (000) 000-0000"></div>
+          <div data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+          <div data-field data-placeholder="Edited by: someone">Edited by: someone</div>
         </div>
       </div>
       <div class="ref-card">
-        <div class="ref-name" contenteditable="true" data-placeholder="Reference name"></div>
-        <div class="ref-role" contenteditable="true" data-placeholder="Title, Organization"></div>
+        <div class="ref-name" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+        <div class="ref-role" data-field data-placeholder="Edited by: someone">Edited by: someone</div>
         <div class="ref-contact">
-          <div contenteditable="true" data-placeholder="email@example.com"></div>
-          <div contenteditable="true" data-placeholder="+1 (000) 000-0000"></div>
+          <div data-field data-placeholder="Edited by: someone">Edited by: someone</div>
+          <div data-field data-placeholder="Edited by: someone">Edited by: someone</div>
         </div>
       </div>
     </div>
   </section>
 
   <footer>
-    <span contenteditable="true" data-placeholder="Your name — Resume"></span>
-    <span contenteditable="true" data-placeholder="email@example.com"></span>
+    <span data-field data-placeholder="Edited by: someone">Edited by: someone</span>
+    <span data-field data-placeholder="Edited by: someone">Edited by: someone</span>
   </footer>
 
 </div>
@@ -606,10 +580,10 @@
 <script>
 (function(){
   /* ============================================================
-     SUPABASE CONFIG (your project)
+     SUPABASE CONFIG — READ ONLY
      ============================================================ */
-  var SUPABASE_URL      = 'https://vxbfpehldttiubjxyiyo.supabase.co';
-  var SUPABASE_ANON_KEY = 'sb_publishable_0zbsGw86YpDVxyqUhWrCoA_el69dIyK';
+  var SUPABASE_URL      = 'https://dtpubmqtsexlosoexjba.supabase.co';
+  var SUPABASE_ANON_KEY = 'sb_publishable_t-foXT6JNdnFejto0uJqAA_6Y4gln6G';
 
   var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   var TABLE = 'resume';
@@ -743,132 +717,8 @@
     render();
   }
 
-  /* ============== RESUME LOGIC ============== */
-  var root = document.getElementById('resume-root');
-  var hint = document.getElementById('save-hint');
-
-  function setHint(t){ if(hint) hint.textContent = t; }
-
-  async function loadFromCloud(){
-    setHint('Loading…');
-    try{
-      var res = await sb.from(TABLE).select('content').eq('id', ROW_ID).maybeSingle();
-      if(res.error){ console.warn('[supabase load]', res.error); setHint('Could not load — editing locally'); return; }
-      if(res.data && res.data.content && typeof res.data.content.html === 'string' && res.data.content.html.length){
-        root.innerHTML = res.data.content.html;
-        setHint('Loaded ✓ — click any field to edit');
-      } else {
-        setHint('Click any field to edit — autosaves to cloud');
-      }
-    }catch(err){
-      console.warn('[supabase load]', err);
-      setHint('Offline — edits will not sync');
-    }
-  }
-
-  var saveTimer = null;
-  function scheduleSave(){
-    setHint('Saving…');
-    clearTimeout(saveTimer);
-    saveTimer = setTimeout(doSave, 700);
-  }
-
-  async function doSave(){
-    try{
-      var payload = { html: root.innerHTML };
-      var res = await sb.from(TABLE).upsert({
-        id: ROW_ID,
-        content: payload,
-        updated_at: new Date().toISOString()
-      });
-      if(res.error){ console.warn('[supabase save]', res.error); setHint('Save failed — see console'); return; }
-      setHint('Saved ✓');
-      setTimeout(function(){
-        setHint('Click any field to edit — autosaves to cloud');
-      }, 1500);
-    }catch(err){
-      console.warn('[supabase save]', err);
-      setHint('Save failed — see console');
-    }
-  }
-
-  root.addEventListener('input', scheduleSave);
-
-  document.addEventListener('change', function(e){
-    var input = e.target;
-    if(!(input.tagName === 'INPUT' && input.type === 'file')) return;
-    var role = input.getAttribute('data-role');
-    var file = input.files && input.files[0];
-    if(!file) return;
-
-    if(role === 'avatar'){
-      var reader = new FileReader();
-      reader.onload = function(ev){
-        var zone = input.closest('.avatar-upload');
-        var img = zone.querySelector('img');
-        img.src = ev.target.result;
-        zone.classList.add('has-photo');
-        scheduleSave();
-      };
-      reader.readAsDataURL(file);
-    }
-
-    if(role === 'cv'){
-      var zone2 = input.closest('.cv-upload');
-      zone2.classList.add('filled');
-      var label = zone2.querySelector('#cv-label');
-      if(label) label.textContent = file.name;
-      var removeBtn = zone2.querySelector('.cv-remove');
-      if(removeBtn){ removeBtn.style.display = 'inline'; }
-      scheduleSave();
-    }
-
-    if(role === 'cert'){
-      var item = input.closest('.cert-item');
-      var chip = item.querySelector('.cert-file-chip');
-      var link = chip.querySelector('a');
-      var url = URL.createObjectURL(file);
-      link.href = url;
-      link.textContent = file.name;
-      chip.classList.add('show');
-      scheduleSave();
-    }
-  });
-
-  document.addEventListener('click', function(e){
-    if(e.target.classList.contains('cv-remove')){
-      e.preventDefault();
-      var zone = e.target.closest('.cv-upload');
-      zone.classList.remove('filled');
-      var label = zone.querySelector('#cv-label');
-      if(label) label.textContent = 'Attach CV (PDF)';
-      e.target.style.display = 'none';
-      var inp = zone.querySelector('input[type=file]');
-      if(inp) inp.value = '';
-      scheduleSave();
-    }
-    if(e.target.classList.contains('cert-file-remove')){
-      var chip = e.target.closest('.cert-file-chip');
-      chip.classList.remove('show');
-      var a = chip.querySelector('a');
-      a.removeAttribute('href');
-      a.textContent = '';
-      var item = e.target.closest('.cert-item');
-      var inp2 = item.querySelector('input[type=file]');
-      if(inp2) inp2.value = '';
-      scheduleSave();
-    }
-  });
-
+  /* ============== NAVIGATION ============== */
   document.getElementById('btn-print').addEventListener('click', function(){ window.print(); });
-
-  document.getElementById('btn-reset').addEventListener('click', async function(){
-    if(!confirm('Reset everything back to a blank template?')) return;
-    try{
-      await sb.from(TABLE).upsert({ id: ROW_ID, content: {}, updated_at: new Date().toISOString() });
-    }catch(err){ console.warn(err); }
-    location.reload();
-  });
 
   var sections = document.querySelectorAll('main section[id]');
   var dots = document.querySelectorAll('.rail button');
@@ -886,6 +736,97 @@
   });
   window.addEventListener('scroll', setActive, {passive:true});
   setActive();
+
+  /* ============== LOAD FROM SUPABASE (READ ONLY) ============== */
+  var root = document.getElementById('resume-root');
+  var hint = document.getElementById('save-hint');
+
+  function applyContent(html){
+    if(!html || typeof html !== 'string') return;
+
+    var doc;
+    try { doc = new DOMParser().parseFromString(html, 'text/html'); }
+    catch(e){ console.warn('[parse]', e); return; }
+    if(!doc) return;
+
+    var srcFields = doc.querySelectorAll('[contenteditable]');
+    var dstFields = root.querySelectorAll('[data-field]');
+    var n = Math.min(srcFields.length, dstFields.length);
+    for(var i = 0; i < n; i++){
+      var src = srcFields[i];
+      var dst = dstFields[i];
+      dst.innerHTML = src.innerHTML;
+      if(src.hasAttribute('data-placeholder')){
+        dst.setAttribute('data-placeholder', src.getAttribute('data-placeholder'));
+      } else {
+        dst.removeAttribute('data-placeholder');
+      }
+    }
+
+    var sAv = doc.querySelector('.avatar-upload');
+    var dAv = root.querySelector('.avatar-upload');
+    if(sAv && dAv){
+      var sImg = sAv.querySelector('img');
+      var dImg = dAv.querySelector('img');
+      if(sImg && dImg && sImg.getAttribute('src')){
+        dImg.setAttribute('src', sImg.getAttribute('src'));
+      }
+      dAv.classList.toggle('has-photo', sAv.classList.contains('has-photo'));
+    }
+
+    var sCv = doc.querySelector('#cv-label');
+    var dCv = root.querySelector('#cv-label');
+    var dCvZone = root.querySelector('#cv-zone');
+    if(sCv && dCv){
+      var t = (sCv.textContent || '').trim();
+      var hasCv = t && t !== 'Attach CV (PDF)';
+      dCv.textContent = hasCv ? t : 'No CV attached';
+      if(dCvZone) dCvZone.classList.toggle('filled', !!hasCv);
+    }
+
+    var sChips = doc.querySelectorAll('.cert-file-chip');
+    var dChips = root.querySelectorAll('.cert-file-chip');
+    var m = Math.min(sChips.length, dChips.length);
+    for(var j = 0; j < m; j++){
+      var sLink = sChips[j].querySelector('a');
+      var dLink = dChips[j].querySelector('a');
+      if(!sLink || !dLink) continue;
+      dLink.textContent = sLink.textContent || '';
+      var href = sLink.getAttribute('href');
+      if(href) dLink.setAttribute('href', href);
+      else dLink.removeAttribute('href');
+      dChips[j].classList.toggle('show', sChips[j].classList.contains('show'));
+    }
+  }
+
+  async function loadFromCloud(){
+    if(hint) hint.textContent = 'Loading…';
+    try{
+      var res = await sb.from(TABLE).select('content').eq('id', ROW_ID).maybeSingle();
+      if(res.error){ console.warn('[supabase load]', res.error); if(hint) hint.textContent = 'Read only view'; return; }
+      if(res.data && res.data.content && res.data.content.html){
+        applyContent(res.data.content.html);
+        if(hint) hint.textContent = 'Read only view — live';
+      } else {
+        if(hint) hint.textContent = 'Read only view';
+      }
+    }catch(err){
+      console.warn('[supabase load]', err);
+      if(hint) hint.textContent = 'Offline';
+    }
+  }
+
+  try{
+    sb.channel('resume-live')
+      .on('postgres_changes',
+          { event: '*', schema: 'public', table: TABLE, filter: 'id=eq.' + ROW_ID },
+          function(payload){
+            if(payload && payload.new && payload.new.content && payload.new.content.html){
+              applyContent(payload.new.content.html);
+            }
+          })
+      .subscribe();
+  }catch(e){ console.warn('[realtime]', e); }
 
   loadFromCloud();
 })();
