@@ -9,217 +9,95 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#120D0C;
-    --line:rgba(255,255,255,0.12);
-    --line-soft:rgba(255,255,255,0.06);
-    --ink:#F1E9E1;
-    --ink-dim:#B9AC9F;
-    --ink-faint:#7E7069;
-    --sanguine:#7A2027;
-    --sanguine-bright:#B03A3F;
-    --sanguine-deep:#4E1519;
-    --glass-fill: rgba(255,255,255,0.04);
-    --glass-border: rgba(255,255,255,0.12);
+    --bg:#120D0C; --line:rgba(255,255,255,0.12); --line-soft:rgba(255,255,255,0.06);
+    --ink:#F1E9E1; --ink-dim:#B9AC9F; --ink-faint:#7E7069;
+    --sanguine:#7A2027; --sanguine-bright:#B03A3F; --sanguine-deep:#4E1519;
+    --glass-fill: rgba(255,255,255,0.04); --glass-border: rgba(255,255,255,0.12);
     --glass-shadow: 0 8px 32px rgba(0,0,0,0.37), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.2);
-    --radius-lg: 24px;
-    --radius-md: 16px;
-    --ease: cubic-bezier(.22,.61,.36,1);
+    --radius-lg: 24px; --radius-md: 16px; --ease: cubic-bezier(.22,.61,.36,1);
   }
-
   *{ box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
-
   body{
-    margin:0;
-    background:var(--bg);
-    color:var(--ink);
+    margin:0; background:var(--bg); color:var(--ink);
     font-family:"Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-    text-rendering:optimizeLegibility;
-    overflow-x: hidden;
+    line-height:1.6; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; overflow-x:hidden;
   }
-
   ::selection{ background:var(--sanguine-deep); color:var(--ink); }
   h1,h2,h3{ font-family:inherit; font-weight:500; letter-spacing:-0.03em; margin:0; color:var(--ink); }
   a{ color:inherit; }
-
-  #webgl-bg {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: -2;
-  }
-
-  .stripes {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: -1;
-    pointer-events: none;
-    background-image: repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 40px,
-      rgba(176, 58, 63, 0.03) 40px,
-      rgba(176, 58, 63, 0.03) 41px
-    );
-  }
-
-  .side-stripe {
-    position: fixed;
-    top: 0; left: 0;
-    width: 4px;
-    height: 100%;
-    background: linear-gradient(to bottom, var(--sanguine-deep), var(--sanguine-bright), var(--sanguine-deep));
-    z-index: 50;
-  }
-
-  .glass{
-    position:relative;
-    background:var(--glass-fill);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    backdrop-filter: blur(20px) saturate(180%);
-    border:1px solid var(--glass-border);
-    box-shadow:var(--glass-shadow);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-  }
-
-  .glass::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.1));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .glass::after {
-    content: "";
-    position: absolute;
-    top: 0; left: 20%; right: 20%;
-    height: 40%;
-    background: radial-gradient(ellipse at center top, rgba(255,255,255,0.08), transparent 70%);
-    pointer-events: none;
-    z-index: 1;
-  }
-
+  #webgl-bg{ position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2; }
+  .stripes{ position:fixed; inset:0; z-index:-1; pointer-events:none; background-image:repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(176,58,63,0.03) 40px, rgba(176,58,63,0.03) 41px); }
+  .side-stripe{ position:fixed; top:0; left:0; width:4px; height:100%; z-index:50; background:linear-gradient(to bottom, var(--sanguine-deep), var(--sanguine-bright), var(--sanguine-deep)); }
+  .glass{ position:relative; background:var(--glass-fill); -webkit-backdrop-filter:blur(20px) saturate(180%); backdrop-filter:blur(20px) saturate(180%); border:1px solid var(--glass-border); box-shadow:var(--glass-shadow); border-radius:var(--radius-lg); overflow:hidden; }
+  .glass::before{ content:""; position:absolute; inset:0; border-radius:inherit; padding:1px; background:linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.1)); -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite:xor; mask-composite:exclude; pointer-events:none; z-index:1; }
+  .glass::after{ content:""; position:absolute; top:0; left:20%; right:20%; height:40%; background:radial-gradient(ellipse at center top, rgba(255,255,255,0.08), transparent 70%); pointer-events:none; z-index:1; }
   .wrap{ max-width:1180px; margin:0 auto; padding:0 48px; position:relative; }
   @media (max-width:860px){ .wrap{ padding:0 24px; } }
-
-  .rail{
-    position:fixed; top:50%; left:22px; transform:translateY(-50%);
-    display:flex; flex-direction:column; align-items:center; gap:18px;
-    padding:20px 11px; border-radius:999px; z-index:60;
-  }
-  .rail button{
-    all:unset; width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.25);
-    cursor:pointer; transition:all .3s var(--ease);
-  }
+  .rail{ position:fixed; top:50%; left:22px; transform:translateY(-50%); display:flex; flex-direction:column; align-items:center; gap:18px; padding:20px 11px; border-radius:999px; z-index:60; }
+  .rail button{ all:unset; width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.25); cursor:pointer; transition:all .3s var(--ease); }
   .rail button:hover{ background:var(--ink-dim); transform: scale(1.4); }
   .rail button.active{ background:var(--sanguine-bright); transform:scale(2.2); box-shadow: 0 0 12px var(--sanguine-bright); }
   @media (max-width:860px){ .rail{ display:none; } }
-
-  .toolbar{
-    position:fixed; top:24px; right:24px; z-index:60; border-radius:999px;
-    display:flex; align-items:center; gap:6px; padding:8px 8px 8px 16px;
-  }
+  .toolbar{ position:fixed; top:24px; right:24px; z-index:60; border-radius:999px; display:flex; align-items:center; gap:6px; padding:8px 8px 8px 16px; }
   .toolbar span.hint{ font-size:12px; color:var(--ink-dim); margin-right:6px; white-space:nowrap; letter-spacing:0.02em; font-weight: 400; }
-  .toolbar button{
-    all:unset; cursor:pointer; font-family:inherit; font-weight:500; font-size:12px; color:var(--ink);
-    padding:10px 16px; border-radius:999px; background:rgba(255,255,255,0.08); border:1px solid transparent;
-    transition:all .2s var(--ease);
-  }
+  .toolbar button{ all:unset; cursor:pointer; font-family:inherit; font-weight:500; font-size:12px; color:var(--ink); padding:10px 16px; border-radius:999px; background:rgba(255,255,255,0.08); border:1px solid transparent; transition:all .2s var(--ease); }
   .toolbar button:hover{ background:rgba(176, 58, 63, 0.3); border-color:var(--sanguine-bright); color: #fff; }
   .toolbar button:active{ transform:scale(0.96); }
   @media (max-width:640px){ .toolbar span.hint{ display:none; } }
-
   main{ padding-left:58px; }
   @media (max-width:860px){ main{ padding-left:0; } }
-
   section{ padding:120px 0; border-bottom:1px solid var(--line-soft); position: relative; }
   section:last-of-type{ border-bottom:none; }
   @media (max-width:860px){ section{ padding:76px 0; } }
-
   .kicker{ font-family:inherit; font-weight:500; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--sanguine-bright); margin-bottom:14px; display:block; }
   .section-hint{ font-size:14px; color:var(--ink-faint); max-width:52ch; margin-bottom:48px; font-weight:300; }
-
+  [data-field]{ border-radius:7px; cursor:default; }
+  [data-field]:empty:before{ content:attr(data-placeholder); color:var(--ink-faint); font-style:normal; pointer-events:none; }
   #hero{ min-height:92vh; display:flex; flex-direction:column; justify-content:center; padding:150px 0 100px; }
-
   .hero-card{ padding:56px clamp(28px,5vw,64px); }
-
-  .hero-card::before {
-    padding: 2px;
-    background: linear-gradient(135deg, rgba(176,58,63,0.5), rgba(255,255,255,0.1) 40%, rgba(255,255,255,0.1) 60%, rgba(176,58,63,0.3));
-  }
-
+  .hero-card::before { padding: 2px; background: linear-gradient(135deg, rgba(176,58,63,0.5), rgba(255,255,255,0.1) 40%, rgba(255,255,255,0.1) 60%, rgba(176,58,63,0.3)); }
   .hero-top{ display:flex; align-items:center; gap:26px; margin-bottom:38px; flex-wrap:wrap; position: relative; z-index: 2; }
-
-  .avatar-upload{
-    width:88px; height:88px; border-radius:50%; flex:none; position:relative;
-    border:1px solid var(--glass-border); display:flex; align-items:center; justify-content:center;
-    background:rgba(255,255,255,0.05);
-    overflow:hidden;
-  }
-  .avatar-upload:not(.has-photo){ display:none; }
+  .avatar-upload{ width:88px; height:88px; border-radius:50%; flex:none; position:relative; border:1px solid var(--glass-border); display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.05); overflow:hidden; }
   .avatar-upload img{ width:100%; height:100%; object-fit:cover; display:none; }
   .avatar-upload.has-photo img{ display:block; }
   .avatar-upload.has-photo .avatar-plus{ display:none; }
   .avatar-plus{ font-size:10px; font-weight:400; letter-spacing:0.1em; color:var(--ink-faint); text-align:center; line-height:1.3; padding:0 8px; text-transform: uppercase; }
-
   .eyebrow-line{ display:flex; align-items:center; gap:14px; color:var(--ink-dim); font-size:13px; font-weight:300; letter-spacing: 0.05em; }
   .eyebrow-line .rule{ width:34px; height:1px; background:var(--sanguine); }
-
+  .eyebrow-line [data-field]{ min-width:160px; }
   .hero-name{ font-weight:300; font-size:clamp(48px, 7.5vw, 96px); line-height:0.98; letter-spacing:-0.045em; max-width:900px; position: relative; z-index: 2; }
-  .hero-name span, .hero-name em{ display:inline-block; }
+  .hero-name [data-field]{ display:inline-block; min-width:1ch; }
   .hero-name em{ font-style:normal; color:var(--sanguine-bright); font-weight: 400; }
-
   .hero-role{ margin-top:24px; font-size:clamp(16px, 1.6vw, 19px); color:var(--ink-dim); max-width:560px; font-weight:300; min-height:1.6em; letter-spacing:-0.01em; position: relative; z-index: 2; }
-
   .hero-meta{ margin-top:44px; display:flex; flex-wrap:wrap; gap:10px; font-size:13px; color:var(--ink-faint); align-items:center; position: relative; z-index: 2; }
-  .meta-pill{ padding:9px 14px; border-radius:999px; background:rgba(255,255,255,0.05); border:1px solid var(--line); min-width:70px; font-weight:400; transition: all .2s ease; }
-  .meta-pill:hover { border-color: var(--sanguine-bright); color: var(--ink); }
-
+  .meta-pill{ padding:9px 14px; border-radius:999px; background:rgba(255,255,255,0.05); border:1px solid var(--line); min-width:70px; font-weight:400; }
+  .cv-upload{ display:inline-flex; align-items:center; gap:8px; padding:9px 16px 9px 12px; border-radius:999px; background:rgba(255,255,255,0.05); border:1px solid var(--line); font-size:12px; font-weight:400; color:var(--ink-dim); }
+  .cv-upload svg{ width:14px; height:14px; flex:none; opacity:.85; }
   .two-col{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:80px; }
   @media (max-width:860px){ .two-col{ grid-template-columns:1fr; gap:32px; } }
   .lede{ font-family:inherit; font-weight:300; font-size:26px; letter-spacing:-0.02em; line-height:1.45; max-width:36ch; min-height:1.6em; }
   .body-copy{ color:var(--ink-dim); font-size:15px; max-width:56ch; font-weight: 300; }
-  .body-copy > div{ display:block; min-height:1.6em; }
-  .body-copy > div + div{ margin-top:18px; }
-
+  .body-copy [data-field]{ display:block; min-height:1.6em; }
+  .body-copy [data-field] + [data-field]{ margin-top:18px; }
   .ed-list{ display:flex; flex-direction:column; }
-  .ed-item{ display:grid; grid-template-columns:150px 1fr; gap:32px; padding:28px 0; border-top:1px solid var(--line-soft); transition: padding-left .3s var(--ease); }
-  .ed-item:hover { padding-left: 8px; }
+  .ed-item{ display:grid; grid-template-columns:150px 1fr; gap:32px; padding:28px 0; border-top:1px solid var(--line-soft); }
   .ed-list .ed-item:last-child{ border-bottom:1px solid var(--line-soft); }
   @media (max-width:640px){ .ed-item{ grid-template-columns:1fr; gap:8px; } }
   .ed-years{ color:var(--sanguine-bright); font-size:11px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; padding-top:3px; min-height:1.4em; }
   .ed-degree{ font-size:18px; font-weight:500; letter-spacing:-0.01em; margin-bottom:6px; min-height:1.4em; }
   .ed-school{ color:var(--ink-dim); font-size:14px; font-weight:300; min-height:1.4em; }
-
-  .philosophy-quote{
-    font-family:inherit; font-weight:300; font-style:normal; font-size:clamp(24px, 2.8vw, 32px);
-    letter-spacing:-0.02em; line-height:1.4; max-width:26ch; border-left:1px solid var(--sanguine); padding-left:32px; min-height:1.6em;
-  }
-
+  .philosophy-quote{ font-family:inherit; font-weight:300; font-style:normal; font-size:clamp(24px, 2.8vw, 32px); letter-spacing:-0.02em; line-height:1.4; max-width:26ch; border-left:1px solid var(--sanguine); padding-left:32px; min-height:1.6em; }
   .values-panel{ margin-top:8px; }
   .values-grid{ display:grid; grid-template-columns:repeat(3, 1fr); }
   @media (max-width:860px){ .values-grid{ grid-template-columns:1fr; } }
-  .value-card{ padding:38px 32px; border-right:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft); transition: background .3s var(--ease); }
-  .value-card:hover { background: rgba(255,255,255,0.02); }
+  .value-card{ padding:38px 32px; border-right:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft); }
   .values-grid .value-card:nth-child(3n){ border-right:none; }
   .values-grid .value-card:nth-last-child(-n+3){ border-bottom:none; }
   @media (max-width:860px){ .value-card { border-right: none !important; } .values-grid .value-card:last-child { border-bottom: none; } }
-
   .value-mark{ width:30px; height:1px; background:var(--sanguine-bright); margin-bottom:20px; }
   .value-title{ font-weight:500; font-size:17px; letter-spacing:-0.01em; margin-bottom:10px; min-height:1.4em; }
   .value-text{ color:var(--ink-dim); font-size:13.5px; font-weight:300; min-height:1.4em; }
-
   .timeline{ position:relative; margin-top:10px; }
   .timeline::before{ content:""; position:absolute; left:29px; top:8px; bottom:8px; width:1px; background:linear-gradient(to bottom, transparent, var(--sanguine) 10%, var(--line) 50%, transparent); }
   .tl-item{ position:relative; padding-left:76px; padding-bottom:60px; }
@@ -230,38 +108,29 @@
   .tl-role{ font-weight:500; font-size:22px; letter-spacing:-0.02em; margin-bottom:4px; min-height:1.3em; }
   .tl-org{ color:var(--ink-dim); font-size:14px; font-weight:300; margin-bottom:14px; min-height:1.3em; }
   .tl-desc{ color:var(--ink-dim); font-size:14.5px; font-weight:300; max-width:58ch; min-height:1.6em; }
-
   .skill-groups{ display:grid; grid-template-columns:repeat(2, 1fr); gap:44px 60px; }
   @media (max-width:640px){ .skill-groups{ grid-template-columns:1fr; } }
   .skill-group-title{ font-weight:500; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--sanguine-bright); margin-bottom:18px; min-height:1.3em; }
   .skill-tags{ display:flex; flex-wrap:wrap; gap:9px; }
-  .skill-tag{ padding:8px 14px; font-size:12.5px; font-weight:400; color:var(--ink-dim); border-radius:999px; background:rgba(255,255,255,0.03); border:1px solid var(--line); min-width:56px; transition: all .2s var(--ease); }
-  .meta-pill.is-empty, .skill-tag.is-empty{ display:none; }
-  .skill-tag:hover { border-color: var(--sanguine-bright); color: var(--ink); background: rgba(176, 58, 63, 0.1); }
-
+  .skill-tag{ padding:8px 14px; font-size:12.5px; font-weight:400; color:var(--ink-dim); border-radius:999px; background:rgba(255,255,255,0.03); border:1px solid var(--line); min-width:56px; }
   .flat-list{ display:flex; flex-direction:column; }
-  .flat-item{ display:grid; grid-template-columns:1fr auto; gap:20px; align-items:baseline; padding:22px 0; border-top:1px solid var(--line-soft); transition: padding-left .3s var(--ease); }
-  .flat-item:hover { padding-left: 8px; }
+  .flat-item{ display:grid; grid-template-columns:1fr auto; gap:20px; align-items:baseline; padding:22px 0; border-top:1px solid var(--line-soft); }
   .flat-list .flat-item:last-child{ border-bottom:1px solid var(--line-soft); }
   .flat-title{ font-weight:500; font-size:16px; letter-spacing:-0.01em; min-height:1.3em; }
   .flat-sub{ color:var(--ink-dim); font-size:13.5px; font-weight:300; margin-top:4px; min-height:1.3em; }
   .flat-year{ color:var(--ink-faint); font-size:12px; font-weight:400; white-space:nowrap; min-height:1.3em; }
-
   .cert-panel{ margin-top:8px; }
   .cert-grid{ display:grid; grid-template-columns:repeat(2, 1fr); }
   @media (max-width:640px){ .cert-grid{ grid-template-columns:1fr; } }
-  .cert-item{ padding:28px 32px; border-right:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft); position: relative; z-index: 2; transition: background .3s var(--ease); }
-  .cert-item:hover { background: rgba(255,255,255,0.02); }
+  .cert-item{ padding:28px 32px; border-right:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft); position: relative; z-index: 2; }
   .cert-grid .cert-item:nth-child(2n){ border-right:none; }
   .cert-grid .cert-item:nth-last-child(-n+2){ border-bottom:none; }
   @media (max-width:640px){ .cert-item { border-right: none !important; } .cert-grid .cert-item:last-child { border-bottom: none; } }
-
   .cert-name{ font-size:15px; font-weight:500; margin-bottom:5px; min-height:1.4em; }
   .cert-meta{ font-size:12px; color:var(--ink-faint); font-weight:300; margin-bottom:12px; min-height:1.4em; }
   .cert-file-chip{ display:none; align-items:center; gap:6px; font-size:12px; color:var(--ink-dim); margin-top:8px; }
   .cert-file-chip.show{ display:inline-flex; }
   .cert-file-chip a{ text-decoration:underline; text-decoration-color:var(--line); }
-
   .ref-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:36px; }
   @media (max-width:860px){ .ref-grid{ grid-template-columns:1fr; } }
   .ref-card{ padding-top:26px; border-top:1px solid var(--sanguine); }
@@ -269,26 +138,20 @@
   .ref-role{ color:var(--ink-dim); font-size:13px; font-weight:300; margin-bottom:12px; min-height:1.4em; }
   .ref-contact{ color:var(--ink-faint); font-size:12.5px; font-weight:300; }
   .ref-contact div{ margin-top:4px; min-height:1.4em; }
-
   footer{ padding:52px 0 90px; display:flex; justify-content:space-between; align-items:center; color:var(--ink-faint); font-size:12px; font-weight:400; flex-wrap:wrap; gap:16px; letter-spacing: 0.05em; }
-
+  input[type=file]{ display:none; }
   @media print{
-    :root{
-      --bg:#ffffff; --ink:#141414; --ink-dim:#3a3a3a; --ink-faint:#666666;
-      --line:#dcdcdc; --line-soft:#e8e8e8; --sanguine-bright:#7A2027;
-      --glass-shadow:none; --glass-border:#dcdcdc; --glass-fill:#ffffff;
-    }
+    :root{ --bg:#ffffff; --ink:#141414; --ink-dim:#3a3a3a; --ink-faint:#666666; --line:#dcdcdc; --line-soft:#e8e8e8; --sanguine-bright:#7A2027; --glass-shadow:none; --glass-border:#dcdcdc; --glass-fill:#ffffff; }
     #webgl-bg, .stripes, .rail, .toolbar, .side-stripe { display:none !important; }
     .glass{ backdrop-filter:none !important; -webkit-backdrop-filter:none !important; box-shadow:none !important; border: 1px solid #dcdcdc !important; }
     .glass::before, .glass::after { display: none !important; }
     main{ padding-left:0; }
     section{ padding:40px 0; }
-    .avatar-upload{ display:none !important; }
+    .avatar-upload, .cv-upload { display:none !important; }
   }
 </style>
 </head>
 <body>
-
 <canvas id="webgl-bg"></canvas>
 <div class="stripes"></div>
 <div class="side-stripe"></div>
@@ -307,32 +170,34 @@
 </nav>
 
 <div class="toolbar glass">
-  <span class="hint" id="view-hint">Loading…</span>
+  <span class="hint" id="save-hint">Loading…</span>
   <button id="btn-print">Save as PDF</button>
+  <button onclick="window.location.href='admin.html'">Admin Login</button>
 </div>
 
 <main>
 <div class="wrap">
 <div id="resume-root">
-
   <section id="hero">
     <div class="hero-card glass">
       <div class="hero-top">
         <div class="avatar-upload" id="avatar-zone">
+          <span class="avatar-plus">no photo</span>
           <img id="avatar-img" alt="Profile photo">
         </div>
-        <div class="eyebrow-line"><span class="rule"></span><span data-placeholder="Your title / role"></span></div>
+        <div class="eyebrow-line"><span class="rule"></span><span data-field data-placeholder="Your title / role"></span></div>
       </div>
-
-      <h1 class="hero-name"><span data-placeholder="First"></span> <em data-placeholder="Last"></em></h1>
-      <p class="hero-role" data-placeholder="Write a one- to two-sentence summary of who you are and what you do."></p>
-
+      <h1 class="hero-name"><span data-field data-placeholder="First"></span> <em data-field data-placeholder="Last"></em></h1>
+      <p class="hero-role" data-field data-placeholder="Write a one- to two-sentence summary of who you are and what you do."></p>
       <div class="hero-meta">
-        <span class="meta-pill" data-placeholder="email@example.com"></span>
-        <span class="meta-pill" data-placeholder="+1 (000) 000-0000"></span>
-        <span class="meta-pill" data-placeholder="City, Country"></span>
-        <span class="meta-pill" data-placeholder="linkedin.com/in/yourname"></span>
-
+        <span class="meta-pill" data-field data-placeholder="email@example.com"></span>
+        <span class="meta-pill" data-field data-placeholder="+1 (000) 000-0000"></span>
+        <span class="meta-pill" data-field data-placeholder="City, Country"></span>
+        <span class="meta-pill" data-field data-placeholder="linkedin.com/in/yourname"></span>
+        <div class="cv-upload" id="cv-zone">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8.5L21 10.5z"/><path d="M14 3v7h7"/></svg>
+          <span id="cv-label">No CV attached</span>
+        </div>
       </div>
     </div>
   </section>
@@ -341,11 +206,11 @@
     <div class="two-col">
       <div>
         <span class="kicker">Background</span>
-        <p class="lede" data-placeholder="A short, memorable line about how you approach your work."></p>
+        <p class="lede" data-field data-placeholder="A short, memorable line about how you approach your work."></p>
       </div>
       <div class="body-copy">
-        <div data-placeholder="Write a paragraph about your background and experience."></div>
-        <div data-placeholder="Write a second paragraph about what drives you professionally."></div>
+        <div data-field data-placeholder="Write a paragraph about your background and experience."></div>
+        <div data-field data-placeholder="Write a second paragraph about what drives you professionally."></div>
       </div>
     </div>
   </section>
@@ -355,24 +220,24 @@
     <p class="section-hint">List your degrees and training, most recent first.</p>
     <div class="ed-list">
       <div class="ed-item">
-        <div class="ed-years" data-placeholder="20XX — 20XX"></div>
+        <div class="ed-years" data-field data-placeholder="20XX — 20XX"></div>
         <div>
-          <div class="ed-degree" data-placeholder="Degree / Program name"></div>
-          <div class="ed-school" data-placeholder="Institution · Department"></div>
+          <div class="ed-degree" data-field data-placeholder="Degree / Program name"></div>
+          <div class="ed-school" data-field data-placeholder="Institution · Department"></div>
         </div>
       </div>
       <div class="ed-item">
-        <div class="ed-years" data-placeholder="20XX — 20XX"></div>
+        <div class="ed-years" data-field data-placeholder="20XX — 20XX"></div>
         <div>
-          <div class="ed-degree" data-placeholder="Degree / Program name"></div>
-          <div class="ed-school" data-placeholder="Institution · Department"></div>
+          <div class="ed-degree" data-field data-placeholder="Degree / Program name"></div>
+          <div class="ed-school" data-field data-placeholder="Institution · Department"></div>
         </div>
       </div>
       <div class="ed-item">
-        <div class="ed-years" data-placeholder="20XX"></div>
+        <div class="ed-years" data-field data-placeholder="20XX"></div>
         <div>
-          <div class="ed-degree" data-placeholder="Certificate / Additional training"></div>
-          <div class="ed-school" data-placeholder="Institution · Department"></div>
+          <div class="ed-degree" data-field data-placeholder="Certificate / Additional training"></div>
+          <div class="ed-school" data-field data-placeholder="Institution · Department"></div>
         </div>
       </div>
     </div>
@@ -381,10 +246,10 @@
   <section id="philosophy">
     <span class="kicker">Professional Philosophy</span>
     <p class="section-hint">Your guiding approach to the work.</p>
-    <blockquote class="philosophy-quote" data-placeholder="Add a short line that captures how you approach your work."></blockquote>
+    <blockquote class="philosophy-quote" data-field data-placeholder="Add a short line that captures how you approach your work."></blockquote>
     <div class="body-copy" style="margin-top:36px; max-width:60ch;">
-      <div data-placeholder="Expand on your philosophy in a sentence or two."></div>
-      <div data-placeholder="Add what this looks like in practice."></div>
+      <div data-field data-placeholder="Expand on your philosophy in a sentence or two."></div>
+      <div data-field data-placeholder="Add what this looks like in practice."></div>
     </div>
   </section>
 
@@ -393,12 +258,12 @@
     <p class="section-hint">The principles that guide how you work.</p>
     <div class="values-panel glass">
       <div class="values-grid">
-        <div class="value-card"><div class="value-mark"></div><div class="value-title" data-placeholder="Value name"></div><div class="value-text" data-placeholder="Briefly describe what this means in how you work."></div></div>
-        <div class="value-card"><div class="value-mark"></div><div class="value-title" data-placeholder="Value name"></div><div class="value-text" data-placeholder="Briefly describe what this means in how you work."></div></div>
-        <div class="value-card"><div class="value-mark"></div><div class="value-title" data-placeholder="Value name"></div><div class="value-text" data-placeholder="Briefly describe what this means in how you work."></div></div>
-        <div class="value-card"><div class="value-mark"></div><div class="value-title" data-placeholder="Value name"></div><div class="value-text" data-placeholder="Briefly describe what this means in how you work."></div></div>
-        <div class="value-card"><div class="value-mark"></div><div class="value-title" data-placeholder="Value name"></div><div class="value-text" data-placeholder="Briefly describe what this means in how you work."></div></div>
-        <div class="value-card"><div class="value-mark"></div><div class="value-title" data-placeholder="Value name"></div><div class="value-text" data-placeholder="Briefly describe what this means in how you work."></div></div>
+        <div class="value-card"><div class="value-mark"></div><div class="value-title" data-field data-placeholder="Value name"></div><div class="value-text" data-field data-placeholder="Briefly describe what this means in how you work."></div></div>
+        <div class="value-card"><div class="value-mark"></div><div class="value-title" data-field data-placeholder="Value name"></div><div class="value-text" data-field data-placeholder="Briefly describe what this means in how you work."></div></div>
+        <div class="value-card"><div class="value-mark"></div><div class="value-title" data-field data-placeholder="Value name"></div><div class="value-text" data-field data-placeholder="Briefly describe what this means in how you work."></div></div>
+        <div class="value-card"><div class="value-mark"></div><div class="value-title" data-field data-placeholder="Value name"></div><div class="value-text" data-field data-placeholder="Briefly describe what this means in how you work."></div></div>
+        <div class="value-card"><div class="value-mark"></div><div class="value-title" data-field data-placeholder="Value name"></div><div class="value-text" data-field data-placeholder="Briefly describe what this means in how you work."></div></div>
+        <div class="value-card"><div class="value-mark"></div><div class="value-title" data-field data-placeholder="Value name"></div><div class="value-text" data-field data-placeholder="Briefly describe what this means in how you work."></div></div>
       </div>
     </div>
   </section>
@@ -409,31 +274,31 @@
     <div class="timeline">
       <div class="tl-item">
         <div class="tl-node glass"></div>
-        <div class="tl-period" data-placeholder="20XX — Present"></div>
-        <div class="tl-role" data-placeholder="Job title"></div>
-        <div class="tl-org" data-placeholder="Company / Organization"></div>
-        <div class="tl-desc" data-placeholder="Describe your responsibilities and impact in this role."></div>
+        <div class="tl-period" data-field data-placeholder="20XX — Present"></div>
+        <div class="tl-role" data-field data-placeholder="Job title"></div>
+        <div class="tl-org" data-field data-placeholder="Company / Organization"></div>
+        <div class="tl-desc" data-field data-placeholder="Describe your responsibilities and impact in this role."></div>
       </div>
       <div class="tl-item">
         <div class="tl-node glass"></div>
-        <div class="tl-period" data-placeholder="20XX — 20XX"></div>
-        <div class="tl-role" data-placeholder="Job title"></div>
-        <div class="tl-org" data-placeholder="Company / Organization"></div>
-        <div class="tl-desc" data-placeholder="Describe your responsibilities and impact in this role."></div>
+        <div class="tl-period" data-field data-placeholder="20XX — 20XX"></div>
+        <div class="tl-role" data-field data-placeholder="Job title"></div>
+        <div class="tl-org" data-field data-placeholder="Company / Organization"></div>
+        <div class="tl-desc" data-field data-placeholder="Describe your responsibilities and impact in this role."></div>
       </div>
       <div class="tl-item">
         <div class="tl-node glass"></div>
-        <div class="tl-period" data-placeholder="20XX — 20XX"></div>
-        <div class="tl-role" data-placeholder="Job title"></div>
-        <div class="tl-org" data-placeholder="Company / Organization"></div>
-        <div class="tl-desc" data-placeholder="Describe your responsibilities and impact in this role."></div>
+        <div class="tl-period" data-field data-placeholder="20XX — 20XX"></div>
+        <div class="tl-role" data-field data-placeholder="Job title"></div>
+        <div class="tl-org" data-field data-placeholder="Company / Organization"></div>
+        <div class="tl-desc" data-field data-placeholder="Describe your responsibilities and impact in this role."></div>
       </div>
       <div class="tl-item">
         <div class="tl-node glass"></div>
-        <div class="tl-period" data-placeholder="20XX — 20XX"></div>
-        <div class="tl-role" data-placeholder="Job title"></div>
-        <div class="tl-org" data-placeholder="Company / Organization"></div>
-        <div class="tl-desc" data-placeholder="Describe your responsibilities and impact in this role."></div>
+        <div class="tl-period" data-field data-placeholder="20XX — 20XX"></div>
+        <div class="tl-role" data-field data-placeholder="Job title"></div>
+        <div class="tl-org" data-field data-placeholder="Company / Organization"></div>
+        <div class="tl-desc" data-field data-placeholder="Describe your responsibilities and impact in this role."></div>
       </div>
     </div>
   </section>
@@ -443,80 +308,84 @@
     <p class="section-hint">Group your skills however makes sense to you.</p>
     <div class="skill-groups">
       <div>
-        <div class="skill-group-title" data-placeholder="Skill category"></div>
+        <div class="skill-group-title" data-field data-placeholder="Skill category"></div>
         <div class="skill-tags">
-          <span class="skill-tag" data-placeholder="Skill"></span>
-          <span class="skill-tag" data-placeholder="Skill"></span>
-          <span class="skill-tag" data-placeholder="Skill"></span>
-          <span class="skill-tag" data-placeholder="Skill"></span>
+          <span class="skill-tag" data-field data-placeholder="Skill"></span>
+          <span class="skill-tag" data-field data-placeholder="Skill"></span>
+          <span class="skill-tag" data-field data-placeholder="Skill"></span>
+          <span class="skill-tag" data-field data-placeholder="Skill"></span>
         </div>
       </div>
       <div>
-        <div class="skill-group-title" data-placeholder="Skill category"></div>
+        <div class="skill-group-title" data-field data-placeholder="Skill category"></div>
         <div class="skill-tags">
-          <span class="skill-tag" data-placeholder="Skill"></span>
-          <span class="skill-tag" data-placeholder="Skill"></span>
-          <span class="skill-tag" data-placeholder="Skill"></span>
+          <span class="skill-tag" data-field data-placeholder="Skill"></span>
+          <span class="skill-tag" data-field data-placeholder="Skill"></span>
+          <span class="skill-tag" data-field data-placeholder="Skill"></span>
         </div>
       </div>
       <div>
-        <div class="skill-group-title" data-placeholder="Skill category"></div>
+        <div class="skill-group-title" data-field data-placeholder="Skill category"></div>
         <div class="skill-tags">
-          <span class="skill-tag" data-placeholder="Skill"></span>
-          <span class="skill-tag" data-placeholder="Skill"></span>
-          <span class="skill-tag" data-placeholder="Skill"></span>
+          <span class="skill-tag" data-field data-placeholder="Skill"></span>
+          <span class="skill-tag" data-field data-placeholder="Skill"></span>
+          <span class="skill-tag" data-field data-placeholder="Skill"></span>
         </div>
       </div>
       <div>
-        <div class="skill-group-title" data-placeholder="Skill category"></div>
+        <div class="skill-group-title" data-field data-placeholder="Skill category"></div>
         <div class="skill-tags">
-          <span class="skill-tag" data-placeholder="Skill"></span>
-          <span class="skill-tag" data-placeholder="Skill"></span>
-          <span class="skill-tag" data-placeholder="Skill"></span>
+          <span class="skill-tag" data-field data-placeholder="Skill"></span>
+          <span class="skill-tag" data-field data-placeholder="Skill"></span>
+          <span class="skill-tag" data-field data-placeholder="Skill"></span>
         </div>
       </div>
     </div>
   </section>
 
   <section id="community">
-    <span class="kicker">Extra-Curricular &amp; Community Engagement</span>
+    <span class="kicker">Extra-Curricular & Community Engagement</span>
     <p class="section-hint">Volunteering, coaching, clubs, or civic involvement.</p>
     <div class="flat-list">
       <div class="flat-item">
-        <div><div class="flat-title" data-placeholder="Activity / Organization name"></div><div class="flat-sub" data-placeholder="Brief description of your involvement."></div></div>
-        <div class="flat-year" data-placeholder="20XX — Present"></div>
+        <div><div class="flat-title" data-field data-placeholder="Activity / Organization name"></div><div class="flat-sub" data-field data-placeholder="Brief description of your involvement."></div></div>
+        <div class="flat-year" data-field data-placeholder="20XX — Present"></div>
       </div>
       <div class="flat-item">
-        <div><div class="flat-title" data-placeholder="Activity / Organization name"></div><div class="flat-sub" data-placeholder="Brief description of your involvement."></div></div>
-        <div class="flat-year" data-placeholder="20XX — 20XX"></div>
+        <div><div class="flat-title" data-field data-placeholder="Activity / Organization name"></div><div class="flat-sub" data-field data-placeholder="Brief description of your involvement."></div></div>
+        <div class="flat-year" data-field data-placeholder="20XX — 20XX"></div>
       </div>
       <div class="flat-item">
-        <div><div class="flat-title" data-placeholder="Activity / Organization name"></div><div class="flat-sub" data-placeholder="Brief description of your involvement."></div></div>
-        <div class="flat-year" data-placeholder="20XX — 20XX"></div>
+        <div><div class="flat-title" data-field data-placeholder="Activity / Organization name"></div><div class="flat-sub" data-field data-placeholder="Brief description of your involvement."></div></div>
+        <div class="flat-year" data-field data-placeholder="20XX — 20XX"></div>
       </div>
     </div>
   </section>
 
   <section id="certifications">
-    <span class="kicker">Certifications, Trainings &amp; Seminars</span>
+    <span class="kicker">Certifications, Trainings & Seminars</span>
     <p class="section-hint">Attach supporting documents where you have them.</p>
     <div class="cert-panel glass">
       <div class="cert-grid">
         <div class="cert-item">
-          <div class="cert-name" data-placeholder="Certification / Training name"></div>
-          <div class="cert-meta" data-placeholder="Issuing organization · Year"></div>
+          <div class="cert-name" data-field data-placeholder="Certification / Training name"></div>
+          <div class="cert-meta" data-field data-placeholder="Issuing organization · Year"></div>
+          <div class="cert-file-chip"><a target="_blank"></a></div>
         </div>
         <div class="cert-item">
-          <div class="cert-name" data-placeholder="Certification / Training name"></div>
-          <div class="cert-meta" data-placeholder="Issuing organization · Year"></div>
+          <div class="cert-name" data-field data-placeholder="Certification / Training name"></div>
+          <div class="cert-meta" data-field data-placeholder="Issuing organization · Year"></div>
+          <div class="cert-file-chip"><a target="_blank"></a></div>
         </div>
         <div class="cert-item">
-          <div class="cert-name" data-placeholder="Certification / Training name"></div>
-          <div class="cert-meta" data-placeholder="Issuing organization · Year"></div>
+          <div class="cert-name" data-field data-placeholder="Certification / Training name"></div>
+          <div class="cert-meta" data-field data-placeholder="Issuing organization · Year"></div>
+          <div class="cert-file-chip"><a target="_blank"></a></div>
         </div>
         <div class="cert-item">
-          <div class="cert-name" data-placeholder="Certification / Training name"></div>
-          <div class="cert-meta" data-placeholder="Issuing organization · Year"></div>
+          <div class="cert-name" data-field data-placeholder="Certification / Training name"></div>
+          <div class="cert-meta" data-field data-placeholder="Issuing organization · Year"></div>
+          <div class="cert-file-chip"><a target="_blank"></a></div>
         </div>
       </div>
     </div>
@@ -527,37 +396,36 @@
     <p class="section-hint">People who can speak to your character and work.</p>
     <div class="ref-grid">
       <div class="ref-card">
-        <div class="ref-name" data-placeholder="Reference name"></div>
-        <div class="ref-role" data-placeholder="Title, Organization"></div>
+        <div class="ref-name" data-field data-placeholder="Reference name"></div>
+        <div class="ref-role" data-field data-placeholder="Title, Organization"></div>
         <div class="ref-contact">
-          <div data-placeholder="email@example.com"></div>
-          <div data-placeholder="+1 (000) 000-0000"></div>
+          <div data-field data-placeholder="email@example.com"></div>
+          <div data-field data-placeholder="+1 (000) 000-0000"></div>
         </div>
       </div>
       <div class="ref-card">
-        <div class="ref-name" data-placeholder="Reference name"></div>
-        <div class="ref-role" data-placeholder="Title, Organization"></div>
+        <div class="ref-name" data-field data-placeholder="Reference name"></div>
+        <div class="ref-role" data-field data-placeholder="Title, Organization"></div>
         <div class="ref-contact">
-          <div data-placeholder="email@example.com"></div>
-          <div data-placeholder="+1 (000) 000-0000"></div>
+          <div data-field data-placeholder="email@example.com"></div>
+          <div data-field data-placeholder="+1 (000) 000-0000"></div>
         </div>
       </div>
       <div class="ref-card">
-        <div class="ref-name" data-placeholder="Reference name"></div>
-        <div class="ref-role" data-placeholder="Title, Organization"></div>
+        <div class="ref-name" data-field data-placeholder="Reference name"></div>
+        <div class="ref-role" data-field data-placeholder="Title, Organization"></div>
         <div class="ref-contact">
-          <div data-placeholder="email@example.com"></div>
-          <div data-placeholder="+1 (000) 000-0000"></div>
+          <div data-field data-placeholder="email@example.com"></div>
+          <div data-field data-placeholder="+1 (000) 000-0000"></div>
         </div>
       </div>
     </div>
   </section>
 
   <footer>
-    <span data-placeholder="Your name — Resume"></span>
-    <span data-placeholder="email@example.com"></span>
+    <span data-field data-placeholder="Your name — Résumé"></span>
+    <span data-field data-placeholder="email@example.com"></span>
   </footer>
-
 </div>
 </div>
 </main>
@@ -565,234 +433,140 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function(){
-  /* ============================================================
-     SUPABASE CONFIG (read-only: publishable key, SELECT only)
-     ============================================================ */
+  'use strict';
   var SUPABASE_URL      = 'https://dtpubmqtsexlosoexjba.supabase.co';
   var SUPABASE_ANON_KEY = 'sb_publishable_t-foXT6JNdnFejto0uJqAA_6Y4gln6G';
+  var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   var TABLE = 'resume';
   var ROW_ID = 1;
 
-  var sb = null;
-  try{
-    sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  }catch(err){
-    console.warn('[supabase init]', err);
+  /* ============== WEBGL BACKGROUND ============== */
+  var canvas = document.getElementById('webgl-bg');
+  var gl = canvas.getContext('webgl');
+  var raf = 0, glRunning = false;
+  var mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+  var drawFrame = null;
+
+  if(gl){
+    var resize = function(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; gl.viewport(0, 0, canvas.width, canvas.height); };
+    window.addEventListener('resize', resize); resize();
+    var vsSource = `attribute vec2 a_position; void main() { gl_Position = vec4(a_position, 0.0, 1.0); }`;
+    var fsSource = `precision highp float; uniform vec2 u_resolution; uniform float u_time; uniform vec2 u_mouse;
+      float random(vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123); }
+      float noise(vec2 st) { vec2 i = floor(st); vec2 f = fract(st); float a = random(i); float b = random(i + vec2(1.0, 0.0)); float c = random(i + vec2(0.0, 1.0)); float d = random(i + vec2(1.0, 1.0)); vec2 u = f * f * (3.0 - 2.0 * f); return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y; }
+      float fbm(vec2 st) { float value = 0.0; float amplitude = 0.5; for (int i = 0; i < 5; i++) { value += amplitude * noise(st); st *= 2.0; amplitude *= 0.5; } return value; }
+      void main() { vec2 st = gl_FragCoord.xy / u_resolution.xy; st.x *= u_resolution.x / u_resolution.y; vec2 mouse = u_mouse / u_resolution; mouse.x *= u_resolution.x / u_resolution.y; float t = u_time * 0.03; vec2 dist = st - mouse; float mouseInfluence = exp(-dot(dist, dist) * 3.0) * 0.5; vec2 q = vec2(fbm(st + t), fbm(st - t + vec2(5.2, 1.3))); vec2 r = vec2(fbm(st + 4.0*q + vec2(1.7,9.2) + t*1.5), fbm(st + 4.0*q + vec2(8.3,2.8) - t*1.5)); float f = fbm(st + 4.0*r + mouseInfluence); vec3 color1 = vec3(0.07, 0.05, 0.04); vec3 color2 = vec3(0.30, 0.08, 0.10); vec3 color3 = vec3(0.69, 0.22, 0.25); vec3 color = mix(color1, color2, f); color = mix(color, color3, smoothstep(0.4, 0.8, f) * smoothstep(0.0, 0.5, length(q))); color += vec3(0.15, 0.05, 0.05) * mouseInfluence; float vignette = smoothstep(1.5, 0.2, distance(st, vec2(0.5, 0.5))); color *= 0.4 + vignette * 0.6; gl_FragColor = vec4(color, 1.0); }`;
+    var compileShader = function(type, source){ var s = gl.createShader(type); gl.shaderSource(s, source); gl.compileShader(s); return s; };
+    var program = gl.createProgram(); gl.attachShader(program, compileShader(gl.VERTEX_SHADER, vsSource)); gl.attachShader(program, compileShader(gl.FRAGMENT_SHADER, fsSource)); gl.linkProgram(program); gl.useProgram(program);
+    var buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+    var aPos = gl.getAttribLocation(program, 'a_position'); gl.enableVertexAttribArray(aPos); gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+    var uRes = gl.getUniformLocation(program, 'u_resolution'); var uTime = gl.getUniformLocation(program, 'u_time'); var uMouse = gl.getUniformLocation(program, 'u_mouse');
+    var t0 = performance.now();
+    window.addEventListener('mousemove', function(e){ mouseX = e.clientX; mouseY = window.innerHeight - e.clientY; });
+    drawFrame = function(){ gl.uniform2f(uRes, canvas.width, canvas.height); gl.uniform1f(uTime, (performance.now() - t0) / 1000); gl.uniform2f(uMouse, mouseX, mouseY); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); if(glRunning) raf = requestAnimationFrame(drawFrame); };
   }
+  function startGL(){ if(drawFrame && !glRunning){ glRunning = true; drawFrame(); } }
+  function stopGL(){ glRunning = false; cancelAnimationFrame(raf); }
 
-  /* ============== WEBGL ANIMATED BACKGROUND ============== */
-  const canvas = document.getElementById('webgl-bg');
-  const gl = canvas.getContext('webgl');
-
-  if (gl) {
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      gl.viewport(0, 0, canvas.width, canvas.height);
-    };
-    window.addEventListener('resize', resize);
-    resize();
-
-    const vsSource = `
-      attribute vec2 a_position;
-      void main() {
-        gl_Position = vec4(a_position, 0.0, 1.0);
-      }
-    `;
-
-    const fsSource = `
-      precision highp float;
-      uniform vec2 u_resolution;
-      uniform float u_time;
-      uniform vec2 u_mouse;
-
-      float random(vec2 st) {
-        return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
-      }
-
-      float noise(vec2 st) {
-        vec2 i = floor(st);
-        vec2 f = fract(st);
-        float a = random(i);
-        float b = random(i + vec2(1.0, 0.0));
-        float c = random(i + vec2(0.0, 1.0));
-        float d = random(i + vec2(1.0, 1.0));
-        vec2 u = f * f * (3.0 - 2.0 * f);
-        return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
-      }
-
-      float fbm(vec2 st) {
-        float value = 0.0;
-        float amplitude = 0.5;
-        for (int i = 0; i < 5; i++) {
-          value += amplitude * noise(st);
-          st *= 2.0;
-          amplitude *= 0.5;
-        }
-        return value;
-      }
-
-      void main() {
-        vec2 st = gl_FragCoord.xy / u_resolution.xy;
-        st.x *= u_resolution.x / u_resolution.y;
-
-        vec2 mouse = u_mouse / u_resolution;
-        mouse.x *= u_resolution.x / u_resolution.y;
-
-        float t = u_time * 0.03;
-
-        vec2 dist = st - mouse;
-        float mouseInfluence = exp(-dot(dist, dist) * 3.0) * 0.5;
-
-        vec2 q = vec2(fbm(st + t), fbm(st - t + vec2(5.2, 1.3)));
-        vec2 r = vec2(fbm(st + 4.0*q + vec2(1.7,9.2) + t*1.5), fbm(st + 4.0*q + vec2(8.3,2.8) - t*1.5));
-        float f = fbm(st + 4.0*r + mouseInfluence);
-
-        vec3 color1 = vec3(0.07, 0.05, 0.04);
-        vec3 color2 = vec3(0.30, 0.08, 0.10);
-        vec3 color3 = vec3(0.69, 0.22, 0.25);
-
-        vec3 color = mix(color1, color2, f);
-        color = mix(color, color3, smoothstep(0.4, 0.8, f) * smoothstep(0.0, 0.5, length(q)));
-
-        color += vec3(0.15, 0.05, 0.05) * mouseInfluence;
-
-        float vignette = smoothstep(1.5, 0.2, distance(st, vec2(0.5, 0.5)));
-        color *= 0.4 + vignette * 0.6;
-
-        gl_FragColor = vec4(color, 1.0);
-      }
-    `;
-
-    const compileShader = (type, source) => {
-      const shader = gl.createShader(type);
-      gl.shaderSource(shader, source);
-      gl.compileShader(shader);
-      return shader;
-    };
-
-    const program = gl.createProgram();
-    gl.attachShader(program, compileShader(gl.VERTEX_SHADER, vsSource));
-    gl.attachShader(program, compileShader(gl.FRAGMENT_SHADER, fsSource));
-    gl.linkProgram(program);
-    gl.useProgram(program);
-
-    const positionBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
-
-    const a_position = gl.getAttribLocation(program, "a_position");
-    gl.enableVertexAttribArray(a_position);
-    gl.vertexAttribPointer(a_position, 2, gl.FLOAT, false, 0, 0);
-
-    const u_resolution = gl.getUniformLocation(program, "u_resolution");
-    const u_time = gl.getUniformLocation(program, "u_time");
-    const u_mouse = gl.getUniformLocation(program, "u_mouse");
-
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = window.innerHeight - e.clientY;
-    });
-
-    const startTime = performance.now();
-    function render() {
-      gl.uniform2f(u_resolution, canvas.width, canvas.height);
-      gl.uniform1f(u_time, (performance.now() - startTime) / 1000);
-      gl.uniform2f(u_mouse, mouseX, mouseY);
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-      requestAnimationFrame(render);
-    }
-    render();
-  }
-
-  /* ============== RESUME LOGIC (READ-ONLY) ============== */
-  var root = document.getElementById('resume-root');
-  var hint = document.getElementById('view-hint');
-
-  function setHint(t){ if(hint) hint.textContent = t; }
-
-  /* Strips anything editable or executable from the résumé markup and
-     tidies empty fields so the read view shows only real content. */
-  function prepareReadView(){
-    root.querySelectorAll('script').forEach(function(el){ el.remove(); });
-
-    root.querySelectorAll('*').forEach(function(el){
-      Array.prototype.slice.call(el.attributes).forEach(function(attr){
-        if(/^on/i.test(attr.name)) el.removeAttribute(attr.name);
-      });
-      el.removeAttribute('contenteditable');
-      if(el.tagName === 'A'){
-        var href = (el.getAttribute('href') || '').trim();
-        if(/^javascript:/i.test(href)) el.removeAttribute('href');
-      }
-    });
-
-    root.querySelectorAll('input[type="file"], .cv-upload, .cert-attach, .cv-remove, .cert-file-remove').forEach(function(el){
-      el.remove();
-    });
-
-    root.querySelectorAll('.cert-file-chip').forEach(function(chip){
-      var a = chip.querySelector('a');
-      var href = a ? (a.getAttribute('href') || '') : '';
-      if(!href || /^blob:/i.test(href)){
-        chip.remove();
-      } else {
-        a.setAttribute('rel', 'noopener noreferrer');
-        a.setAttribute('target', '_blank');
-      }
-    });
-
-    root.querySelectorAll('[data-placeholder]').forEach(function(el){
-      var empty = el.textContent.trim() === '' && !el.querySelector('img');
-      el.classList.toggle('is-empty', empty);
-    });
-  }
-
-  async function loadFromCloud(){
-    setHint('Loading…');
-    if(!sb){ setHint('Could not load résumé'); return; }
-    try{
-      var res = await sb.from(TABLE).select('content').eq('id', ROW_ID).maybeSingle();
-      if(res.error){ console.warn('[supabase load]', res.error); setHint('Could not load résumé'); return; }
-      if(res.data && res.data.content && typeof res.data.content.html === 'string' && res.data.content.html.length){
-        root.innerHTML = res.data.content.html;
-        prepareReadView();
-      }
-      setHint('Read-only view');
-    }catch(err){
-      console.warn('[supabase load]', err);
-      setHint('Offline — could not load résumé');
-    }
-  }
-
+  /* ============== NAVIGATION ============== */
   document.getElementById('btn-print').addEventListener('click', function(){ window.print(); });
-
+  var sections = document.querySelectorAll('main section[id]');
   var dots = document.querySelectorAll('.rail button');
   function setActive(){
-    var sections = document.querySelectorAll('main section[id]');
-    if(!sections.length) return;
     var current = sections[0].id;
     var y = window.scrollY + window.innerHeight * 0.4;
     sections.forEach(function(s){ if(s.offsetTop <= y) current = s.id; });
     dots.forEach(function(d){ d.classList.toggle('active', d.dataset.target === current); });
   }
-  dots.forEach(function(d){
-    d.addEventListener('click', function(){
-      var target = document.getElementById(d.dataset.target);
-      if(target) target.scrollIntoView({behavior:'smooth'});
-    });
-  });
-  window.addEventListener('scroll', setActive, {passive:true});
-  window.addEventListener('resize', setActive);
-  setActive();
+  dots.forEach(function(d){ d.addEventListener('click', function(){ var target = document.getElementById(d.dataset.target); if(target) target.scrollIntoView({behavior:'smooth'}); }); });
+  window.addEventListener('scroll', setActive, {passive:true}); setActive();
 
-  prepareReadView();
-  loadFromCloud().then(setActive);
+  /* ============== LOAD FROM SUPABASE (READ ONLY) ============== */
+  var root = document.getElementById('resume-root');
+  var hint = document.getElementById('save-hint');
+
+  function applyContent(html){
+    if(!html || typeof html !== 'string') return;
+    var doc;
+    try { doc = new DOMParser().parseFromString(html, 'text/html'); } catch(e){ console.warn('[parse]', e); return; }
+    if(!doc) return;
+
+    var srcFields = doc.querySelectorAll('[contenteditable]');
+    var dstFields = root.querySelectorAll('[data-field]');
+    var n = Math.min(srcFields.length, dstFields.length);
+    for(var i = 0; i < n; i++){
+      var src = srcFields[i];
+      var dst = dstFields[i];
+      dst.innerHTML = src.innerHTML;
+      if(src.hasAttribute('data-placeholder')){
+        dst.setAttribute('data-placeholder', src.getAttribute('data-placeholder'));
+      } else {
+        dst.removeAttribute('data-placeholder');
+      }
+    }
+
+    var sAv = doc.querySelector('.avatar-upload');
+    var dAv = root.querySelector('.avatar-upload');
+    if(sAv && dAv){
+      var sImg = sAv.querySelector('img');
+      var dImg = dAv.querySelector('img');
+      if(sImg && dImg && sImg.getAttribute('src')){
+        dImg.setAttribute('src', sImg.getAttribute('src'));
+      }
+      dAv.classList.toggle('has-photo', sAv.classList.contains('has-photo'));
+    }
+
+    var sCv = doc.querySelector('#cv-label');
+    var dCv = root.querySelector('#cv-label');
+    var dCvZone = root.querySelector('#cv-zone');
+    if(sCv && dCv){
+      var t = (sCv.textContent || '').trim();
+      var hasCv = t && t !== 'Attach CV (PDF)';
+      dCv.textContent = hasCv ? t : 'No CV attached';
+      if(dCvZone) dCvZone.classList.toggle('filled', !!hasCv);
+    }
+
+    var sChips = doc.querySelectorAll('.cert-file-chip');
+    var dChips = root.querySelectorAll('.cert-file-chip');
+    var m = Math.min(sChips.length, dChips.length);
+    for(var j = 0; j < m; j++){
+      var sLink = sChips[j].querySelector('a');
+      var dLink = dChips[j].querySelector('a');
+      if(!sLink || !dLink) continue;
+      dLink.textContent = sLink.textContent || '';
+      var href = sLink.getAttribute('href');
+      if(href) dLink.setAttribute('href', href);
+      else dLink.removeAttribute('href');
+      dChips[j].classList.toggle('show', sChips[j].classList.contains('show'));
+    }
+  }
+
+  async function loadFromCloud(){
+    if(hint) hint.textContent = 'Loading…';
+    try{
+      var res = await sb.from(TABLE).select('content').eq('id', ROW_ID).maybeSingle();
+      if(res.error){ console.warn('[supabase load]', res.error); if(hint) hint.textContent = 'Read only view'; return; }
+      if(res.data && res.data.content && res.data.content.html){
+        applyContent(res.data.content.html);
+        if(hint) hint.textContent = 'Read only view — live';
+      } else {
+        if(hint) hint.textContent = 'Read only view';
+      }
+    }catch(err){ console.warn('[supabase load]', err); if(hint) hint.textContent = 'Offline'; }
+  }
+
+  try{
+    sb.channel('resume-live')
+      .on('postgres_changes', { event: '*', schema: 'public', table: TABLE, filter: 'id=eq.' + ROW_ID }, function(payload){
+        if(payload && payload.new && payload.new.content && payload.new.content.html){
+          applyContent(payload.new.content.html);
+        }
+      })
+      .subscribe();
+  }catch(e){ console.warn('[realtime]', e); }
+
+  loadFromCloud();
 })();
 </script>
-
 </body>
 </html>
