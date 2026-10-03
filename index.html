@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vanilla</title>
+<script>
+(function(){try{var d=document.documentElement,s=window.localStorage;
+  if(s.getItem('vanilla-theme')==='light') d.setAttribute('data-theme','light');
+  if(s.getItem('vanilla-lite')==='1') d.classList.add('lite');}catch(e){}})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -76,13 +81,13 @@
   h1 em{ font-style:normal; color:var(--sanguine-bright); font-weight:400; }
   .sub{ margin:14px 0 0; font-size:14px; font-weight:300; color:var(--ink-dim); }
 
-  .tabs{ display:flex; gap:6px; margin:30px 0 22px; padding:5px; border-radius:999px; background:rgba(255,255,255,0.05); border:1px solid var(--line); }
+  .tabs{ display:flex; gap:6px; margin:30px 0 22px; padding:5px; border-radius:999px; background:rgba(255,255,255,0.05); border:1px solid var(--line); position:relative; }
   .tabs button{
-    all:unset; flex:1; text-align:center; cursor:pointer; padding:9px 0; border-radius:999px;
+    all:unset; flex:1; position:relative; z-index:1; text-align:center; cursor:pointer; padding:9px 0; border-radius:999px;
     font-size:12px; font-weight:500; letter-spacing:0.02em; color:var(--ink-dim); transition:all .25s var(--ease);
   }
   .tabs button:hover{ color:var(--ink); }
-  .tabs button.on{ background:rgba(176,58,63,0.3); color:#fff; box-shadow:inset 0 0 0 1px var(--sanguine-bright); }
+  .tabs button.on{ color:#fff; }
   .tabs button:focus-visible{ outline:1px solid var(--sanguine-bright); outline-offset:2px; }
 
   label.f{ display:block; margin-bottom:16px; }
@@ -137,21 +142,174 @@
   .account button:active{ transform:scale(0.96); }
   @media (max-width:640px){ .account .who{ display:none; } .account{ right:16px; bottom:16px; } .card{ padding:36px 26px 30px; } h1{ font-size:38px; } }
   @media print{ .account{ display:none !important; } }
+
+  /* ---------- theme + lower-end device mode ---------- */
+  :root{
+    --lite-top:#170F0E; --lite-bot:#0E0A09;
+    --lite-glow1:rgba(176,58,63,0.34); --lite-glow2:rgba(122,32,39,0.32);
+    --lite-edge:rgba(176,58,63,0.16); --lite-sheen:rgba(255,255,255,0.07);
+    --lite-card:rgba(26,18,17,0.80);
+  }
+  html[data-theme="light"]{
+    --bg:#F4ECE4;
+    --line:rgba(78,21,25,0.14);
+    --line-soft:rgba(78,21,25,0.07);
+    --ink:#2B1B19;
+    --ink-dim:#5C4A45;
+    --ink-faint:#75655E;
+    --sanguine-bright:#A33339;
+    --glass-fill:rgba(255,255,255,0.55);
+    --glass-border:rgba(122,32,39,0.16);
+    --glass-shadow:0 8px 32px rgba(78,21,25,0.14), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(78,21,25,0.06);
+    --lite-top:#F8F2EC; --lite-bot:#EFE5DB;
+    --lite-glow1:rgba(176,58,63,0.22); --lite-glow2:rgba(122,32,39,0.15);
+    --lite-edge:rgba(163,51,57,0.10); --lite-sheen:rgba(255,255,255,0.85);
+    --lite-card:rgba(255,255,255,0.80);
+  }
+  body{ transition:background-color .35s var(--ease), color .35s var(--ease); }
+  .glass{ transition:background-color .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease); }
+
+  html[data-theme="light"] ::selection{ background:rgba(176,58,63,0.25); }
+  html[data-theme="light"] .glass::before{
+    background:linear-gradient(135deg, rgba(163,51,57,0.45), rgba(122,32,39,0.08) 40%, rgba(122,32,39,0.08) 60%, rgba(163,51,57,0.3));
+  }
+  html[data-theme="light"] .glass::after{ background:radial-gradient(ellipse at center top, rgba(255,255,255,0.7), transparent 70%); }
+  html[data-theme="light"] .tabs{ background:rgba(78,21,25,0.05); }
+  html[data-theme="light"] .tabs button.on{ color:var(--sanguine); }
+  html[data-theme="light"] .tabs .pill{ background:rgba(176,58,63,0.14); }
+  html[data-theme="light"] .inp input{ background:rgba(255,255,255,0.6); }
+  html[data-theme="light"] .inp input:focus{ background:rgba(255,255,255,0.92); box-shadow:0 0 0 3px rgba(163,51,57,0.16); }
+  html[data-theme="light"] .msg.err{ color:#B3262E; }
+  html[data-theme="light"] .go{ background:rgba(163,51,57,0.92); color:#fff; }
+  html[data-theme="light"] .go:hover{ background:var(--sanguine); }
+  html[data-theme="light"] .go:focus-visible{ outline-color:var(--sanguine); }
+  html[data-theme="light"] .account button{ background:rgba(78,21,25,0.06); }
+  html[data-theme="light"] .account button:hover{ background:rgba(176,58,63,0.16); color:var(--ink); }
+
+  /* top-right controls */
+  .card > .tools{ position:absolute; top:18px; right:18px; z-index:5; display:flex; gap:8px; }
+  .tool{
+    all:unset; box-sizing:border-box; position:relative; display:grid; place-items:center; width:34px; height:34px; cursor:pointer;
+    border-radius:999px; color:var(--ink-dim); background:rgba(255,255,255,0.06); border:1px solid var(--line);
+    transition:color .2s var(--ease), background-color .2s var(--ease), border-color .2s var(--ease), transform .2s var(--ease);
+  }
+  html[data-theme="light"] .tool{ background:rgba(78,21,25,0.05); }
+  .tool:hover{ color:var(--ink); border-color:var(--sanguine-bright); }
+  .tool:active{ transform:scale(0.94); }
+  .tool:focus-visible{ outline:1px solid var(--sanguine-bright); outline-offset:2px; }
+  .tool[aria-pressed="true"]{ background:rgba(176,58,63,0.3); border-color:var(--sanguine-bright); color:#fff; }
+  html[data-theme="light"] .tool[aria-pressed="true"]{ background:rgba(176,58,63,0.16); color:var(--sanguine); }
+  .tool::after{
+    content:attr(data-tip); position:absolute; top:calc(100% + 8px); right:0; white-space:nowrap; pointer-events:none;
+    font-size:11px; font-weight:500; letter-spacing:0.02em; color:var(--ink); padding:6px 10px; border-radius:999px;
+    background:var(--bg); border:1px solid var(--line); opacity:0; transform:translateY(-3px);
+    transition:opacity .18s var(--ease), transform .18s var(--ease);
+  }
+  .tool:focus-visible::after{ opacity:1; transform:none; }
+  @media (hover:hover){ .tool:hover::after{ opacity:1; transform:none; } }
+
+  /* CSS-drawn icons */
+  .ic{ position:relative; display:block; width:18px; height:18px; }
+  .ic i{ position:absolute; inset:0; display:block; transition:opacity .3s var(--ease), transform .4s var(--ease); }
+  .ic-sun::before{ content:""; position:absolute; inset:5px; border-radius:50%; background:currentColor; }
+  .ic-sun::after{
+    content:""; position:absolute; inset:0;
+    background:repeating-conic-gradient(from -7deg, currentColor 0 14deg, transparent 14deg 45deg);
+    -webkit-mask:radial-gradient(circle, transparent 6.5px, #000 7px, #000 9px, transparent 9.5px);
+            mask:radial-gradient(circle, transparent 6.5px, #000 7px, #000 9px, transparent 9.5px);
+  }
+  .ic-moon::before{ content:""; position:absolute; inset:2px; border-radius:50%; box-shadow:inset -5px -3px 0 0 currentColor; transform:rotate(-20deg); }
+  html:not([data-theme="light"]) .ic-moon{ opacity:0; transform:rotate(-70deg) scale(.5); }
+  html[data-theme="light"] .ic-sun{ opacity:0; transform:rotate(70deg) scale(.5); }
+  .ic .ic-bolt{ inset:1px; background:currentColor; clip-path:polygon(60% 0%, 18% 56%, 46% 56%, 38% 100%, 82% 42%, 54% 42%); }
+
+  /* lower-end device mode: no WebGL, no backdrop blur, static glossy side panels */
+  #lite-bg{ position:fixed; inset:0; z-index:-2; display:none; pointer-events:none; overflow:hidden;
+    background:
+      radial-gradient(55% 70% at 0% 35%, var(--lite-glow1), transparent 70%),
+      radial-gradient(50% 65% at 100% 70%, var(--lite-glow2), transparent 70%),
+      linear-gradient(180deg, var(--lite-top), var(--lite-bot));
+  }
+  #lite-bg::before, #lite-bg::after{
+    content:""; position:absolute; top:-10%; bottom:-10%; width:clamp(90px, 22vw, 320px);
+  }
+  #lite-bg::before{
+    left:0;
+    -webkit-mask-image:linear-gradient(to right, #000 35%, transparent);
+            mask-image:linear-gradient(to right, #000 35%, transparent);
+    background:
+      linear-gradient(105deg, transparent 8%, var(--lite-sheen) 26%, transparent 46%),
+      linear-gradient(to right, var(--lite-edge), transparent);
+  }
+  #lite-bg::after{
+    right:0;
+    -webkit-mask-image:linear-gradient(to left, #000 35%, transparent);
+            mask-image:linear-gradient(to left, #000 35%, transparent);
+    background:
+      linear-gradient(255deg, transparent 8%, var(--lite-sheen) 26%, transparent 46%),
+      linear-gradient(to left, var(--lite-edge), transparent);
+  }
+  html.lite #lite-bg{ display:block; }
+  html.lite #webgl-bg, html.lite .stripes{ display:none; }
+  html.lite .glass{ -webkit-backdrop-filter:none; backdrop-filter:none; background:var(--lite-card); }
+  @media (prefers-reduced-motion:reduce){ .ic i, .tool, .tool::after{ transition:none; } }
+  /* ---------- motion ---------- */
+  .tabs .pill{
+    position:absolute; top:5px; bottom:5px; left:5px; width:calc((100% - 16px) / 2); border-radius:999px; pointer-events:none;
+    background:rgba(176,58,63,0.3); box-shadow:inset 0 0 0 1px var(--sanguine-bright);
+    transition:transform .55s cubic-bezier(.34,1.32,.64,1), background-color .35s var(--ease);
+  }
+  .tabs.up .pill{ transform:translateX(calc(100% + 6px)); }
+  .tabs button{ transition:color .3s var(--ease); }
+
+  .reveal{
+    display:grid; grid-template-rows:0fr; opacity:0; visibility:hidden;
+    transition:grid-template-rows .5s var(--ease), opacity .25s var(--ease), visibility 0s linear .5s;
+  }
+  .reveal.open{
+    grid-template-rows:1fr; opacity:1; visibility:visible;
+    transition:grid-template-rows .5s var(--ease), opacity .4s var(--ease) .1s, visibility 0s;
+  }
+  .reveal > div{ min-height:0; overflow:hidden; padding:4px; margin:-4px; }
+
+  @keyframes rise{ from{ opacity:0; transform:translateY(12px); } }
+  .card{ animation:rise .7s var(--ease) both; }
+  .card > :not(.tools){ animation:rise .6s var(--ease) both; }
+  .card > :nth-child(2){ animation-delay:.10s; }
+  .card > :nth-child(3){ animation-delay:.16s; }
+  .card > :nth-child(4){ animation-delay:.22s; }
+  .card > :nth-child(5){ animation-delay:.28s; }
+  .card > :nth-child(6){ animation-delay:.34s; }
+  .card > :nth-child(7){ animation-delay:.40s; }
+  @media (prefers-reduced-motion:reduce){
+    .card, .card > :not(.tools){ animation:none; }
+    .tabs .pill, .tabs button, .reveal, .reveal.open{ transition:none; }
+  }
 </style>
 </head>
 <body>
 
 <canvas id="webgl-bg"></canvas>
+<div id="lite-bg"></div>
 <div class="stripes"></div>
 <div class="side-stripe"></div>
 
 <section id="auth" hidden>
   <div class="card glass">
+    <div class="tools">
+      <button type="button" class="tool" id="theme-toggle" data-tip="Switch to light mode" aria-label="Switch to light mode">
+        <span class="ic"><i class="ic-sun"></i><i class="ic-moon"></i></span>
+      </button>
+      <button type="button" class="tool" id="lite-toggle" data-tip="Lower-end device mode: Off" aria-label="Lower-end device mode" aria-pressed="false">
+        <span class="ic"><i class="ic-bolt"></i></span>
+      </button>
+    </div>
     <span class="kicker">Résumé</span>
-    <h1>Vanil<em>la</em></h1>
+    <h1>Resume/CV <em>holder</em></h1>
     <p class="sub" id="sub">Sign in to continue.</p>
 
     <div class="tabs" role="tablist">
+      <span class="pill" aria-hidden="true"></span>
       <button type="button" role="tab" id="tab-in" class="on" aria-selected="true">Sign in</button>
       <button type="button" role="tab" id="tab-up" aria-selected="false">Create account</button>
     </div>
@@ -164,9 +322,11 @@
         <div class="inp"><input id="pass" class="pw" type="password" autocomplete="current-password" placeholder="••••••••" required>
           <button type="button" class="eye" id="eye" aria-label="Show password">Show</button></div>
       </label>
-      <label class="f" id="confirm-wrap" hidden><span>Confirm password</span>
-        <div class="inp"><input id="pass2" type="password" autocomplete="new-password" placeholder="••••••••"></div>
-      </label>
+      <div class="reveal" id="confirm-reveal"><div>
+        <label class="f" id="confirm-wrap"><span>Confirm password</span>
+          <div class="inp"><input id="pass2" type="password" autocomplete="new-password" placeholder="••••••••"></div>
+        </label>
+      </div></div>
       <div class="msg" id="msg" role="status" aria-live="polite"></div>
       <button class="go" id="go" type="submit">Sign in</button>
     </form>
@@ -203,14 +363,24 @@
     return new TextDecoder('utf-8').decode(bytes);
   }
 
+  /* ============== THEME + LOWER-END DEVICE STATE ============== */
+  var root = document.documentElement;
+  var lite = root.classList.contains('lite');
+  var lightTarget = root.getAttribute('data-theme') === 'light' ? 1 : 0, lightNow = lightTarget;
+  function remember(k, v){ try{ window.localStorage.setItem(k, v); }catch(e){} }
+
   /* ============== WEBGL BACKGROUND ============== */
   var canvas = document.getElementById('webgl-bg');
-  var gl = canvas.getContext('webgl');
+  var gl = null, glTried = false;
   var raf = 0, glRunning = false;
   var mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
   var drawFrame = null;
 
-  if(gl){
+  function initGL(){
+    if(glTried) return;
+    glTried = true;
+    gl = canvas.getContext('webgl');
+    if(!gl) return;
     var resize = function(){
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -231,6 +401,7 @@
       uniform vec2 u_resolution;
       uniform float u_time;
       uniform vec2 u_mouse;
+      uniform float u_light;
 
       float random(vec2 st) {
         return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
@@ -274,17 +445,19 @@
         vec2 r = vec2(fbm(st + 4.0*q + vec2(1.7,9.2) + t*1.5), fbm(st + 4.0*q + vec2(8.3,2.8) - t*1.5));
         float f = fbm(st + 4.0*r + mouseInfluence);
 
-        vec3 color1 = vec3(0.07, 0.05, 0.04);
-        vec3 color2 = vec3(0.30, 0.08, 0.10);
-        vec3 color3 = vec3(0.69, 0.22, 0.25);
+        vec3 color1 = mix(vec3(0.07, 0.05, 0.04), vec3(0.96, 0.93, 0.90), u_light);
+        vec3 color2 = mix(vec3(0.30, 0.08, 0.10), vec3(0.90, 0.76, 0.74), u_light);
+        vec3 color3 = mix(vec3(0.69, 0.22, 0.25), vec3(0.74, 0.34, 0.36), u_light);
 
         vec3 color = mix(color1, color2, f);
         color = mix(color, color3, smoothstep(0.4, 0.8, f) * smoothstep(0.0, 0.5, length(q)));
 
-        color += vec3(0.15, 0.05, 0.05) * mouseInfluence;
+        color += vec3(0.15, 0.05, 0.05) * mouseInfluence * (1.0 - 0.6 * u_light);
 
         float vignette = smoothstep(1.5, 0.2, distance(st, vec2(0.5, 0.5)));
-        color *= 0.4 + vignette * 0.6;
+        vec3 darkMix  = color * (0.4 + vignette * 0.6);
+        vec3 lightMix = mix(color, vec3(0.91, 0.85, 0.80), (1.0 - vignette) * 0.55);
+        color = mix(darkMix, lightMix, u_light);
 
         gl_FragColor = vec4(color, 1.0);
       }
@@ -312,6 +485,7 @@
     var uRes = gl.getUniformLocation(program, 'u_resolution');
     var uTime = gl.getUniformLocation(program, 'u_time');
     var uMouse = gl.getUniformLocation(program, 'u_mouse');
+    var uLight = gl.getUniformLocation(program, 'u_light');
     var t0 = performance.now();
 
     window.addEventListener('mousemove', function(e){ mouseX = e.clientX; mouseY = window.innerHeight - e.clientY; });
@@ -320,33 +494,78 @@
       gl.uniform2f(uRes, canvas.width, canvas.height);
       gl.uniform1f(uTime, (performance.now() - t0) / 1000);
       gl.uniform2f(uMouse, mouseX, mouseY);
+      lightNow += (lightTarget - lightNow) * 0.08;
+      gl.uniform1f(uLight, lightNow);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       if(glRunning) raf = requestAnimationFrame(drawFrame);
     };
   }
-  function startGL(){ if(drawFrame && !glRunning){ glRunning = true; drawFrame(); } }
+  if(!lite) initGL();
+  function startGL(){ if(lite) return; initGL(); if(drawFrame && !glRunning){ glRunning = true; drawFrame(); } }
   function stopGL(){ glRunning = false; cancelAnimationFrame(raf); }
 
   /* ============== ELEMENTS ============== */
   var $ = function(id){ return document.getElementById(id); };
   var authEl = $('auth'), appEl = $('app'), frame = $('frame');
   var tabIn = $('tab-in'), tabUp = $('tab-up'), form = $('form');
-  var email = $('email'), pass = $('pass'), pass2 = $('pass2'), confirmWrap = $('confirm-wrap');
+  var email = $('email'), pass = $('pass'), pass2 = $('pass2'), confirmReveal = $('confirm-reveal');
+  var cardEl = document.querySelector('.card'), tabsEl = document.querySelector('.tabs');
+  var calm = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var EASE = 'cubic-bezier(.22,.61,.36,1)';
+  function swap(el, dy){
+    if(calm || !el.animate) return;
+    el.animate([{ opacity:0, transform:'translateY(' + dy + 'px)' }, { opacity:1, transform:'translateY(0)' }], { duration:340, easing:EASE });
+  }
   var msg = $('msg'), go = $('go'), sub = $('sub'), foot = $('foot'), eye = $('eye');
   var mode = 'in', busy = false;
 
-  function say(text, kind){ msg.textContent = text || ''; msg.className = 'msg' + (kind ? ' ' + kind : ''); }
+  /* ============== THEME + LOWER-END DEVICE CONTROLS ============== */
+  var themeBtn = $('theme-toggle'), liteBtn = $('lite-toggle');
+  function syncThemeUI(){
+    var light = lightTarget === 1;
+    var tip = light ? 'Switch to dark mode' : 'Switch to light mode';
+    themeBtn.setAttribute('aria-label', tip); themeBtn.setAttribute('data-tip', tip);
+  }
+  function syncLiteUI(){
+    liteBtn.setAttribute('aria-pressed', String(lite));
+    liteBtn.setAttribute('data-tip', 'Lower-end device mode: ' + (lite ? 'On' : 'Off'));
+  }
+  themeBtn.addEventListener('click', function(){
+    var light = lightTarget === 0;
+    lightTarget = light ? 1 : 0;
+    if(!glRunning) lightNow = lightTarget;
+    if(light) root.setAttribute('data-theme', 'light'); else root.removeAttribute('data-theme');
+    remember('vanilla-theme', light ? 'light' : 'dark');
+    syncThemeUI();
+  });
+  liteBtn.addEventListener('click', function(){
+    lite = !lite;
+    root.classList.toggle('lite', lite);
+    remember('vanilla-lite', lite ? '1' : '0');
+    if(lite) stopGL(); else startGL();
+    syncLiteUI();
+  });
+  syncThemeUI(); syncLiteUI();
+
+  function say(text, kind){
+    msg.textContent = text || ''; msg.className = 'msg' + (kind ? ' ' + kind : '');
+    if(!text || calm || !msg.animate) return;
+    msg.animate([{ opacity:0, transform:'translateY(-4px)' }, { opacity:1, transform:'translateY(0)' }], { duration:260, easing:EASE });
+    if(kind === 'err') cardEl.animate([{ transform:'translateX(0)' }, { transform:'translateX(-7px)' }, { transform:'translateX(6px)' }, { transform:'translateX(-3px)' }, { transform:'translateX(0)' }], { duration:380, easing:'ease-out' });
+  }
 
   function setMode(m){
+    var changed = m !== mode;
     mode = m;
     var up = m === 'up';
     tabIn.classList.toggle('on', !up); tabUp.classList.toggle('on', up);
     tabIn.setAttribute('aria-selected', String(!up)); tabUp.setAttribute('aria-selected', String(up));
-    confirmWrap.hidden = !up;
+    tabsEl.classList.toggle('up', up); confirmReveal.classList.toggle('open', up);
     pass.autocomplete = up ? 'new-password' : 'current-password';
     go.textContent = up ? 'Create account' : 'Sign in';
     sub.textContent = up ? 'Create an account to view the résumé.' : 'Sign in to continue.';
     foot.textContent = up ? 'Already registered? Switch to Sign in.' : 'New here? Create an account to view the résumé.';
+    if(changed){ swap(sub, 6); swap(foot, 6); swap(go, 0); }
     say('');
   }
   tabIn.addEventListener('click', function(){ setMode('in'); });
