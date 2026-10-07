@@ -289,6 +289,49 @@
     .card, .card > :not(.tools){ animation:none; }
     .tabs .pill, .tabs button, .reveal, .reveal.open{ transition:none; }
   }
+
+  /* ---------- CV saver ---------- */
+  .cvpanel{
+    position:fixed; right:24px; bottom:84px; z-index:201; width:min(360px, calc(100vw - 32px));
+    padding:22px 22px 20px; animation:rise .35s var(--ease) both;
+  }
+  .cvpanel > *{ position:relative; z-index:2; }
+  .cv-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+  .cv-head .kicker{ margin:0; }
+  .cv-x{
+    all:unset; cursor:pointer; width:28px; height:28px; display:grid; place-items:center; border-radius:999px;
+    font-size:13px; color:var(--ink-dim); transition:all .2s var(--ease);
+  }
+  .cv-x:hover{ color:var(--ink); background:rgba(255,255,255,0.08); }
+  .cv-x:focus-visible, .cv-b:focus-visible{ outline:1px solid var(--sanguine-bright); outline-offset:2px; }
+  .cv-name{ font-size:15px; font-weight:500; color:var(--ink); word-break:break-word; }
+  .cv-name.none{ font-weight:300; color:var(--ink-dim); }
+  .cv-meta{ margin-top:2px; font-size:12px; color:var(--ink-faint); }
+  .cv-acts{ display:flex; gap:8px; margin:12px 0 18px; }
+  .cv-b{
+    all:unset; box-sizing:border-box; cursor:pointer; text-align:center; font-size:12px; font-weight:500; color:var(--ink);
+    padding:9px 16px; border-radius:999px; background:rgba(255,255,255,0.08); border:1px solid var(--line);
+    transition:all .2s var(--ease);
+  }
+  .cv-b:hover{ background:rgba(176,58,63,0.3); border-color:var(--sanguine-bright); color:#fff; }
+  .cv-b:active{ transform:scale(0.96); }
+  .cv-b:disabled{ opacity:.5; cursor:default; transform:none; }
+  .cv-b.armed{ background:rgba(176,58,63,0.45); border-color:var(--sanguine-bright); color:#fff; }
+  .cvpanel input[type=file]{ width:100%; font:inherit; font-size:13px; font-weight:300; color:var(--ink-dim); }
+  .cvpanel input[type=file]::file-selector-button{
+    font:inherit; font-size:12px; font-weight:500; color:var(--ink); cursor:pointer; margin-right:10px;
+    padding:8px 14px; border-radius:999px; background:rgba(255,255,255,0.08); border:1px solid var(--line);
+  }
+  .cv-bar{ height:6px; margin:0 0 10px; border-radius:999px; background:rgba(255,255,255,0.08); overflow:hidden; }
+  .cv-bar i{ display:block; height:100%; width:0; background:var(--sanguine-bright); transition:width .15s linear; }
+  html[data-theme="light"] .cv-b, html[data-theme="light"] .cvpanel input[type=file]::file-selector-button{ background:rgba(78,21,25,0.06); }
+  html[data-theme="light"] .cv-b:hover{ background:rgba(176,58,63,0.16); color:var(--ink); }
+  html[data-theme="light"] .cv-b.armed{ background:rgba(176,58,63,0.22); color:var(--ink); }
+  html[data-theme="light"] .cv-x:hover{ background:rgba(78,21,25,0.08); }
+  html[data-theme="light"] .cv-bar{ background:rgba(78,21,25,0.08); }
+  @media (max-width:640px){ .cvpanel{ right:16px; bottom:72px; } }
+  @media print{ .cvpanel{ display:none !important; } }
+  @media (prefers-reduced-motion:reduce){ .cvpanel{ animation:none; } .cv-b, .cv-x, .cv-bar i{ transition:none; } }
 </style>
 </head>
 <body>
@@ -344,7 +387,26 @@
   <div class="account glass">
     <span class="who" id="who"></span>
     <span class="role" id="role"></span>
+    <button type="button" id="cv-open" aria-expanded="false" aria-controls="cv-panel">CV</button>
     <button type="button" id="out">Sign out</button>
+  </div>
+  <div class="cvpanel glass" id="cv-panel" role="dialog" aria-label="Your CV" hidden>
+    <div class="cv-head">
+      <span class="kicker">Your CV</span>
+      <button type="button" class="cv-x" id="cv-close" aria-label="Close">&#10005;</button>
+    </div>
+    <div class="cv-name none" id="cv-name">No CV attached yet.</div>
+    <div class="cv-meta" id="cv-meta"></div>
+    <div class="cv-acts">
+      <button type="button" class="cv-b" id="cv-dl" disabled>Download</button>
+      <button type="button" class="cv-b" id="cv-del" disabled>Delete</button>
+    </div>
+    <label class="f"><span>PDF, DOC or DOCX &middot; max 5 MB</span>
+      <input type="file" id="cv-file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+    </label>
+    <div class="cv-bar" id="cv-bar" role="progressbar" aria-label="Upload progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden><i id="cv-fill"></i></div>
+    <div class="msg" id="cv-msg" role="status" aria-live="polite"></div>
+    <button class="go" id="cv-go" type="button">Attach CV</button>
   </div>
 </div>
 
@@ -688,6 +750,173 @@
     }
   });
 
+  /* ============== CV SAVER ============== */
+  var CV_BUCKET = 'cvs', CV_MAX = 5 * 1024 * 1024;
+  var CV_TYPES = {
+    pdf:  'application/pdf',
+    doc:  'application/msword',
+    docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+  };
+  var cvBtn = $('cv-open'), cvPanel = $('cv-panel'), cvFile = $('cv-file'), cvGo = $('cv-go');
+  var cvMsg = $('cv-msg'), cvBar = $('cv-bar'), cvFill = $('cv-fill');
+  var cvName = $('cv-name'), cvMeta = $('cv-meta'), cvDl = $('cv-dl'), cvDel = $('cv-del');
+  var cvRow = null, cvLoaded = false, cvBusy = false, cvArmTimer = 0;
+
+  function cvSay(text, kind){ cvMsg.textContent = text || ''; cvMsg.className = 'msg' + (kind ? ' ' + kind : ''); }
+  function cvExt(name){ var m = /\.([a-z0-9]+)$/i.exec(name || ''); return m ? m[1].toLowerCase() : ''; }
+  function cvSizeText(n){ return n >= 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB'; }
+  function cvProgress(pct){
+    cvBar.hidden = pct === null;
+    if(pct === null) return;
+    cvFill.style.width = pct + '%'; cvBar.setAttribute('aria-valuenow', String(pct));
+  }
+  function cvDisarm(){
+    clearTimeout(cvArmTimer); cvDel.classList.remove('armed'); cvDel.textContent = 'Delete';
+  }
+  function cvRender(){
+    cvDisarm();
+    if(cvRow){
+      cvName.textContent = cvRow.file_name; cvName.className = 'cv-name';
+      cvMeta.textContent = cvSizeText(cvRow.file_size) + ' \u00b7 ' + new Date(cvRow.uploaded_at).toLocaleDateString();
+    }else{
+      cvName.textContent = 'No CV attached yet.'; cvName.className = 'cv-name none'; cvMeta.textContent = '';
+    }
+    cvDl.disabled = cvDel.disabled = !cvRow || cvBusy;
+    cvGo.disabled = cvBusy;
+    cvGo.textContent = cvBusy ? 'Working\u2026' : (cvRow ? 'Replace CV' : 'Attach CV');
+  }
+  function cvBusySet(on){ cvBusy = on; cvRender(); }
+  function cvReset(){
+    cvRow = null; cvLoaded = false; cvBusy = false;
+    cvPanel.hidden = true; cvBtn.setAttribute('aria-expanded', 'false');
+    cvFile.value = ''; cvSay(''); cvProgress(null); cvRender();
+  }
+  function cvErr(err){
+    var m = (err && err.message) || '';
+    if(/row-level security|violates|not authorized|unauthorized|403/i.test(m)) return 'Not allowed. Sign in again and retry.';
+    if(/payload too large|exceeded|413/i.test(m)) return 'File is too large (max 5 MB).';
+    if(/mime|not supported|415/i.test(m)) return 'Only PDF, DOC or DOCX files.';
+    if(/fetch|network/i.test(m)) return 'Network error. Check your connection.';
+    return m || 'Something went wrong. Try again.';
+  }
+
+  // client-side checks (the bucket and table enforce the same limits server-side)
+  function cvCheck(file){
+    if(!file) return 'Choose a file first.';
+    if(!CV_TYPES[cvExt(file.name)]) return 'Only PDF, DOC or DOCX files.';
+    if(file.size === 0) return 'That file is empty.';
+    if(file.size > CV_MAX) return 'File is too large (max 5 MB).';
+    return '';
+  }
+  // first bytes must match the extension, so a renamed file is caught
+  async function cvSniff(file){
+    var b = new Uint8Array(await file.slice(0, 8).arrayBuffer()), e = cvExt(file.name);
+    if(e === 'pdf')  return b[0] === 0x25 && b[1] === 0x50 && b[2] === 0x44 && b[3] === 0x46;
+    if(e === 'docx') return b[0] === 0x50 && b[1] === 0x4B;
+    return b[0] === 0xD0 && b[1] === 0xCF && b[2] === 0x11 && b[3] === 0xE0;
+  }
+
+  async function cvLoad(){
+    cvSay('Loading\u2026');
+    try{
+      var s = await sb.auth.getSession();
+      if(!s.data.session){ cvSay('Please sign in again.', 'err'); return; }
+      var r = await sb.from('resumes').select('*').eq('user_id', s.data.session.user.id).maybeSingle();
+      if(r.error) throw r.error;
+      cvRow = r.data || null; cvLoaded = true; cvSay('');
+    }catch(err){ console.warn('[cv load]', err); cvSay(cvErr(err), 'err'); }
+    cvRender();
+  }
+
+  // XHR instead of supabase-js so we get real upload progress
+  function cvSend(path, file, token, onPct){
+    return new Promise(function(resolve, reject){
+      var x = new XMLHttpRequest();
+      x.open('POST', SUPABASE_URL + '/storage/v1/object/' + CV_BUCKET + '/' + path);
+      x.setRequestHeader('Authorization', 'Bearer ' + token);
+      x.setRequestHeader('apikey', SUPABASE_ANON_KEY);
+      x.setRequestHeader('x-upsert', 'true'); // replace the existing file
+      x.setRequestHeader('Content-Type', CV_TYPES[cvExt(file.name)]);
+      x.upload.onprogress = function(e){ if(e.lengthComputable) onPct(Math.round(e.loaded / e.total * 100)); };
+      x.onerror = function(){ reject(new Error('Network error')); };
+      x.onload = function(){
+        if(x.status >= 200 && x.status < 300) return resolve();
+        var m = ''; try{ m = JSON.parse(x.responseText).message; }catch(e){}
+        reject(new Error(m || ('Upload failed (' + x.status + ')')));
+      };
+      x.send(file);
+    });
+  }
+
+  async function cvUpload(){
+    if(cvBusy) return;
+    var file = cvFile.files[0], bad = cvCheck(file);
+    if(!bad){ try{ if(!(await cvSniff(file))) bad = 'That file does not match its ' + cvExt(file.name).toUpperCase() + ' type.'; }catch(err){ bad = 'Could not read that file.'; } }
+    if(bad){ cvSay(bad, 'err'); return; }
+    cvBusySet(true); cvSay('Uploading\u2026'); cvProgress(0);
+    try{
+      var s = (await sb.auth.getSession()).data.session;
+      if(!s) throw new Error('Please sign in again.');
+      var uid = s.user.id, path = uid + '/cv'; // one fixed key per user: replacing never leaves an orphan
+      await cvSend(path, file, s.access_token, cvProgress);
+      cvProgress(100); cvSay('Saving\u2026');
+      var r = await sb.from('resumes').upsert({
+        user_id: uid, file_path: path, file_name: file.name, file_size: file.size, uploaded_at: new Date().toISOString()
+      }, { onConflict: 'user_id' }).select().single();
+      if(r.error) throw r.error;
+      cvRow = r.data; cvLoaded = true; cvFile.value = '';
+      cvSay('CV saved.', 'ok');
+    }catch(err){ console.warn('[cv upload]', err); cvSay(cvErr(err), 'err'); }
+    cvProgress(null); cvBusySet(false);
+  }
+
+  async function cvDownload(){
+    if(!cvRow || cvBusy) return;
+    cvBusySet(true); cvSay('Preparing download\u2026');
+    try{
+      var r = await sb.storage.from(CV_BUCKET).createSignedUrl(cvRow.file_path, 60, { download: cvRow.file_name });
+      if(r.error) throw r.error;
+      var a = document.createElement('a');
+      a.href = r.data.signedUrl; a.rel = 'noopener'; a.style.display = 'none';
+      document.body.appendChild(a); a.click(); a.remove();
+      cvSay('');
+    }catch(err){ console.warn('[cv download]', err); cvSay(cvErr(err), 'err'); }
+    cvBusySet(false);
+  }
+
+  async function cvDelete(){
+    if(!cvRow || cvBusy) return;
+    if(!cvDel.classList.contains('armed')){ // first click arms, second click deletes (no confirm())
+      cvDel.classList.add('armed'); cvDel.textContent = 'Tap again to delete';
+      clearTimeout(cvArmTimer); cvArmTimer = setTimeout(cvDisarm, 4000);
+      return;
+    }
+    cvDisarm(); cvBusySet(true); cvSay('Deleting\u2026');
+    try{
+      var rm = await sb.storage.from(CV_BUCKET).remove([cvRow.file_path]);
+      if(rm.error) throw rm.error;
+      var d = await sb.from('resumes').delete().eq('id', cvRow.id);
+      if(d.error) throw d.error;
+      cvRow = null; cvFile.value = '';
+      cvSay('CV deleted.', 'ok');
+    }catch(err){ console.warn('[cv delete]', err); cvSay(cvErr(err), 'err'); }
+    cvBusySet(false);
+  }
+
+  function cvToggle(open){
+    cvPanel.hidden = !open; cvBtn.setAttribute('aria-expanded', String(open));
+    if(open && !cvLoaded) cvLoad();
+    if(!open) cvBtn.focus();
+  }
+  cvBtn.addEventListener('click', function(){ cvToggle(cvPanel.hidden); });
+  $('cv-close').addEventListener('click', function(){ cvToggle(false); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !cvPanel.hidden) cvToggle(false); });
+  cvFile.addEventListener('change', function(){ cvSay(''); var f = cvFile.files[0]; if(f){ var bad = cvCheck(f); if(bad) cvSay(bad, 'err'); } });
+  cvGo.addEventListener('click', cvUpload);
+  cvDl.addEventListener('click', cvDownload);
+  cvDel.addEventListener('click', cvDelete);
+  cvRender();
+
   /* ============== ROLE + ROUTING ============== */
   async function fetchRole(user){
     /* Ask the database the same question the security policies ask (public.is_admin),
@@ -708,6 +937,7 @@
   async function mount(session){
     if(mountedFor === session.user.id) return;
     mountedFor = session.user.id;
+    cvReset(); // never carry one user's CV panel over to the next session
     var role = await fetchRole(session.user);
     $('who').textContent = (session.user.email || '').split('@')[0];
     $('role').textContent = role === 'admin' ? 'Admin' : 'Viewer';
@@ -720,6 +950,7 @@
 
   function showAuth(){
     mountedFor = null;
+    cvReset();
     try{ sb.removeAllChannels(); }catch(err){ console.warn(err); } // drop live-update channels from the page being closed
     appEl.classList.remove('in'); appEl.hidden = true;
     frame.removeAttribute('srcdoc'); frame.src = 'about:blank';
