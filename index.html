@@ -289,121 +289,6 @@
     .card, .card > :not(.tools){ animation:none; }
     .tabs .pill, .tabs button, .reveal, .reveal.open{ transition:none; }
   }
-  /* css icons */
-  .i{ position:relative; display:inline-block; width:16px; height:16px; flex:none; vertical-align:middle; color:inherit; transition:transform .45s var(--ease), color .25s var(--ease); }
-  .i::before, .i::after{ content:""; position:absolute; box-sizing:border-box; }
-  .i-user::before{ width:6px; height:6px; left:5px; top:1.5px; border:1.5px solid currentColor; border-radius:50%; }
-  .i-user::after{ width:12px; height:6px; left:2px; bottom:1px; border:1.5px solid currentColor; border-bottom:0; border-radius:6px 6px 0 0; }
-  .i-lock::before{ width:12px; height:8px; left:2px; bottom:1.5px; border:1.5px solid currentColor; border-radius:2.5px; }
-  .i-lock::after{ width:7px; height:6px; left:4.5px; top:1px; border:1.5px solid currentColor; border-bottom:0; border-radius:4px 4px 0 0; }
-  .i-eye::before{ width:15px; height:10px; left:.5px; top:3px; border:1.5px solid currentColor; border-radius:50% / 60%; }
-  .i-eye::after{ width:4px; height:4px; left:6px; top:6px; border-radius:50%; background:currentColor; transition:transform .3s var(--ease); }
-  .i-eye.off{ background:linear-gradient(135deg, transparent 44%, currentColor 44% 56%, transparent 56%); }
-  .i-eye.off::after{ transform:scaleY(.25); }
-  .i-arrow::before{ width:12px; height:1.5px; left:1.5px; top:7.25px; background:currentColor; border-radius:1px; }
-  .i-arrow::after{ width:7px; height:7px; right:2px; top:4.5px; border-top:1.5px solid currentColor; border-right:1.5px solid currentColor; transform:rotate(45deg); }
-  .i-spin{ box-sizing:border-box; border:1.75px solid currentColor; border-top-color:transparent; border-radius:50%; animation:spin .7s linear infinite; }
-  .i-x::before, .i-x::after, .i-plus::before, .i-plus::after{ width:11px; height:1.5px; left:2.5px; top:7.25px; background:currentColor; border-radius:1px; }
-  .i-x::before{ transform:rotate(45deg); } .i-x::after{ transform:rotate(-45deg); }
-  .i-plus::after{ transform:rotate(90deg); }
-  .i-power::before{ width:12px; height:12px; left:2px; top:3px; border:1.75px solid currentColor; border-top-color:transparent; border-radius:50%; }
-  .i-power::after{ width:1.75px; height:7px; left:7.1px; top:1px; background:currentColor; border-radius:1px; }
-  .i-print::before{ width:14px; height:8px; left:1px; top:5px; border:1.5px solid currentColor; border-radius:2.5px; }
-  .i-print::after{ width:8px; height:5px; left:4px; bottom:1px; border:1.5px solid currentColor; background:var(--bg); border-radius:1px; }
-  .i-reset::before{ width:12px; height:12px; left:2px; top:2px; border:1.75px solid currentColor; border-right-color:transparent; border-radius:50%; }
-  .i-reset::after{ left:9px; top:.5px; width:0; height:0; border-style:solid; border-width:3.5px 0 3.5px 5px; border-color:transparent transparent transparent currentColor; }
-  .i-code::before, .i-code::after{ width:6px; height:6px; top:5px; }
-  .i-code::before{ left:2px; border-left:1.5px solid currentColor; border-bottom:1.5px solid currentColor; transform:rotate(45deg); }
-  .i-code::after{ right:2px; border-right:1.5px solid currentColor; border-top:1.5px solid currentColor; transform:rotate(45deg); }
-  .i-doc::before{ width:11px; height:14px; left:2.5px; top:1px; border:1.5px solid currentColor; border-radius:2px; }
-  .i-doc::after{ width:5px; height:1.5px; left:5.5px; top:6px; background:currentColor; box-shadow:0 3px 0 currentColor; }
-  .cv-remove i, .cert-file-remove i{ pointer-events:none; }
-  @keyframes spin{ to{ transform:rotate(360deg); } }
-  /* ---------- polish: motion, icons, depth ---------- */
-  :root{ color-scheme:dark; --spot:rgba(176,58,63,.14); --rim-a:rgba(176,58,63,.6); --rim-b:rgba(255,255,255,.1); --rim-c:rgba(176,58,63,.35); --good:#8CC49A; --bad:#E4797D; }
-  html[data-theme="light"]{ color-scheme:light; --spot:rgba(163,51,57,.12); --rim-a:rgba(163,51,57,.5); --rim-b:rgba(122,32,39,.08); --rim-c:rgba(163,51,57,.3); --good:#2F7A46; --bad:#B3262E; }
-  @property --ang{ syntax:'<angle>'; inherits:false; initial-value:135deg; }
-  @property --mx{ syntax:'<length-percentage>'; inherits:false; initial-value:50%; }
-  @property --my{ syntax:'<length-percentage>'; inherits:false; initial-value:0%; }
-  @keyframes rim{ to{ --ang:495deg; } }
-  html.rim .card::before{
-    background:conic-gradient(from var(--ang), var(--rim-a), var(--rim-b) 28%, var(--rim-b) 55%, var(--rim-c) 78%, var(--rim-a));
-    animation:rim 18s linear infinite;
-  }
-  .card{
-    background-image:radial-gradient(380px circle at var(--mx) var(--my), var(--spot), transparent 70%); background-repeat:no-repeat;
-    transition:--mx .45s var(--ease), --my .45s var(--ease), background-color .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease);
-  }
-  html.lite .card{ background-image:none; }
-  .side-stripe{ background-size:100% 300%; animation:stripe 11s ease-in-out infinite alternate; }
-  @keyframes stripe{ to{ background-position:0 100%; } }
-  html.theming *, html.theming *::before, html.theming *::after{
-    transition:background-color .5s var(--ease), color .5s var(--ease), border-color .5s var(--ease), box-shadow .5s var(--ease), fill .5s var(--ease) !important;
-  }
-
-  .kicker{ display:flex; align-items:center; gap:12px; }
-  .kicker::after{ content:""; width:28px; height:1px; background:var(--sanguine-bright); opacity:.7; transform-origin:left; animation:line .9s var(--ease) .45s both; }
-  @keyframes line{ from{ transform:scaleX(0); } }
-  .w{ display:inline-block; animation:wordin .95s var(--ease) both; animation-delay:calc(.22s + var(--i, 0) * .11s); }
-  @keyframes wordin{ from{ opacity:0; transform:translateY(.45em); filter:blur(8px); } }
-  #form > *{ animation:rise .6s var(--ease) both; }
-  #form > :nth-child(1){ animation-delay:.42s; } #form > :nth-child(2){ animation-delay:.5s; } #form > :nth-child(3){ animation-delay:.56s; }
-  #form > :nth-child(4){ animation-delay:.6s; } #form > :nth-child(5){ animation-delay:.66s; }
-
-  .inp .i{ position:absolute; left:15px; top:50%; margin-top:-8px; color:var(--ink-faint); pointer-events:none; }
-  .inp input{ padding-left:44px; }
-  .inp input.pw{ padding-right:48px; }
-  .inp:focus-within .i{ color:var(--sanguine-bright); transform:scale(1.12); }
-  label.f > span{ transition:color .25s var(--ease), transform .35s var(--ease); }
-  label.f:focus-within > span{ color:var(--sanguine-bright); transform:translateX(3px); }
-  .inp .eye{ display:grid; place-items:center; width:32px; height:32px; padding:0; right:7px; border-radius:50%; }
-  .inp .eye:hover{ background:var(--line-soft); color:var(--ink); }
-  .inp .eye .i{ position:static; margin:0; color:inherit; pointer-events:none; }
-  .inp.bad input{ border-color:var(--bad); animation:nudge .42s var(--ease); }
-  .inp.bad .i{ color:var(--bad); }
-  @keyframes nudge{ 25%{ transform:translateX(-5px); } 55%{ transform:translateX(4px); } 80%{ transform:translateX(-2px); } }
-
-  .go{ position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; gap:10px; }
-  .go-ic{ position:relative; width:16px; height:16px; display:block; }
-  .go-ic .i{ position:absolute; inset:0; transition:transform .4s var(--ease), opacity .25s var(--ease); }
-  .go-ic .i-spin{ opacity:0; }
-  .go.busy .go-ic .i-arrow{ opacity:0; transform:scale(.4); }
-  .go.busy .go-ic .i-spin{ opacity:1; }
-  .go:hover:not(:disabled) .i-arrow{ transform:translateX(4px); }
-  .go::after{ content:""; position:absolute; inset:0; pointer-events:none; transform:translateX(-120%);
-    background:linear-gradient(105deg, transparent 30%, rgba(255,255,255,.26) 50%, transparent 70%); transition:transform .75s var(--ease); }
-  .go:hover:not(:disabled)::after{ transform:translateX(120%); }
-  .rip{ position:absolute; border-radius:50%; background:rgba(255,255,255,.35); transform:scale(0); pointer-events:none; animation:rip .65s var(--ease) forwards; }
-  @keyframes rip{ to{ transform:scale(1); opacity:0; } }
-
-  .msg.uname{ display:flex; align-items:center; gap:8px; }
-  .msg.uname:empty::before{ display:none; }
-  .msg.uname::before{ content:""; flex:none; width:12px; height:12px; box-sizing:border-box; }
-  .msg.uname.checking::before{ border:1.75px solid currentColor; border-top-color:transparent; border-radius:50%; animation:spin .7s linear infinite; }
-  .msg.uname.ok{ color:var(--good); }
-  .msg.uname.ok::before{ width:6px; height:10px; margin:-3px 3px 0 3px; border:solid currentColor; border-width:0 1.75px 1.75px 0; transform:rotate(45deg); animation:tick .4s var(--ease); }
-  .msg.uname.err::before{ background:linear-gradient(45deg, transparent 42%, currentColor 42% 58%, transparent 58%), linear-gradient(-45deg, transparent 42%, currentColor 42% 58%, transparent 58%); animation:pop .35s var(--ease); }
-  @keyframes tick{ from{ opacity:0; transform:rotate(45deg) scale(.3); } }
-  @keyframes pop{ from{ opacity:0; transform:scale(.3); } }
-
-  #auth{ transition:opacity .55s var(--ease), transform .55s var(--ease), filter .55s var(--ease); }
-  #auth.leaving{ opacity:0; transform:translateY(-12px) scale(.985); filter:blur(8px); }
-  #app{ transform:scale(1.012); transition:opacity .7s var(--ease), transform .9s var(--ease); }
-  #app.in{ transform:none; }
-  .account{ opacity:0; transform:translateY(16px) scale(.96); transition:opacity .6s var(--ease) .5s, transform .8s cubic-bezier(.34,1.32,.64,1) .5s, background-color .35s var(--ease), border-color .35s var(--ease); }
-  #app.in .account{ opacity:1; transform:none; }
-  .account button{ display:flex; align-items:center; gap:8px; }
-  .account button.round{ display:grid; place-items:center; width:36px; height:36px; padding:0; }
-  .account button.round .ic{ transition:transform .5s var(--ease); }
-  .account button.round:hover .ic{ transform:rotate(25deg); }
-  .account #out:hover .i{ transform:rotate(90deg); }
-  .account .role::before{ content:""; display:inline-block; width:6px; height:6px; margin-right:8px; border-radius:50%; background:var(--sanguine-bright); vertical-align:middle; animation:beat 2.8s ease-in-out infinite; }
-  @keyframes beat{ 50%{ opacity:.35; transform:scale(.7); } }
-  @media (prefers-reduced-motion:reduce){
-    .w, .kicker::after, .side-stripe, html.rim .card::before, .go::after, #form > *, .account .role::before{ animation:none !important; }
-    .account, #app, #auth{ transition:none; }
-    .account{ opacity:1; transform:none; }
-  }
 </style>
 </head>
 <body>
@@ -424,7 +309,7 @@
       </button>
     </div>
     <span class="kicker">Résumé</span>
-    <h1><span class="w" style="--i:0">Resumé/CV</span> <em class="w" style="--i:1">holder</em></h1>
+    <h1>Resumé/CV <em>holder</em></h1>
     <p class="sub" id="sub">Sign in to continue.</p>
 
     <div class="tabs" role="tablist">
@@ -435,20 +320,20 @@
 
     <form id="form" novalidate>
       <label class="f"><span>Username</span>
-        <div class="inp"><i class="i i-user"></i><input id="email" type="text" autocomplete="username" placeholder="yourname" required></div>
+        <div class="inp"><input id="email" type="text" autocomplete="username" placeholder="yourname" required></div>
         <div class="reveal" id="uname-reveal"><div><div class="msg uname" id="uname-status" role="status" aria-live="polite"></div></div></div>
       </label>
       <label class="f"><span>Password</span>
-        <div class="inp"><i class="i i-lock"></i><input id="pass" class="pw" type="password" autocomplete="current-password" placeholder="••••••••" required>
-          <button type="button" class="eye" id="eye" aria-label="Show password"><i class="i i-eye"></i></button></div>
+        <div class="inp"><input id="pass" class="pw" type="password" autocomplete="current-password" placeholder="••••••••" required>
+          <button type="button" class="eye" id="eye" aria-label="Show password">Show</button></div>
       </label>
       <div class="reveal" id="confirm-reveal"><div>
         <label class="f" id="confirm-wrap"><span>Confirm password</span>
-          <div class="inp"><i class="i i-lock"></i><input id="pass2" type="password" autocomplete="new-password" placeholder="••••••••"></div>
+          <div class="inp"><input id="pass2" type="password" autocomplete="new-password" placeholder="••••••••"></div>
         </label>
       </div></div>
       <div class="msg" id="msg" role="status" aria-live="polite"></div>
-      <button class="go" id="go" type="submit"><span id="go-label">Sign in</span><span class="go-ic"><i class="i i-arrow"></i><i class="i i-spin"></i></span></button>
+      <button class="go" id="go" type="submit">Sign in</button>
     </form>
     <p class="foot" id="foot">New here? Create an account to view the résumé.</p>
   </div>
@@ -459,8 +344,7 @@
   <div class="account glass">
     <span class="who" id="who"></span>
     <span class="role" id="role"></span>
-    <button type="button" class="round" id="theme-toggle2" aria-label="Switch to light mode" title="Switch to light mode"><span class="ic"><i class="ic-sun"></i><i class="ic-moon"></i></span></button>
-    <button type="button" id="out"><i class="i i-power"></i><span>Sign out</span></button>
+    <button type="button" id="out">Sign out</button>
   </div>
 </div>
 
@@ -471,7 +355,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Résumé</title>
-<script>try{if(window.parent.document.documentElement.getAttribute("data-theme")==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}<\/script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -810,128 +693,6 @@
     html{ scroll-behavior:auto; }
     *, *::before, *::after{ transition-duration:.01ms !important; animation-duration:.01ms !important; }
   }
-  /* css icons */
-  .i{ position:relative; display:inline-block; width:16px; height:16px; flex:none; vertical-align:middle; color:inherit; transition:transform .45s var(--ease), color .25s var(--ease); }
-  .i::before, .i::after{ content:""; position:absolute; box-sizing:border-box; }
-  .i-user::before{ width:6px; height:6px; left:5px; top:1.5px; border:1.5px solid currentColor; border-radius:50%; }
-  .i-user::after{ width:12px; height:6px; left:2px; bottom:1px; border:1.5px solid currentColor; border-bottom:0; border-radius:6px 6px 0 0; }
-  .i-lock::before{ width:12px; height:8px; left:2px; bottom:1.5px; border:1.5px solid currentColor; border-radius:2.5px; }
-  .i-lock::after{ width:7px; height:6px; left:4.5px; top:1px; border:1.5px solid currentColor; border-bottom:0; border-radius:4px 4px 0 0; }
-  .i-eye::before{ width:15px; height:10px; left:.5px; top:3px; border:1.5px solid currentColor; border-radius:50% / 60%; }
-  .i-eye::after{ width:4px; height:4px; left:6px; top:6px; border-radius:50%; background:currentColor; transition:transform .3s var(--ease); }
-  .i-eye.off{ background:linear-gradient(135deg, transparent 44%, currentColor 44% 56%, transparent 56%); }
-  .i-eye.off::after{ transform:scaleY(.25); }
-  .i-arrow::before{ width:12px; height:1.5px; left:1.5px; top:7.25px; background:currentColor; border-radius:1px; }
-  .i-arrow::after{ width:7px; height:7px; right:2px; top:4.5px; border-top:1.5px solid currentColor; border-right:1.5px solid currentColor; transform:rotate(45deg); }
-  .i-spin{ box-sizing:border-box; border:1.75px solid currentColor; border-top-color:transparent; border-radius:50%; animation:spin .7s linear infinite; }
-  .i-x::before, .i-x::after, .i-plus::before, .i-plus::after{ width:11px; height:1.5px; left:2.5px; top:7.25px; background:currentColor; border-radius:1px; }
-  .i-x::before{ transform:rotate(45deg); } .i-x::after{ transform:rotate(-45deg); }
-  .i-plus::after{ transform:rotate(90deg); }
-  .i-power::before{ width:12px; height:12px; left:2px; top:3px; border:1.75px solid currentColor; border-top-color:transparent; border-radius:50%; }
-  .i-power::after{ width:1.75px; height:7px; left:7.1px; top:1px; background:currentColor; border-radius:1px; }
-  .i-print::before{ width:14px; height:8px; left:1px; top:5px; border:1.5px solid currentColor; border-radius:2.5px; }
-  .i-print::after{ width:8px; height:5px; left:4px; bottom:1px; border:1.5px solid currentColor; background:var(--bg); border-radius:1px; }
-  .i-reset::before{ width:12px; height:12px; left:2px; top:2px; border:1.75px solid currentColor; border-right-color:transparent; border-radius:50%; }
-  .i-reset::after{ left:9px; top:.5px; width:0; height:0; border-style:solid; border-width:3.5px 0 3.5px 5px; border-color:transparent transparent transparent currentColor; }
-  .i-code::before, .i-code::after{ width:6px; height:6px; top:5px; }
-  .i-code::before{ left:2px; border-left:1.5px solid currentColor; border-bottom:1.5px solid currentColor; transform:rotate(45deg); }
-  .i-code::after{ right:2px; border-right:1.5px solid currentColor; border-top:1.5px solid currentColor; transform:rotate(45deg); }
-  .i-doc::before{ width:11px; height:14px; left:2.5px; top:1px; border:1.5px solid currentColor; border-radius:2px; }
-  .i-doc::after{ width:5px; height:1.5px; left:5.5px; top:6px; background:currentColor; box-shadow:0 3px 0 currentColor; }
-  .cv-remove i, .cert-file-remove i{ pointer-events:none; }
-  @keyframes spin{ to{ transform:rotate(360deg); } }
-  /* ---------- theme, motion, icons ---------- */
-  :root{ color-scheme:dark; --spot:rgba(176,58,63,.12); --ok:#8CC49A; --bad:#E4797D; }
-  @media screen{
-    html[data-theme="light"]{
-      color-scheme:light;
-      --bg:#F4ECE4; --line:rgba(78,21,25,0.14); --line-soft:rgba(78,21,25,0.07);
-      --ink:#2B1B19; --ink-dim:#5C4A45; --ink-faint:#75655E; --sanguine-bright:#A33339;
-      --glass-fill:rgba(255,255,255,0.55); --glass-border:rgba(122,32,39,0.16);
-      --glass-shadow:0 8px 32px rgba(78,21,25,0.14), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(78,21,25,0.06);
-      --spot:rgba(163,51,57,.10); --ok:#2F7A46; --bad:#B3262E;
-    }
-    html[data-theme="light"] ::selection{ background:rgba(176,58,63,0.25); }
-    html[data-theme="light"] .glass::before{ background:linear-gradient(135deg, rgba(163,51,57,0.42), rgba(122,32,39,0.06) 40%, rgba(122,32,39,0.06) 60%, rgba(163,51,57,0.26)); }
-    html[data-theme="light"] .glass::after{ background:radial-gradient(ellipse at center top, rgba(255,255,255,0.7), transparent 70%); }
-    html[data-theme="light"] .rail button{ background:rgba(78,21,25,0.22); }
-    html[data-theme="light"] .rail button:hover{ background:var(--ink-dim); }
-    html[data-theme="light"] .rail button.active{ background:var(--sanguine-bright); }
-    html[data-theme="light"] .toolbar button{ background:rgba(78,21,25,0.06); }
-    html[data-theme="light"] .toolbar button:hover, html[data-theme="light"] .toolbar button.armed{ background:rgba(176,58,63,0.16); color:var(--ink); }
-    html[data-theme="light"] .avatar-upload, html[data-theme="light"] .meta-pill, html[data-theme="light"] .cv-upload{ background:rgba(255,255,255,0.55); }
-    html[data-theme="light"] .avatar-upload:hover, html[data-theme="light"] .cv-upload:hover{ background:rgba(176,58,63,0.12); }
-    html[data-theme="light"] .skill-tag{ background:rgba(255,255,255,0.45); }
-    html[data-theme="light"] .skill-tag:hover{ background:rgba(176,58,63,0.1); }
-    html[data-theme="light"] .value-card:hover, html[data-theme="light"] .cert-item:hover{ background:rgba(78,21,25,0.03); }
-    html[data-theme="light"] [contenteditable="true"]:hover{ background:rgba(163,51,57,0.07); }
-  }
-  html.theming *, html.theming *::before, html.theming *::after{
-    transition:background-color .5s var(--ease), color .5s var(--ease), border-color .5s var(--ease), box-shadow .5s var(--ease), fill .5s var(--ease) !important;
-  }
-
-  @property --mx{ syntax:'<length-percentage>'; inherits:false; initial-value:50%; }
-  @property --my{ syntax:'<length-percentage>'; inherits:false; initial-value:0%; }
-  .hero-card, .values-panel, .cert-panel{
-    background-image:radial-gradient(420px circle at var(--mx) var(--my), var(--spot), transparent 70%); background-repeat:no-repeat;
-    transition:--mx .45s var(--ease), --my .45s var(--ease);
-  }
-
-  .toolbar{ animation:dropin .9s var(--ease) .25s both; }
-  .rail{ animation:railin .9s var(--ease) .35s both; }
-  @keyframes dropin{ from{ opacity:0; transform:translateY(-14px); } }
-  @keyframes railin{ from{ opacity:0; transform:translate(-14px, -50%); } }
-  .toolbar button{ display:inline-flex; align-items:center; gap:7px; }
-  .toolbar button:hover .i-reset{ transform:rotate(-200deg); }
-  .toolbar button:hover .i-print, .toolbar button:hover .i-code{ transform:translateY(-1px) scale(1.08); }
-  .toolbar button.armed{ background:rgba(176,58,63,0.35); border-color:var(--sanguine-bright); color:#fff; }
-
-  #save-hint{ display:inline-flex; align-items:center; gap:8px; }
-  #save-hint[data-s]::before{ content:""; flex:none; width:12px; height:12px; box-sizing:border-box; }
-  #save-hint[data-s="busy"]::before{ border:1.75px solid currentColor; border-top-color:transparent; border-radius:50%; animation:spin .7s linear infinite; }
-  #save-hint[data-s="ok"]::before{ width:6px; height:10px; margin:-3px 3px 0 3px; border:solid var(--ok); border-width:0 1.75px 1.75px 0; transform:rotate(45deg); animation:tickin .4s var(--ease); }
-  #save-hint[data-s="err"]::before{ color:var(--bad); background:linear-gradient(45deg, transparent 42%, currentColor 42% 58%, transparent 58%), linear-gradient(-45deg, transparent 42%, currentColor 42% 58%, transparent 58%); }
-  #save-hint[data-s="live"]::before{ width:7px; height:7px; border-radius:50%; background:var(--ok); animation:live 2.2s ease-out infinite; }
-  @keyframes tickin{ from{ opacity:0; transform:rotate(45deg) scale(.3); } }
-  @keyframes live{ 0%{ box-shadow:0 0 0 0 var(--ok); } 70%, 100%{ box-shadow:0 0 0 7px transparent; } }
-
-  .avatar-plus{ display:flex; flex-direction:column; align-items:center; gap:4px; }
-  .cv-upload svg, .cert-attach svg{ display:none; }
-  .cert-attach .i{ width:12px; height:12px; transform:scale(.75); margin:-2px; }
-  .cv-remove, .cert-file-remove{ display:inline-grid; place-items:center; }
-
-  [data-rv]{ opacity:0; transform:translateY(20px); filter:blur(5px);
-    transition:opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease); transition-delay:calc(var(--d, 0) * .08s); }
-  [data-rv="1"]{ --d:1; } [data-rv="2"]{ --d:2; } [data-rv="3"]{ --d:3; } [data-rv="4"]{ --d:4; } [data-rv="5"]{ --d:5; }
-  [data-rv][data-in]{ opacity:1; transform:none; filter:none; }
-  #resume-root[data-loading]{ opacity:0; animation:unhide 0s 4s forwards; }
-  #resume-root{ transition:opacity .4s var(--ease); }
-  @keyframes unhide{ to{ opacity:1; } }
-
-  .kicker::after{ content:""; display:inline-block; vertical-align:middle; width:34px; height:1px; margin-left:14px; background:var(--sanguine-bright); opacity:.6; transform-origin:left; }
-  .progress{ display:none; }
-  @supports (animation-timeline:view()){
-    .kicker::after{ animation:grow linear both; animation-timeline:view(); animation-range:entry 20% entry 95%; }
-    .timeline::before{ transform-origin:top; animation:drawy linear both; animation-timeline:view(); animation-range:entry 10% cover 55%; }
-    .progress{ display:block; position:fixed; top:0; left:4px; right:0; height:2px; z-index:70; background:var(--sanguine-bright); transform-origin:left; transform:scaleX(0); animation:prog linear both; animation-timeline:scroll(root); }
-  }
-  @keyframes grow{ from{ transform:scaleX(0); } }
-  @keyframes drawy{ from{ transform:scaleY(0); } }
-  @keyframes prog{ to{ transform:scaleX(1); } }
-
-  .rail button.active{ animation:ping 2.6s ease-out infinite; }
-  @keyframes ping{ 0%{ box-shadow:0 0 0 0 rgba(176,58,63,.55), 0 0 12px var(--sanguine-bright); } 70%, 100%{ box-shadow:0 0 0 12px rgba(176,58,63,0), 0 0 12px var(--sanguine-bright); } }
-  .tl-node::after{ animation:beat 3.2s ease-in-out infinite; }
-  @keyframes beat{ 50%{ transform:scale(1.4); opacity:.75; } }
-  .value-mark{ transition:width .5s var(--ease); }
-  .value-card:hover .value-mark{ width:56px; }
-  .skill-tag:hover{ transform:translateY(-2px); }
-  .ref-card{ transition:transform .35s var(--ease), border-color .35s var(--ease); }
-  .ref-card:hover{ transform:translateY(-3px); border-top-color:var(--sanguine-bright); }
-  .meta-pill:hover{ transform:translateY(-1px); }
-
-  @media print{ .progress{ display:none !important; } [data-rv]{ opacity:1 !important; transform:none !important; filter:none !important; } #resume-root[data-loading]{ opacity:1; } }
-  @media (prefers-reduced-motion:reduce){ .rail button.active, .tl-node::after, .toolbar, .rail, #save-hint::before{ animation:none !important; } }
 </style>
 </head>
 <body>
@@ -939,7 +700,6 @@
 <canvas id="webgl-bg"></canvas>
 <div class="stripes"></div>
 <div class="side-stripe"></div>
-<div class="progress"></div>
 
 <nav class="rail glass" id="rail">
   <button data-target="hero" class="active" aria-label="Top"></button>
@@ -955,21 +715,21 @@
 </nav>
 
 <div class="toolbar glass">
-  <span class="hint" id="save-hint">Click any field to edit. Changes save automatically.</span>
-  <button id="btn-debug" type="button"><i class="i i-code"></i><span class="lbl">Show debug</span></button>
-  <button id="btn-print"><i class="i i-print"></i><span class="lbl">Save as PDF</span></button>
-  <button id="btn-reset"><i class="i i-reset"></i><span class="lbl">Reset</span></button>
+  <span class="hint" id="save-hint">Click any field to edit — autosaves to cloud</span>
+  <button id="btn-debug" type="button">Show debug</button>
+  <button id="btn-print">Save as PDF</button>
+  <button id="btn-reset">Reset</button>
 </div>
 
 <main>
 <div class="wrap">
-<div id="resume-root" data-loading>
+<div id="resume-root">
 
   <section id="hero">
     <div class="hero-card glass">
       <div class="hero-top">
         <label class="avatar-upload" id="avatar-zone">
-          <span class="avatar-plus"><i class="i i-plus"></i><span>photo</span></span>
+          <span class="avatar-plus">＋<br>photo</span>
           <img id="avatar-img" alt="Profile photo">
           <input type="file" accept="image/*" data-role="avatar">
         </label>
@@ -986,9 +746,9 @@
         <span class="meta-pill" contenteditable="true" data-placeholder="linkedin.com/in/yourname"></span>
 
         <label class="cv-upload" id="cv-zone" for="cv-input" role="button" tabindex="0">
-          <i class="i i-doc"></i>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8.5L21 10.5z"/><path d="M14 3v7h7"/></svg>
           <span id="cv-label">Attach CV (PDF)</span>
-          <button type="button" class="cv-remove" id="cv-remove" style="display:none;"><i class="i i-x"></i></button>
+          <button type="button" class="cv-remove" id="cv-remove" style="display:none;">✕</button>
         </label>
         <input type="file" id="cv-input" accept="application/pdf,.pdf" data-role="cv">
       </div>
@@ -1163,26 +923,26 @@
         <div class="cert-item">
           <div class="cert-name" contenteditable="true" data-placeholder="Certification / Training name"></div>
           <div class="cert-meta" contenteditable="true" data-placeholder="Issuing organization · Year"></div>
-          <label class="cert-attach"><i class="i i-plus"></i><span>Attach document</span><input type="file" data-role="cert"></label>
-          <div class="cert-file-chip"><a target="_blank"></a><button class="cert-file-remove" type="button"><i class="i i-x"></i></button></div>
+          <label class="cert-attach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.4 11.6 12.6 20.4a4 4 0 0 1-5.6-5.6l8.4-8.4a2.7 2.7 0 0 1 3.8 3.8L10.8 18.6"/></svg><span>Attach document</span><input type="file" data-role="cert"></label>
+          <div class="cert-file-chip"><a target="_blank"></a><button class="cert-file-remove" type="button">✕</button></div>
         </div>
         <div class="cert-item">
           <div class="cert-name" contenteditable="true" data-placeholder="Certification / Training name"></div>
           <div class="cert-meta" contenteditable="true" data-placeholder="Issuing organization · Year"></div>
-          <label class="cert-attach"><i class="i i-plus"></i><span>Attach document</span><input type="file" data-role="cert"></label>
-          <div class="cert-file-chip"><a target="_blank"></a><button class="cert-file-remove" type="button"><i class="i i-x"></i></button></div>
+          <label class="cert-attach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.4 11.6 12.6 20.4a4 4 0 0 1-5.6-5.6l8.4-8.4a2.7 2.7 0 0 1 3.8 3.8L10.8 18.6"/></svg><span>Attach document</span><input type="file" data-role="cert"></label>
+          <div class="cert-file-chip"><a target="_blank"></a><button class="cert-file-remove" type="button">✕</button></div>
         </div>
         <div class="cert-item">
           <div class="cert-name" contenteditable="true" data-placeholder="Certification / Training name"></div>
           <div class="cert-meta" contenteditable="true" data-placeholder="Issuing organization · Year"></div>
-          <label class="cert-attach"><i class="i i-plus"></i><span>Attach document</span><input type="file" data-role="cert"></label>
-          <div class="cert-file-chip"><a target="_blank"></a><button class="cert-file-remove" type="button"><i class="i i-x"></i></button></div>
+          <label class="cert-attach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.4 11.6 12.6 20.4a4 4 0 0 1-5.6-5.6l8.4-8.4a2.7 2.7 0 0 1 3.8 3.8L10.8 18.6"/></svg><span>Attach document</span><input type="file" data-role="cert"></label>
+          <div class="cert-file-chip"><a target="_blank"></a><button class="cert-file-remove" type="button">✕</button></div>
         </div>
         <div class="cert-item">
           <div class="cert-name" contenteditable="true" data-placeholder="Certification / Training name"></div>
           <div class="cert-meta" contenteditable="true" data-placeholder="Issuing organization · Year"></div>
-          <label class="cert-attach"><i class="i i-plus"></i><span>Attach document</span><input type="file" data-role="cert"></label>
-          <div class="cert-file-chip"><a target="_blank"></a><button class="cert-file-remove" type="button"><i class="i i-x"></i></button></div>
+          <label class="cert-attach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.4 11.6 12.6 20.4a4 4 0 0 1-5.6-5.6l8.4-8.4a2.7 2.7 0 0 1 3.8 3.8L10.8 18.6"/></svg><span>Attach document</span><input type="file" data-role="cert"></label>
+          <div class="cert-file-chip"><a target="_blank"></a><button class="cert-file-remove" type="button">✕</button></div>
         </div>
       </div>
     </div>
@@ -1245,10 +1005,7 @@
   var ROW_ID = 1;
 
   /* Auth is handled by the Vanilla shell. */
-  setTimeout(function(){
-    var shown = function(){ if(window.__page) window.__page.refresh(); };
-    loadFromCloud().then(shown, shown);
-  }, 0);
+  setTimeout(function(){ loadFromCloud(); }, 0);
 
   /* ============== WEBGL ANIMATED BACKGROUND ============== */
   const canvas = document.getElementById('webgl-bg');
@@ -1278,7 +1035,6 @@
       uniform vec2 u_resolution;
       uniform float u_time;
       uniform vec2 u_mouse;
-      uniform float u_light;
 
       float random(vec2 st) {
         return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
@@ -1322,19 +1078,17 @@
         vec2 r = vec2(fbm(st + 4.0*q + vec2(1.7,9.2) + t*1.5), fbm(st + 4.0*q + vec2(8.3,2.8) - t*1.5));
         float f = fbm(st + 4.0*r + mouseInfluence);
 
-        vec3 color1 = mix(vec3(0.07, 0.05, 0.04), vec3(0.96, 0.93, 0.90), u_light);
-        vec3 color2 = mix(vec3(0.30, 0.08, 0.10), vec3(0.90, 0.76, 0.74), u_light);
-        vec3 color3 = mix(vec3(0.69, 0.22, 0.25), vec3(0.74, 0.34, 0.36), u_light);
+        vec3 color1 = vec3(0.07, 0.05, 0.04);
+        vec3 color2 = vec3(0.30, 0.08, 0.10);
+        vec3 color3 = vec3(0.69, 0.22, 0.25);
 
         vec3 color = mix(color1, color2, f);
         color = mix(color, color3, smoothstep(0.4, 0.8, f) * smoothstep(0.0, 0.5, length(q)));
 
-        color += vec3(0.15, 0.05, 0.05) * mouseInfluence * (1.0 - 0.6 * u_light);
+        color += vec3(0.15, 0.05, 0.05) * mouseInfluence;
 
         float vignette = smoothstep(1.5, 0.2, distance(st, vec2(0.5, 0.5)));
-        vec3 darkMix  = color * (0.4 + vignette * 0.6);
-        vec3 lightMix = mix(color, vec3(0.91, 0.85, 0.80), (1.0 - vignette) * 0.55);
-        color = mix(darkMix, lightMix, u_light);
+        color *= 0.4 + vignette * 0.6;
 
         gl_FragColor = vec4(color, 1.0);
       }
@@ -1365,10 +1119,6 @@
     const u_resolution = gl.getUniformLocation(program, "u_resolution");
     const u_time = gl.getUniformLocation(program, "u_time");
     const u_mouse = gl.getUniformLocation(program, "u_mouse");
-    const u_light = gl.getUniformLocation(program, "u_light");
-    const isLight = () => document.documentElement.getAttribute("data-theme") === "light" ? 1 : 0;
-    let lightNow = isLight();
-    window.__glRedraw = () => { if(calmGL){ lightNow = isLight(); render(); } };
 
     let mouseX = window.innerWidth / 2;
     let mouseY = window.innerHeight / 2;
@@ -1383,8 +1133,6 @@
       gl.uniform2f(u_resolution, canvas.width, canvas.height);
       gl.uniform1f(u_time, (performance.now() - startTime) / 1000);
       gl.uniform2f(u_mouse, mouseX * GL_SCALE, mouseY * GL_SCALE);
-      lightNow += (isLight() - lightNow) * 0.08;
-      gl.uniform1f(u_light, lightNow);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       if(!calmGL) requestAnimationFrame(render);
     }
@@ -1396,12 +1144,7 @@
   var root = document.getElementById('resume-root');
   var hint = document.getElementById('save-hint');
 
-  function setHint(t){
-    if(!hint) return;
-    var st = /✓/.test(t) ? 'ok' : /^(Saving|Loading|Uploading|Resetting)/.test(t) ? 'busy' : /(failed|Could not|Offline|could not be read)/i.test(t) ? 'err' : '';
-    hint.textContent = t.replace(/\s*✓/, '');
-    if(st) hint.setAttribute('data-s', st); else hint.removeAttribute('data-s');
-  }
+  function setHint(t){ if(hint) hint.textContent = t; }
 
   /* ============== DEBUG PANEL ============== */
   var dbgPanel = document.getElementById('debug-panel');
@@ -1409,7 +1152,7 @@
   function pad2(n){ return (n < 10 ? '0' : '') + n; }
   function setDebug(on){
     if(dbgPanel) dbgPanel.hidden = !on;
-    if(dbgBtn) dbgBtn.querySelector('.lbl').textContent = on ? 'Hide debug' : 'Show debug';
+    if(dbgBtn) dbgBtn.textContent = on ? 'Hide debug' : 'Show debug';
   }
   function showDebug(){ setDebug(true); }
   function log(msg){
@@ -1442,7 +1185,7 @@
   });
   log('Debug panel ready');
 
-  var IDLE = 'Click any field to edit. Changes save automatically.';
+  var IDLE = 'Click any field to edit — autosaves to cloud';
   var ready = false;   // saving stays off until the cloud copy is read, so a failed load can never overwrite it
   var saveTimer = null, hintTimer = null, saving = false, dirty = false;
   var cvLogPending = false; // log the next save once after a CV upload
@@ -1454,7 +1197,6 @@
   function snapshot(){
     var c = root.cloneNode(true);
     stripBlobLinks(c);
-    if(window.__page) window.__page.strip(c);
     c.removeAttribute('inert');
     return c.innerHTML;
   }
@@ -1464,13 +1206,11 @@
     setHint('Loading…');
     try{
       var res = await sb.from(TABLE).select('content').eq('id', ROW_ID).maybeSingle();
-      if(res.error){ console.warn('[supabase load]', res.error); setHint('Could not load. Reload the page to edit.'); return; }
+      if(res.error){ console.warn('[supabase load]', res.error); setHint('Could not load — reload the page to edit'); return; }
       if(res.data && res.data.content && typeof res.data.content.html === 'string' && res.data.content.html.length){
         root.innerHTML = res.data.content.html;
         stripBlobLinks(root);
-        setHint('Loaded ✓');
-        clearTimeout(hintTimer);
-        hintTimer = setTimeout(function(){ setHint(IDLE); }, 1500);
+        setHint('Loaded ✓ — click any field to edit');
       } else {
         setHint(IDLE);
       }
@@ -1479,7 +1219,7 @@
       setActive(); // the page height just changed
     }catch(err){
       console.warn('[supabase load]', err);
-      setHint('Offline. Reload the page to edit.');
+      setHint('Offline — reload the page to edit');
     }
   }
 
@@ -1501,10 +1241,10 @@
         content: { html: snapshot() },
         updated_at: new Date().toISOString()
       });
-      if(res.error){ console.warn('[supabase save]', res.error); log('Save error: ' + res.error.message + ' | details=' + JSON.stringify(res.error)); showDebug(); setHint('Save failed. See console.'); return; }
+      if(res.error){ console.warn('[supabase save]', res.error); log('Save error: ' + res.error.message + ' | details=' + JSON.stringify(res.error)); showDebug(); setHint('Save failed — see console'); return; }
       if(cvLogPending){
         cvLogPending = false;
-        log('Autosave finished. Snapshot contains data-cv-path: ' + (snapshot().indexOf('data-cv-path') !== -1 ? 'yes' : 'no'));
+        log('Autosave finished — snapshot contains data-cv-path: ' + (snapshot().indexOf('data-cv-path') !== -1 ? 'yes' : 'no'));
       }
       if(dirty){ setHint('Saving…'); }
       else {
@@ -1514,7 +1254,7 @@
     }catch(err){
       console.warn('[supabase save]', err);
       log('Save error: ' + (err && err.message ? err.message : String(err))); showDebug();
-      setHint('Save failed. See console.');
+      setHint('Save failed — see console');
     }finally{
       saving = false;
       if(dirty) doSave();
@@ -1580,7 +1320,7 @@
           else if(file.size > 5 * 1024 * 1024) bad = 'file is larger than 5 MB';
           if(bad){
             log('Validation failed: ' + bad);
-            setHint('Upload failed. See debug panel.');
+            setHint('Upload failed — see debug panel');
             showDebug();
             return;
           }
@@ -1610,14 +1350,14 @@
           var removeBtn = zone2.querySelector('.cv-remove');
           if(removeBtn){ removeBtn.style.display = 'inline'; }
           zone2.setAttribute('data-cv-path', filePath);
-          log('data-cv-path set to: ' + filePath + ', calling scheduleSave()');
+          log('data-cv-path set to: ' + filePath + ' — now calling scheduleSave()');
           cvLogPending = true;
           scheduleSave();
           log('scheduleSave() invoked (ready=' + ready + ')');
           setHint('CV uploaded ✓');
         }catch(err){
           log(errLine(err) + ' | stage=' + stage);
-          setHint('Upload failed. See debug panel.');
+          setHint('Upload failed — see debug panel');
           showDebug();
         }finally{
           input.value = ''; // lets the same file be picked again after a failure
@@ -1645,7 +1385,7 @@
       var label = zone.querySelector('#cv-label');
       if(label) label.textContent = 'Attach CV (PDF)';
       zone.removeAttribute('data-cv-path');
-      log('CV removed, data-cv-path cleared');
+      log('CV removed — data-cv-path cleared');
       e.target.style.display = 'none';
       var inp = document.getElementById('cv-input');
       if(inp) inp.value = '';
@@ -1687,11 +1427,11 @@
 
   document.getElementById('btn-print').addEventListener('click', function(){ window.print(); });
 
-  var resetBtn = document.getElementById('btn-reset'), resetLbl = resetBtn.querySelector('.lbl'), resetArmed = false, resetTimer = 0;
-  function disarmReset(){ resetArmed = false; clearTimeout(resetTimer); resetLbl.textContent = 'Reset'; resetBtn.classList.remove('armed'); }
+  var resetBtn = document.getElementById('btn-reset'), resetArmed = false, resetTimer = 0;
+  function disarmReset(){ resetArmed = false; clearTimeout(resetTimer); resetBtn.textContent = 'Reset'; }
   resetBtn.addEventListener('click', async function(){
     if(!resetArmed){
-      resetArmed = true; resetLbl.textContent = 'Click again to confirm'; resetBtn.classList.add('armed');
+      resetArmed = true; resetBtn.textContent = 'Click again to confirm';
       setHint('Reset blanks the résumé for everyone');
       resetTimer = setTimeout(function(){ disarmReset(); setHint(ready ? IDLE : hint.textContent); }, 4000);
       return;
@@ -1703,9 +1443,9 @@
     setHint('Resetting…');
     try{
       var res = await sb.from(TABLE).upsert({ id: ROW_ID, content: {}, updated_at: new Date().toISOString() });
-      if(res.error){ console.warn('[reset]', res.error); ready = wasReady; setHint('Reset failed. See console.'); return; }
+      if(res.error){ console.warn('[reset]', res.error); ready = wasReady; setHint('Reset failed — see console'); return; }
     }catch(err){
-      console.warn('[reset]', err); ready = wasReady; setHint('Reset failed. See console.'); return;
+      console.warn('[reset]', err); ready = wasReady; setHint('Reset failed — see console'); return;
     }
     location.reload();
   });
@@ -1746,98 +1486,6 @@
 
 })();
 <\/script>
-<script>
-(function(){
-  var de = document.documentElement;
-  var root = document.getElementById('resume-root');
-  var admin = !!document.getElementById('btn-reset');
-  var calm = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  var SEL = '.hero-card, .hero-top, .hero-name, .hero-role, .hero-meta, .kicker, .section-hint, .lede, .body-copy, .ed-item, .philosophy-quote, '
-    + '.values-panel, .tl-item, .skill-groups > div, .flat-item, .cert-panel, .ref-card, footer';
-  var io = null;
-
-  function scan(){
-    if(calm || !('IntersectionObserver' in window)) return;
-    if(!io){
-      io = new IntersectionObserver(function(list){
-        list.forEach(function(e){
-          if(!e.isIntersecting) return;
-          var el = e.target;
-          io.unobserve(el);
-          el.setAttribute('data-in', '');
-          // drop the attributes once settled so hover transitions and saved markup stay clean
-          setTimeout(function(){ el.removeAttribute('data-rv'); el.removeAttribute('data-in'); }, 1700);
-        });
-      }, { threshold:0.08, rootMargin:'0px 0px -5% 0px' });
-    }
-    var seen = new Map();
-    document.querySelectorAll(SEL).forEach(function(el){
-      if(el.hasAttribute('data-rv')) return;
-      var p = el.parentNode, n = seen.get(p) || 0;
-      seen.set(p, n + 1);
-      el.setAttribute('data-rv', String(Math.min(n, 5)));
-      io.observe(el);
-    });
-  }
-
-  // removes everything this script adds, used before the page is saved
-  function strip(c){
-    c.querySelectorAll('[data-rv], [data-in]').forEach(function(x){ x.removeAttribute('data-rv'); x.removeAttribute('data-in'); });
-    c.querySelectorAll('[style]').forEach(function(x){
-      x.style.removeProperty('--mx'); x.style.removeProperty('--my');
-      if(!x.getAttribute('style')) x.removeAttribute('style');
-    });
-  }
-
-  function icon(cls){ var i = document.createElement('i'); i.className = 'i ' + cls; return i; }
-  function tidy(){
-    document.querySelectorAll('.cv-upload svg, .cert-attach svg').forEach(function(s){
-      s.replaceWith(icon(s.closest('.cv-upload') ? 'i-doc' : 'i-plus'));
-    });
-    document.querySelectorAll('.cv-remove, .cert-file-remove').forEach(function(b){
-      if(!b.querySelector('.i')){ b.textContent = ''; b.appendChild(icon('i-x')); }
-    });
-    var ap = document.querySelector('.avatar-plus');
-    if(ap && admin && !ap.querySelector('.i')){
-      var word = ap.textContent.replace(/[＋+]/g, '').trim() || 'photo';
-      ap.textContent = ''; ap.appendChild(icon('i-plus'));
-      var t = document.createElement('span'); t.textContent = word; ap.appendChild(t);
-    }
-  }
-
-  function refresh(){
-    if(root) root.removeAttribute('data-loading');
-    tidy(); scan();
-  }
-  window.__page = { refresh:refresh, strip:strip };
-  if(!admin) refresh();
-
-  // theme changes come from the shell
-  var tmr = 0;
-  new MutationObserver(function(){
-    de.classList.add('theming');
-    clearTimeout(tmr);
-    tmr = setTimeout(function(){ de.classList.remove('theming'); }, 750);
-    if(window.__glRedraw) window.__glRedraw();
-  }).observe(de, { attributes:true, attributeFilter:['data-theme'] });
-
-  // light follows the pointer across the large panels
-  var PANEL = '.hero-card, .values-panel, .cert-panel';
-  document.addEventListener('pointermove', function(e){
-    var g = e.target.closest ? e.target.closest(PANEL) : null;
-    if(!g) return;
-    var r = g.getBoundingClientRect();
-    g.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-    g.style.setProperty('--my', (e.clientY - r.top) + 'px');
-  }, { passive:true });
-  document.addEventListener('pointerout', function(e){
-    var g = e.target.closest ? e.target.closest(PANEL) : null;
-    if(!g || (e.relatedTarget && g.contains(e.relatedTarget))) return;
-    g.style.removeProperty('--mx'); g.style.removeProperty('--my');
-    if(!g.getAttribute('style')) g.removeAttribute('style');
-  });
-})();
-<\/script>
 
 </body>
 </html>
@@ -1849,8 +1497,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Résumé (read only)</title>
-<script>try{if(window.parent.document.documentElement.getAttribute("data-theme")==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}<\/script>
+<title>Résumé — Read Only</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -2161,128 +1808,6 @@
     html{ scroll-behavior:auto; }
     *, *::before, *::after{ transition-duration:.01ms !important; animation-duration:.01ms !important; }
   }
-  /* css icons */
-  .i{ position:relative; display:inline-block; width:16px; height:16px; flex:none; vertical-align:middle; color:inherit; transition:transform .45s var(--ease), color .25s var(--ease); }
-  .i::before, .i::after{ content:""; position:absolute; box-sizing:border-box; }
-  .i-user::before{ width:6px; height:6px; left:5px; top:1.5px; border:1.5px solid currentColor; border-radius:50%; }
-  .i-user::after{ width:12px; height:6px; left:2px; bottom:1px; border:1.5px solid currentColor; border-bottom:0; border-radius:6px 6px 0 0; }
-  .i-lock::before{ width:12px; height:8px; left:2px; bottom:1.5px; border:1.5px solid currentColor; border-radius:2.5px; }
-  .i-lock::after{ width:7px; height:6px; left:4.5px; top:1px; border:1.5px solid currentColor; border-bottom:0; border-radius:4px 4px 0 0; }
-  .i-eye::before{ width:15px; height:10px; left:.5px; top:3px; border:1.5px solid currentColor; border-radius:50% / 60%; }
-  .i-eye::after{ width:4px; height:4px; left:6px; top:6px; border-radius:50%; background:currentColor; transition:transform .3s var(--ease); }
-  .i-eye.off{ background:linear-gradient(135deg, transparent 44%, currentColor 44% 56%, transparent 56%); }
-  .i-eye.off::after{ transform:scaleY(.25); }
-  .i-arrow::before{ width:12px; height:1.5px; left:1.5px; top:7.25px; background:currentColor; border-radius:1px; }
-  .i-arrow::after{ width:7px; height:7px; right:2px; top:4.5px; border-top:1.5px solid currentColor; border-right:1.5px solid currentColor; transform:rotate(45deg); }
-  .i-spin{ box-sizing:border-box; border:1.75px solid currentColor; border-top-color:transparent; border-radius:50%; animation:spin .7s linear infinite; }
-  .i-x::before, .i-x::after, .i-plus::before, .i-plus::after{ width:11px; height:1.5px; left:2.5px; top:7.25px; background:currentColor; border-radius:1px; }
-  .i-x::before{ transform:rotate(45deg); } .i-x::after{ transform:rotate(-45deg); }
-  .i-plus::after{ transform:rotate(90deg); }
-  .i-power::before{ width:12px; height:12px; left:2px; top:3px; border:1.75px solid currentColor; border-top-color:transparent; border-radius:50%; }
-  .i-power::after{ width:1.75px; height:7px; left:7.1px; top:1px; background:currentColor; border-radius:1px; }
-  .i-print::before{ width:14px; height:8px; left:1px; top:5px; border:1.5px solid currentColor; border-radius:2.5px; }
-  .i-print::after{ width:8px; height:5px; left:4px; bottom:1px; border:1.5px solid currentColor; background:var(--bg); border-radius:1px; }
-  .i-reset::before{ width:12px; height:12px; left:2px; top:2px; border:1.75px solid currentColor; border-right-color:transparent; border-radius:50%; }
-  .i-reset::after{ left:9px; top:.5px; width:0; height:0; border-style:solid; border-width:3.5px 0 3.5px 5px; border-color:transparent transparent transparent currentColor; }
-  .i-code::before, .i-code::after{ width:6px; height:6px; top:5px; }
-  .i-code::before{ left:2px; border-left:1.5px solid currentColor; border-bottom:1.5px solid currentColor; transform:rotate(45deg); }
-  .i-code::after{ right:2px; border-right:1.5px solid currentColor; border-top:1.5px solid currentColor; transform:rotate(45deg); }
-  .i-doc::before{ width:11px; height:14px; left:2.5px; top:1px; border:1.5px solid currentColor; border-radius:2px; }
-  .i-doc::after{ width:5px; height:1.5px; left:5.5px; top:6px; background:currentColor; box-shadow:0 3px 0 currentColor; }
-  .cv-remove i, .cert-file-remove i{ pointer-events:none; }
-  @keyframes spin{ to{ transform:rotate(360deg); } }
-  /* ---------- theme, motion, icons ---------- */
-  :root{ color-scheme:dark; --spot:rgba(176,58,63,.12); --ok:#8CC49A; --bad:#E4797D; }
-  @media screen{
-    html[data-theme="light"]{
-      color-scheme:light;
-      --bg:#F4ECE4; --line:rgba(78,21,25,0.14); --line-soft:rgba(78,21,25,0.07);
-      --ink:#2B1B19; --ink-dim:#5C4A45; --ink-faint:#75655E; --sanguine-bright:#A33339;
-      --glass-fill:rgba(255,255,255,0.55); --glass-border:rgba(122,32,39,0.16);
-      --glass-shadow:0 8px 32px rgba(78,21,25,0.14), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(78,21,25,0.06);
-      --spot:rgba(163,51,57,.10); --ok:#2F7A46; --bad:#B3262E;
-    }
-    html[data-theme="light"] ::selection{ background:rgba(176,58,63,0.25); }
-    html[data-theme="light"] .glass::before{ background:linear-gradient(135deg, rgba(163,51,57,0.42), rgba(122,32,39,0.06) 40%, rgba(122,32,39,0.06) 60%, rgba(163,51,57,0.26)); }
-    html[data-theme="light"] .glass::after{ background:radial-gradient(ellipse at center top, rgba(255,255,255,0.7), transparent 70%); }
-    html[data-theme="light"] .rail button{ background:rgba(78,21,25,0.22); }
-    html[data-theme="light"] .rail button:hover{ background:var(--ink-dim); }
-    html[data-theme="light"] .rail button.active{ background:var(--sanguine-bright); }
-    html[data-theme="light"] .toolbar button{ background:rgba(78,21,25,0.06); }
-    html[data-theme="light"] .toolbar button:hover, html[data-theme="light"] .toolbar button.armed{ background:rgba(176,58,63,0.16); color:var(--ink); }
-    html[data-theme="light"] .avatar-upload, html[data-theme="light"] .meta-pill, html[data-theme="light"] .cv-upload{ background:rgba(255,255,255,0.55); }
-    html[data-theme="light"] .avatar-upload:hover, html[data-theme="light"] .cv-upload:hover{ background:rgba(176,58,63,0.12); }
-    html[data-theme="light"] .skill-tag{ background:rgba(255,255,255,0.45); }
-    html[data-theme="light"] .skill-tag:hover{ background:rgba(176,58,63,0.1); }
-    html[data-theme="light"] .value-card:hover, html[data-theme="light"] .cert-item:hover{ background:rgba(78,21,25,0.03); }
-    html[data-theme="light"] [contenteditable="true"]:hover{ background:rgba(163,51,57,0.07); }
-  }
-  html.theming *, html.theming *::before, html.theming *::after{
-    transition:background-color .5s var(--ease), color .5s var(--ease), border-color .5s var(--ease), box-shadow .5s var(--ease), fill .5s var(--ease) !important;
-  }
-
-  @property --mx{ syntax:'<length-percentage>'; inherits:false; initial-value:50%; }
-  @property --my{ syntax:'<length-percentage>'; inherits:false; initial-value:0%; }
-  .hero-card, .values-panel, .cert-panel{
-    background-image:radial-gradient(420px circle at var(--mx) var(--my), var(--spot), transparent 70%); background-repeat:no-repeat;
-    transition:--mx .45s var(--ease), --my .45s var(--ease);
-  }
-
-  .toolbar{ animation:dropin .9s var(--ease) .25s both; }
-  .rail{ animation:railin .9s var(--ease) .35s both; }
-  @keyframes dropin{ from{ opacity:0; transform:translateY(-14px); } }
-  @keyframes railin{ from{ opacity:0; transform:translate(-14px, -50%); } }
-  .toolbar button{ display:inline-flex; align-items:center; gap:7px; }
-  .toolbar button:hover .i-reset{ transform:rotate(-200deg); }
-  .toolbar button:hover .i-print, .toolbar button:hover .i-code{ transform:translateY(-1px) scale(1.08); }
-  .toolbar button.armed{ background:rgba(176,58,63,0.35); border-color:var(--sanguine-bright); color:#fff; }
-
-  #save-hint{ display:inline-flex; align-items:center; gap:8px; }
-  #save-hint[data-s]::before{ content:""; flex:none; width:12px; height:12px; box-sizing:border-box; }
-  #save-hint[data-s="busy"]::before{ border:1.75px solid currentColor; border-top-color:transparent; border-radius:50%; animation:spin .7s linear infinite; }
-  #save-hint[data-s="ok"]::before{ width:6px; height:10px; margin:-3px 3px 0 3px; border:solid var(--ok); border-width:0 1.75px 1.75px 0; transform:rotate(45deg); animation:tickin .4s var(--ease); }
-  #save-hint[data-s="err"]::before{ color:var(--bad); background:linear-gradient(45deg, transparent 42%, currentColor 42% 58%, transparent 58%), linear-gradient(-45deg, transparent 42%, currentColor 42% 58%, transparent 58%); }
-  #save-hint[data-s="live"]::before{ width:7px; height:7px; border-radius:50%; background:var(--ok); animation:live 2.2s ease-out infinite; }
-  @keyframes tickin{ from{ opacity:0; transform:rotate(45deg) scale(.3); } }
-  @keyframes live{ 0%{ box-shadow:0 0 0 0 var(--ok); } 70%, 100%{ box-shadow:0 0 0 7px transparent; } }
-
-  .avatar-plus{ display:flex; flex-direction:column; align-items:center; gap:4px; }
-  .cv-upload svg, .cert-attach svg{ display:none; }
-  .cert-attach .i{ width:12px; height:12px; transform:scale(.75); margin:-2px; }
-  .cv-remove, .cert-file-remove{ display:inline-grid; place-items:center; }
-
-  [data-rv]{ opacity:0; transform:translateY(20px); filter:blur(5px);
-    transition:opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease); transition-delay:calc(var(--d, 0) * .08s); }
-  [data-rv="1"]{ --d:1; } [data-rv="2"]{ --d:2; } [data-rv="3"]{ --d:3; } [data-rv="4"]{ --d:4; } [data-rv="5"]{ --d:5; }
-  [data-rv][data-in]{ opacity:1; transform:none; filter:none; }
-  #resume-root[data-loading]{ opacity:0; animation:unhide 0s 4s forwards; }
-  #resume-root{ transition:opacity .4s var(--ease); }
-  @keyframes unhide{ to{ opacity:1; } }
-
-  .kicker::after{ content:""; display:inline-block; vertical-align:middle; width:34px; height:1px; margin-left:14px; background:var(--sanguine-bright); opacity:.6; transform-origin:left; }
-  .progress{ display:none; }
-  @supports (animation-timeline:view()){
-    .kicker::after{ animation:grow linear both; animation-timeline:view(); animation-range:entry 20% entry 95%; }
-    .timeline::before{ transform-origin:top; animation:drawy linear both; animation-timeline:view(); animation-range:entry 10% cover 55%; }
-    .progress{ display:block; position:fixed; top:0; left:4px; right:0; height:2px; z-index:70; background:var(--sanguine-bright); transform-origin:left; transform:scaleX(0); animation:prog linear both; animation-timeline:scroll(root); }
-  }
-  @keyframes grow{ from{ transform:scaleX(0); } }
-  @keyframes drawy{ from{ transform:scaleY(0); } }
-  @keyframes prog{ to{ transform:scaleX(1); } }
-
-  .rail button.active{ animation:ping 2.6s ease-out infinite; }
-  @keyframes ping{ 0%{ box-shadow:0 0 0 0 rgba(176,58,63,.55), 0 0 12px var(--sanguine-bright); } 70%, 100%{ box-shadow:0 0 0 12px rgba(176,58,63,0), 0 0 12px var(--sanguine-bright); } }
-  .tl-node::after{ animation:beat 3.2s ease-in-out infinite; }
-  @keyframes beat{ 50%{ transform:scale(1.4); opacity:.75; } }
-  .value-mark{ transition:width .5s var(--ease); }
-  .value-card:hover .value-mark{ width:56px; }
-  .skill-tag:hover{ transform:translateY(-2px); }
-  .ref-card{ transition:transform .35s var(--ease), border-color .35s var(--ease); }
-  .ref-card:hover{ transform:translateY(-3px); border-top-color:var(--sanguine-bright); }
-  .meta-pill:hover{ transform:translateY(-1px); }
-
-  @media print{ .progress{ display:none !important; } [data-rv]{ opacity:1 !important; transform:none !important; filter:none !important; } #resume-root[data-loading]{ opacity:1; } }
-  @media (prefers-reduced-motion:reduce){ .rail button.active, .tl-node::after, .toolbar, .rail, #save-hint::before{ animation:none !important; } }
 </style>
 </head>
 <body>
@@ -2290,7 +1815,6 @@
 <canvas id="webgl-bg"></canvas>
 <div class="stripes"></div>
 <div class="side-stripe"></div>
-<div class="progress"></div>
 
 <nav class="rail glass" id="rail">
   <button data-target="hero" class="active" aria-label="Top"></button>
@@ -2307,8 +1831,8 @@
 
 <div class="toolbar glass">
   <span class="hint" id="save-hint">Read only view</span>
-  <button id="btn-debug" type="button"><i class="i i-code"></i><span class="lbl">Show debug</span></button>
-  <button id="btn-print"><i class="i i-print"></i><span class="lbl">Save as PDF</span></button>
+  <button id="btn-debug" type="button">Show debug</button>
+  <button id="btn-print">Save as PDF</button>
 </div>
 
 <main>
@@ -2335,7 +1859,7 @@
         <span class="meta-pill" data-field data-placeholder="Edited by: someone">Edited by: someone</span>
 
         <div class="cv-upload" id="cv-zone">
-          <i class="i i-doc"></i>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8.5L21 10.5z"/><path d="M14 3v7h7"/></svg>
           <span id="cv-label">No CV attached</span>
         </div>
       </div>
@@ -2577,7 +2101,7 @@
 <script>
 (function(){
   /* ============================================================
-     SUPABASE CONFIG (READ ONLY)
+     SUPABASE CONFIG — READ ONLY
      ============================================================ */
   var SUPABASE_URL      = 'https://dtpubmqtsexlosoexjba.supabase.co';
   var SUPABASE_ANON_KEY = 'sb_publishable_t-foXT6JNdnFejto0uJqAA_6Y4gln6G';
@@ -2614,7 +2138,6 @@
       uniform vec2 u_resolution;
       uniform float u_time;
       uniform vec2 u_mouse;
-      uniform float u_light;
 
       float random(vec2 st) {
         return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
@@ -2658,19 +2181,17 @@
         vec2 r = vec2(fbm(st + 4.0*q + vec2(1.7,9.2) + t*1.5), fbm(st + 4.0*q + vec2(8.3,2.8) - t*1.5));
         float f = fbm(st + 4.0*r + mouseInfluence);
 
-        vec3 color1 = mix(vec3(0.07, 0.05, 0.04), vec3(0.96, 0.93, 0.90), u_light);
-        vec3 color2 = mix(vec3(0.30, 0.08, 0.10), vec3(0.90, 0.76, 0.74), u_light);
-        vec3 color3 = mix(vec3(0.69, 0.22, 0.25), vec3(0.74, 0.34, 0.36), u_light);
+        vec3 color1 = vec3(0.07, 0.05, 0.04);
+        vec3 color2 = vec3(0.30, 0.08, 0.10);
+        vec3 color3 = vec3(0.69, 0.22, 0.25);
 
         vec3 color = mix(color1, color2, f);
         color = mix(color, color3, smoothstep(0.4, 0.8, f) * smoothstep(0.0, 0.5, length(q)));
 
-        color += vec3(0.15, 0.05, 0.05) * mouseInfluence * (1.0 - 0.6 * u_light);
+        color += vec3(0.15, 0.05, 0.05) * mouseInfluence;
 
         float vignette = smoothstep(1.5, 0.2, distance(st, vec2(0.5, 0.5)));
-        vec3 darkMix  = color * (0.4 + vignette * 0.6);
-        vec3 lightMix = mix(color, vec3(0.91, 0.85, 0.80), (1.0 - vignette) * 0.55);
-        color = mix(darkMix, lightMix, u_light);
+        color *= 0.4 + vignette * 0.6;
 
         gl_FragColor = vec4(color, 1.0);
       }
@@ -2701,10 +2222,6 @@
     const u_resolution = gl.getUniformLocation(program, "u_resolution");
     const u_time = gl.getUniformLocation(program, "u_time");
     const u_mouse = gl.getUniformLocation(program, "u_mouse");
-    const u_light = gl.getUniformLocation(program, "u_light");
-    const isLight = () => document.documentElement.getAttribute("data-theme") === "light" ? 1 : 0;
-    let lightNow = isLight();
-    window.__glRedraw = () => { if(calmGL){ lightNow = isLight(); render(); } };
 
     let mouseX = window.innerWidth / 2;
     let mouseY = window.innerHeight / 2;
@@ -2719,8 +2236,6 @@
       gl.uniform2f(u_resolution, canvas.width, canvas.height);
       gl.uniform1f(u_time, (performance.now() - startTime) / 1000);
       gl.uniform2f(u_mouse, mouseX * GL_SCALE, mouseY * GL_SCALE);
-      lightNow += (isLight() - lightNow) * 0.08;
-      gl.uniform1f(u_light, lightNow);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       if(!calmGL) requestAnimationFrame(render);
     }
@@ -2775,7 +2290,7 @@
   function pad2(n){ return (n < 10 ? '0' : '') + n; }
   function setDebug(on){
     if(dbgPanel) dbgPanel.hidden = !on;
-    if(dbgBtn) dbgBtn.querySelector('.lbl').textContent = on ? 'Hide debug' : 'Show debug';
+    if(dbgBtn) dbgBtn.textContent = on ? 'Hide debug' : 'Show debug';
   }
   function showDebug(){ setDebug(true); }
   function log(msg){
@@ -2911,7 +2426,7 @@
       if(res.error){ console.warn('[supabase load]', res.error); if(hint) hint.textContent = 'Read only view'; return; }
       if(res.data && res.data.content && res.data.content.html){
         applyContent(res.data.content.html);
-        if(hint){ hint.textContent = 'Read only view, live'; hint.setAttribute('data-s', 'live'); }
+        if(hint) hint.textContent = 'Read only view — live';
       } else {
         if(hint) hint.textContent = 'Read only view';
       }
@@ -2959,7 +2474,7 @@
         try{ tab.opener = null; }catch(e){}
         tab.location.replace(r.data.signedUrl);
       } else {
-        log('Pop-up blocked. Allow pop-ups for this site.');
+        log('Pop-up blocked — allow pop-ups for this site');
         showDebug();
       }
     }catch(err2){
@@ -2976,98 +2491,6 @@
   }
 
   loadFromCloud();
-})();
-<\/script>
-<script>
-(function(){
-  var de = document.documentElement;
-  var root = document.getElementById('resume-root');
-  var admin = !!document.getElementById('btn-reset');
-  var calm = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  var SEL = '.hero-card, .hero-top, .hero-name, .hero-role, .hero-meta, .kicker, .section-hint, .lede, .body-copy, .ed-item, .philosophy-quote, '
-    + '.values-panel, .tl-item, .skill-groups > div, .flat-item, .cert-panel, .ref-card, footer';
-  var io = null;
-
-  function scan(){
-    if(calm || !('IntersectionObserver' in window)) return;
-    if(!io){
-      io = new IntersectionObserver(function(list){
-        list.forEach(function(e){
-          if(!e.isIntersecting) return;
-          var el = e.target;
-          io.unobserve(el);
-          el.setAttribute('data-in', '');
-          // drop the attributes once settled so hover transitions and saved markup stay clean
-          setTimeout(function(){ el.removeAttribute('data-rv'); el.removeAttribute('data-in'); }, 1700);
-        });
-      }, { threshold:0.08, rootMargin:'0px 0px -5% 0px' });
-    }
-    var seen = new Map();
-    document.querySelectorAll(SEL).forEach(function(el){
-      if(el.hasAttribute('data-rv')) return;
-      var p = el.parentNode, n = seen.get(p) || 0;
-      seen.set(p, n + 1);
-      el.setAttribute('data-rv', String(Math.min(n, 5)));
-      io.observe(el);
-    });
-  }
-
-  // removes everything this script adds, used before the page is saved
-  function strip(c){
-    c.querySelectorAll('[data-rv], [data-in]').forEach(function(x){ x.removeAttribute('data-rv'); x.removeAttribute('data-in'); });
-    c.querySelectorAll('[style]').forEach(function(x){
-      x.style.removeProperty('--mx'); x.style.removeProperty('--my');
-      if(!x.getAttribute('style')) x.removeAttribute('style');
-    });
-  }
-
-  function icon(cls){ var i = document.createElement('i'); i.className = 'i ' + cls; return i; }
-  function tidy(){
-    document.querySelectorAll('.cv-upload svg, .cert-attach svg').forEach(function(s){
-      s.replaceWith(icon(s.closest('.cv-upload') ? 'i-doc' : 'i-plus'));
-    });
-    document.querySelectorAll('.cv-remove, .cert-file-remove').forEach(function(b){
-      if(!b.querySelector('.i')){ b.textContent = ''; b.appendChild(icon('i-x')); }
-    });
-    var ap = document.querySelector('.avatar-plus');
-    if(ap && admin && !ap.querySelector('.i')){
-      var word = ap.textContent.replace(/[＋+]/g, '').trim() || 'photo';
-      ap.textContent = ''; ap.appendChild(icon('i-plus'));
-      var t = document.createElement('span'); t.textContent = word; ap.appendChild(t);
-    }
-  }
-
-  function refresh(){
-    if(root) root.removeAttribute('data-loading');
-    tidy(); scan();
-  }
-  window.__page = { refresh:refresh, strip:strip };
-  if(!admin) refresh();
-
-  // theme changes come from the shell
-  var tmr = 0;
-  new MutationObserver(function(){
-    de.classList.add('theming');
-    clearTimeout(tmr);
-    tmr = setTimeout(function(){ de.classList.remove('theming'); }, 750);
-    if(window.__glRedraw) window.__glRedraw();
-  }).observe(de, { attributes:true, attributeFilter:['data-theme'] });
-
-  // light follows the pointer across the large panels
-  var PANEL = '.hero-card, .values-panel, .cert-panel';
-  document.addEventListener('pointermove', function(e){
-    var g = e.target.closest ? e.target.closest(PANEL) : null;
-    if(!g) return;
-    var r = g.getBoundingClientRect();
-    g.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-    g.style.setProperty('--my', (e.clientY - r.top) + 'px');
-  }, { passive:true });
-  document.addEventListener('pointerout', function(e){
-    var g = e.target.closest ? e.target.closest(PANEL) : null;
-    if(!g || (e.relatedTarget && g.contains(e.relatedTarget))) return;
-    g.style.removeProperty('--mx'); g.style.removeProperty('--my');
-    if(!g.getAttribute('style')) g.removeAttribute('style');
-  });
 })();
 <\/script>
 
@@ -3247,40 +2670,30 @@
     if(calm || !el.animate) return;
     el.animate([{ opacity:0, transform:'translateY(' + dy + 'px)' }, { opacity:1, transform:'translateY(0)' }], { duration:340, easing:EASE });
   }
-  var msg = $('msg'), go = $('go'), goLabel = $('go-label'), sub = $('sub'), foot = $('foot'), eye = $('eye');
+  var msg = $('msg'), go = $('go'), sub = $('sub'), foot = $('foot'), eye = $('eye');
   var mode = 'in', busy = false;
   var unameReveal = $('uname-reveal'), unameEl = $('uname-status');
   var unameTimer = 0, unameReq = 0, unameState = '', unameChecked = '';
 
   /* ============== THEME + LOWER-END DEVICE CONTROLS ============== */
-  var themeBtn = $('theme-toggle'), themeBtn2 = $('theme-toggle2'), liteBtn = $('lite-toggle'), themeTimer = 0;
+  var themeBtn = $('theme-toggle'), liteBtn = $('lite-toggle');
   function syncThemeUI(){
     var light = lightTarget === 1;
     var tip = light ? 'Switch to dark mode' : 'Switch to light mode';
     themeBtn.setAttribute('aria-label', tip); themeBtn.setAttribute('data-tip', tip);
-    themeBtn2.setAttribute('aria-label', tip); themeBtn2.setAttribute('title', tip);
   }
   function syncLiteUI(){
     liteBtn.setAttribute('aria-pressed', String(lite));
     liteBtn.setAttribute('data-tip', 'Lower-end device mode: ' + (lite ? 'On' : 'Off'));
   }
-  function setTheme(light){
+  themeBtn.addEventListener('click', function(){
+    var light = lightTarget === 0;
     lightTarget = light ? 1 : 0;
     if(!glRunning) lightNow = lightTarget;
-    root.classList.add('theming');
-    clearTimeout(themeTimer);
-    themeTimer = setTimeout(function(){ root.classList.remove('theming'); }, 750);
     if(light) root.setAttribute('data-theme', 'light'); else root.removeAttribute('data-theme');
-    try{ // the signed-in page lives in the frame and follows the same setting
-      var fd = frame.contentDocument && frame.contentDocument.documentElement;
-      if(fd){ if(light) fd.setAttribute('data-theme', 'light'); else fd.removeAttribute('data-theme'); }
-    }catch(e){}
     remember('vanilla-theme', light ? 'light' : 'dark');
     syncThemeUI();
-  }
-  function flipTheme(){ setTheme(lightTarget === 0); }
-  themeBtn.addEventListener('click', flipTheme);
-  themeBtn2.addEventListener('click', flipTheme);
+  });
   liteBtn.addEventListener('click', function(){
     lite = !lite;
     root.classList.toggle('lite', lite);
@@ -3289,13 +2702,6 @@
     syncLiteUI();
   });
   syncThemeUI(); syncLiteUI();
-
-  function flag(inp){
-    inp.focus();
-    var w = inp.parentNode;
-    w.classList.remove('bad'); void w.offsetWidth; w.classList.add('bad');
-  }
-  document.addEventListener('input', function(e){ var w = e.target.parentNode; if(w && w.classList) w.classList.remove('bad'); });
 
   function say(text, kind){
     msg.textContent = text || ''; msg.className = 'msg' + (kind ? ' ' + kind : '');
@@ -3312,10 +2718,10 @@
     tabIn.setAttribute('aria-selected', String(!up)); tabUp.setAttribute('aria-selected', String(up));
     tabsEl.classList.toggle('up', up); confirmReveal.classList.toggle('open', up); unameReveal.classList.toggle('open', up);
     pass.autocomplete = up ? 'new-password' : 'current-password';
-    goLabel.textContent = up ? 'Create account' : 'Sign in';
+    go.textContent = up ? 'Create account' : 'Sign in';
     sub.textContent = up ? 'Create an account to view the résumé.' : 'Sign in to continue.';
     foot.textContent = up ? 'Already registered? Switch to Sign in.' : 'New here? Create an account to view the résumé.';
-    if(changed){ swap(sub, 6); swap(foot, 6); swap(goLabel, 6); }
+    if(changed){ swap(sub, 6); swap(foot, 6); swap(go, 0); }
     say('');
     if(up) scheduleUnameCheck(); else unameReset();
   }
@@ -3325,7 +2731,7 @@
     var show = pass.type === 'password';
     pass.type = show ? 'text' : 'password';
     pass2.type = pass.type;
-    eye.firstElementChild.classList.toggle('off', show);
+    eye.textContent = show ? 'Hide' : 'Show';
     eye.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
   });
 
@@ -3338,7 +2744,7 @@
   }
 
   /* ============== USERNAME AVAILABILITY (create account tab) ============== */
-  var UNAME_TEXT = { checking:'Checking…', available:'Available', taken:'Already taken' };
+  var UNAME_TEXT = { checking:'Checking…', available:'✓ available', taken:'✗ already taken' };
   var UNAME_CLASS = { checking:' checking', available:' ok', taken:' err' };
   function unameSet(state){
     unameState = state;
@@ -3384,19 +2790,19 @@
   }
 
   function setBusy(b){
-    busy = b; go.disabled = b; go.classList.toggle('busy', b);
-    goLabel.textContent = b ? (mode === 'up' ? 'Creating…' : 'Signing in…') : (mode === 'up' ? 'Create account' : 'Sign in');
+    busy = b; go.disabled = b;
+    go.textContent = b ? (mode === 'up' ? 'Creating…' : 'Signing in…') : (mode === 'up' ? 'Create account' : 'Sign in');
   }
 
   form.addEventListener('submit', async function(e){
     e.preventDefault();
     if(busy) return;
     var raw = normalizeUsername(email.value), pw = pass.value;
-    if(!validUsername(raw)){ say('Username must be 3–24 chars: a–z, 0–9, . _ -', 'err'); flag(email); return; }
-    if(pw.length < 8){ say('Password must be at least 8 characters.', 'err'); flag(pass); return; }
-    if(mode === 'up' && pw !== pass2.value){ say('Passwords do not match.', 'err'); flag(pass2); return; }
+    if(!validUsername(raw)){ say('Username must be 3–24 chars: a–z, 0–9, . _ -', 'err'); email.focus(); return; }
+    if(pw.length < 8){ say('Password must be at least 8 characters.', 'err'); pass.focus(); return; }
+    if(mode === 'up' && pw !== pass2.value){ say('Passwords do not match.', 'err'); pass2.focus(); return; }
     if(mode === 'up' && unameState === 'taken' && unameChecked === raw){
-      say('That username is already taken. Pick another.', 'err'); flag(email); return;
+      say('That username is already taken. Pick another.', 'err'); email.focus(); return;
     }
 
     setBusy(true); say('');
@@ -3483,24 +2889,6 @@
       setTimeout(function(){ mount(session); }, 0); // avoid awaiting supabase calls inside the auth callback
     }
   });
-
-  if(window.CSS && CSS.registerProperty) root.classList.add('rim');
-  if(!calm){
-    cardEl.addEventListener('pointermove', function(e){
-      var r = cardEl.getBoundingClientRect();
-      cardEl.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-      cardEl.style.setProperty('--my', (e.clientY - r.top) + 'px');
-    });
-    cardEl.addEventListener('pointerleave', function(){ cardEl.style.removeProperty('--mx'); cardEl.style.removeProperty('--my'); });
-    go.addEventListener('pointerdown', function(e){
-      if(go.disabled) return;
-      var r = go.getBoundingClientRect(), d = Math.max(r.width, r.height) * 2, p = document.createElement('span');
-      p.className = 'rip';
-      p.style.cssText = 'width:' + d + 'px;height:' + d + 'px;left:' + (e.clientX - r.left - d / 2) + 'px;top:' + (e.clientY - r.top - d / 2) + 'px';
-      go.appendChild(p);
-      setTimeout(function(){ p.remove(); }, 700);
-    });
-  }
 
   (async function init(){
     startGL();
