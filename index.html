@@ -257,7 +257,6 @@
   html.lite #webgl-bg, html.lite .stripes{ display:none; }
   html.lite .glass{ -webkit-backdrop-filter:none; backdrop-filter:none; background:var(--lite-card); }
   @media (prefers-reduced-motion:reduce){ .ic i, .tool, .tool::after{ transition:none; } }
-
   /* ---------- motion ---------- */
   .tabs .pill{
     position:absolute; top:5px; bottom:5px; left:5px; width:calc((100% - 16px) / 2); border-radius:999px; pointer-events:none;
@@ -349,8 +348,6 @@
   </div>
 </div>
 
-<!-- ============== ADMIN PAGE TEMPLATE ============== -->
-<!-- Note: <\/script> is used inside to prevent the HTML parser from closing the template early -->
 <script type="text/template" id="tpl-admin">
 <!DOCTYPE html>
 <html lang="en">
@@ -363,44 +360,133 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#120D0C; --line:rgba(255,255,255,0.12); --line-soft:rgba(255,255,255,0.06);
-    --ink:#F1E9E1; --ink-dim:#B9AC9F; --ink-faint:#7E7069;
-    --sanguine:#7A2027; --sanguine-bright:#B03A3F; --sanguine-deep:#4E1519;
-    --glass-fill: rgba(255,255,255,0.04); --glass-border: rgba(255,255,255,0.12);
+    --bg:#120D0C;
+    --line:rgba(255,255,255,0.12);
+    --line-soft:rgba(255,255,255,0.06);
+    --ink:#F1E9E1;
+    --ink-dim:#B9AC9F;
+    --ink-faint:#7E7069;
+    --sanguine:#7A2027;
+    --sanguine-bright:#B03A3F;
+    --sanguine-deep:#4E1519;
+    --glass-fill: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.12);
     --glass-shadow: 0 8px 32px rgba(0,0,0,0.37), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.2);
-    --radius-lg: 24px; --radius-md: 16px; --ease: cubic-bezier(.22,.61,.36,1);
+    --radius-lg: 24px;
+    --radius-md: 16px;
+    --ease: cubic-bezier(.22,.61,.36,1);
   }
+
   *{ box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
+
   body{
-    margin:0; background:var(--bg); color:var(--ink);
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
     font-family:"Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height:1.6; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; overflow-x:hidden;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x: hidden;
   }
+
   ::selection{ background:var(--sanguine-deep); color:var(--ink); }
   h1,h2,h3{ font-family:inherit; font-weight:500; letter-spacing:-0.03em; margin:0; color:var(--ink); }
   a{ color:inherit; }
 
-  #webgl-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; }
-  .stripes { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; background-image: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(176, 58, 63, 0.03) 40px, rgba(176, 58, 63, 0.03) 41px); }
-  .side-stripe { position: fixed; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(to bottom, var(--sanguine-deep), var(--sanguine-bright), var(--sanguine-deep)); z-index: 50; }
+  #webgl-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -2;
+  }
 
-  .glass{ position:relative; background:var(--glass-fill); -webkit-backdrop-filter:blur(20px) saturate(180%); backdrop-filter:blur(20px) saturate(180%); border:1px solid var(--glass-border); box-shadow:var(--glass-shadow); border-radius: var(--radius-lg); overflow: hidden; }
-  .glass::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.1)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; z-index: 1; }
-  .glass::after { content: ""; position: absolute; top: 0; left: 20%; right: 20%; height: 40%; background: radial-gradient(ellipse at center top, rgba(255,255,255,0.08), transparent 70%); pointer-events: none; z-index: 1; }
+  .stripes {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(176, 58, 63, 0.03) 40px,
+      rgba(176, 58, 63, 0.03) 41px
+    );
+  }
+
+  .side-stripe {
+    position: fixed;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--sanguine-deep), var(--sanguine-bright), var(--sanguine-deep));
+    z-index: 50;
+  }
+
+  .glass{
+    position:relative;
+    background:var(--glass-fill);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    border:1px solid var(--glass-border);
+    box-shadow:var(--glass-shadow);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.1));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .glass::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 20%; right: 20%;
+    height: 40%;
+    background: radial-gradient(ellipse at center top, rgba(255,255,255,0.08), transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+  }
 
   .wrap{ max-width:1180px; margin:0 auto; padding:0 48px; position:relative; }
   @media (max-width:860px){ .wrap{ padding:0 24px; } }
 
-  .rail{ position:fixed; top:50%; left:22px; transform:translateY(-50%); display:flex; flex-direction:column; align-items:center; gap:18px; padding:20px 11px; border-radius:999px; z-index:60; }
-  .rail button{ all:unset; width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.25); cursor:pointer; transition:all .3s var(--ease); }
+  .rail{
+    position:fixed; top:50%; left:22px; transform:translateY(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:18px;
+    padding:20px 11px; border-radius:999px; z-index:60;
+  }
+  .rail button{
+    all:unset; width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.25);
+    cursor:pointer; transition:all .3s var(--ease);
+  }
   .rail button:hover{ background:var(--ink-dim); transform: scale(1.4); }
   .rail button.active{ background:var(--sanguine-bright); transform:scale(2.2); box-shadow: 0 0 12px var(--sanguine-bright); }
   @media (max-width:860px){ .rail{ display:none; } }
 
-  .toolbar{ position:fixed; top:24px; right:24px; z-index:60; border-radius:999px; display:flex; align-items:center; gap:6px; padding:8px 8px 8px 16px; }
+  .toolbar{
+    position:fixed; top:24px; right:24px; z-index:60; border-radius:999px;
+    display:flex; align-items:center; gap:6px; padding:8px 8px 8px 16px;
+  }
   .toolbar span.hint{ font-size:12px; color:var(--ink-dim); margin-right:6px; white-space:nowrap; letter-spacing:0.02em; font-weight: 400; }
-  .toolbar button{ all:unset; cursor:pointer; font-family:inherit; font-weight:500; font-size:12px; color:var(--ink); padding:10px 16px; border-radius:999px; background:rgba(255,255,255,0.08); border:1px solid transparent; transition:all .2s var(--ease); }
+  .toolbar button{
+    all:unset; cursor:pointer; font-family:inherit; font-weight:500; font-size:12px; color:var(--ink);
+    padding:10px 16px; border-radius:999px; background:rgba(255,255,255,0.08); border:1px solid transparent;
+    transition:all .2s var(--ease);
+  }
   .toolbar button:hover{ background:rgba(176, 58, 63, 0.3); border-color:var(--sanguine-bright); color: #fff; }
   .toolbar button:active{ transform:scale(0.96); }
   @media (max-width:640px){ .toolbar span.hint{ display:none; } }
@@ -423,7 +509,11 @@
   #hero{ min-height:92vh; display:flex; flex-direction:column; justify-content:center; padding:150px 0 100px; }
 
   .hero-card{ padding:56px clamp(28px,5vw,64px); }
-  .hero-card::before { padding: 2px; background: linear-gradient(135deg, rgba(176,58,63,0.5), rgba(255,255,255,0.1) 40%, rgba(255,255,255,0.1) 60%, rgba(176,58,63,0.3)); }
+
+  .hero-card::before {
+    padding: 2px;
+    background: linear-gradient(135deg, rgba(176,58,63,0.5), rgba(255,255,255,0.1) 40%, rgba(255,255,255,0.1) 60%, rgba(176,58,63,0.3));
+  }
 
   .hero-top{ display:flex; align-items:center; gap:26px; margin-bottom:38px; flex-wrap:wrap; position: relative; z-index: 2; }
 
@@ -542,6 +632,7 @@
   .cert-file-chip.show{ display:inline-flex; }
   .cert-file-chip a{ text-decoration:underline; text-decoration-color:var(--line); }
   .cert-file-remove{ all:unset; cursor:pointer; color:var(--ink-faint); }
+  .cert-file-remove:hover{ color:var(--sanguine-bright); }
 
   .ref-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:36px; }
   @media (max-width:860px){ .ref-grid{ grid-template-columns:1fr; } }
@@ -555,13 +646,25 @@
 
   input[type="file"]{ display:none; }
 
+  /* debug panel */
+  #debug-panel{
+    position:fixed; left:12px; bottom:12px; z-index:9999;
+    width:min(560px, calc(100vw - 24px)); max-height:40vh; overflow:auto;
+    padding:8px 10px; border-radius:8px; text-align:left;
+    background:rgba(8,8,8,0.92); border:1px solid #333; color:#b8f2c0;
+    font:11px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    white-space:pre-wrap; word-break:break-word;
+  }
+  #debug-panel[hidden]{ display:none; }
+  #debug-panel .err{ color:#ff8a8a; }
+
   @media print{
     :root{
       --bg:#ffffff; --ink:#141414; --ink-dim:#3a3a3a; --ink-faint:#666666;
       --line:#dcdcdc; --line-soft:#e8e8e8; --sanguine-bright:#7A2027;
       --glass-shadow:none; --glass-border:#dcdcdc; --glass-fill:#ffffff;
     }
-    #webgl-bg, .stripes, .rail, .toolbar, .side-stripe { display:none !important; }
+    #webgl-bg, .stripes, .rail, .toolbar, .side-stripe, #debug-panel { display:none !important; }
     .glass{ backdrop-filter:none !important; -webkit-backdrop-filter:none !important; box-shadow:none !important; border: 1px solid #dcdcdc !important; }
     .glass::before, .glass::after { display: none !important; }
     main{ padding-left:0; }
@@ -600,7 +703,8 @@
 </nav>
 
 <div class="toolbar glass">
-  <span class="hint" id="save-hint">Click any field to edit ⟶ autosaves to cloud</span>
+  <span class="hint" id="save-hint">Click any field to edit — autosaves to cloud</span>
+  <button id="btn-debug" type="button">Show debug</button>
   <button id="btn-print">Save as PDF</button>
   <button id="btn-reset">Reset</button>
 </div>
@@ -631,9 +735,9 @@
 
         <label class="cv-upload" id="cv-zone">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8.5L21 10.5z"/><path d="M14 3v7h7"/></svg>
-          <span id="cv-label">Attach CV (PDF, DOC, DOCX)</span>
+          <span id="cv-label">Attach CV (PDF)</span>
           <button type="button" class="cv-remove" id="cv-remove" style="display:none;">✕</button>
-          <input type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" data-role="cv">
+          <input type="file" accept="application/pdf,.pdf" data-role="cv">
         </label>
       </div>
     </div>
@@ -864,7 +968,7 @@
   </section>
 
   <footer>
-    <span contenteditable="true" data-placeholder="Your name · Resume"></span>
+    <span contenteditable="true" data-placeholder="Your name — Resume"></span>
     <span contenteditable="true" data-placeholder="email@example.com"></span>
   </footer>
 
@@ -872,11 +976,16 @@
 </div>
 </main>
 
+<div id="debug-panel" hidden></div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"><\/script>
 <script>
 (function(){
-  /* ============== SUPABASE CONFIG ============== */
+  /* ============================================================
+     SUPABASE CONFIG
+     ============================================================ */
   var SUPABASE_URL      = 'https://dtpubmqtsexlosoexjba.supabase.co';
+  // Replaced with the correct publishable key (safe for browser use)
   var SUPABASE_ANON_KEY = 'sb_publishable_t-foXT6JNdnFejto0uJqAA_6Y4gln6G';
 
   var sb = (function(){ try{ return window.parent.__vanillaSb; }catch(e){ return null; } })() || window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -888,10 +997,10 @@
 
   /* ============== WEBGL ANIMATED BACKGROUND ============== */
   const canvas = document.getElementById('webgl-bg');
-  const GL_SCALE = 0.5;
+  const GL_SCALE = 0.5; // the background is soft noise, so half resolution looks identical and scrolls far smoother
   const calmGL = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   const parentLite = (function(){ try{ return window.parent.document.documentElement.classList.contains('lite'); }catch(e){ return false; } })();
-  const gl = parentLite ? null : canvas.getContext('webgl');
+  const gl = parentLite ? null : canvas.getContext('webgl'); // lower-end device mode: skip WebGL entirely
 
   if (gl) {
     const resize = () => {
@@ -1025,10 +1134,51 @@
 
   function setHint(t){ if(hint) hint.textContent = t; }
 
-  var IDLE = 'Click any field to edit ⟶ autosaves to cloud';
-  var ready = false;
-  var saveTimer = null, hintTimer = null, saving = false, dirty = false;
+  /* ============== DEBUG PANEL ============== */
+  var dbgPanel = document.getElementById('debug-panel');
+  var dbgBtn = document.getElementById('btn-debug');
+  function pad2(n){ return (n < 10 ? '0' : '') + n; }
+  function setDebug(on){
+    if(dbgPanel) dbgPanel.hidden = !on;
+    if(dbgBtn) dbgBtn.textContent = on ? 'Hide debug' : 'Show debug';
+  }
+  function showDebug(){ setDebug(true); }
+  function log(msg){
+    var d = new Date();
+    var line = '[' + pad2(d.getHours()) + ':' + pad2(d.getMinutes()) + ':' + pad2(d.getSeconds()) + '] ' + msg;
+    console.log('[cv-debug]', msg);
+    if(!dbgPanel) return;
+    var row = document.createElement('div');
+    if(/error|failed|blocked/i.test(String(msg))) row.className = 'err';
+    row.textContent = line;
+    dbgPanel.appendChild(row);
+    while(dbgPanel.childNodes.length > 200) dbgPanel.removeChild(dbgPanel.firstChild);
+    dbgPanel.scrollTop = dbgPanel.scrollHeight;
+  }
+  function errLine(err){
+    var e = err || {}, det;
+    try{ det = JSON.stringify(err); }catch(x){ det = String(err); }
+    return 'Upload error: ' + (e.message || String(err)) + ' | code=' + (e.statusCode || 'n/a') + ' | details=' + det;
+  }
+  if(dbgBtn) dbgBtn.addEventListener('click', function(){ setDebug(dbgPanel.hidden); });
+  window.addEventListener('error', function(e){
+    if(e && e.message && /^ResizeObserver/.test(e.message)) return; // harmless browser notice
+    log('Page error: ' + (e && e.message) + ' (' + ((e && e.filename) || '') + ':' + ((e && e.lineno) || '') + ')');
+    showDebug();
+  });
+  window.addEventListener('unhandledrejection', function(e){
+    var r = e && e.reason;
+    log('Unhandled rejection: ' + ((r && r.message) || String(r)));
+    showDebug();
+  });
+  log('Debug panel ready');
 
+  var IDLE = 'Click any field to edit — autosaves to cloud';
+  var ready = false;   // saving stays off until the cloud copy is read, so a failed load can never overwrite it
+  var saveTimer = null, hintTimer = null, saving = false, dirty = false;
+  var cvLogPending = false; // log the next save once after a CV upload
+
+  /* blob: links only live in this browser tab, so they are never stored */
   function stripBlobLinks(el){
     el.querySelectorAll('a[href^="blob:"]').forEach(function(x){ x.removeAttribute('href'); });
   }
@@ -1040,29 +1190,29 @@
   }
 
   async function loadFromCloud(){
-    root.setAttribute('inert', '');
+    root.setAttribute('inert', ''); // no typing until the saved copy has arrived
     setHint('Loading…');
     try{
       var res = await sb.from(TABLE).select('content').eq('id', ROW_ID).maybeSingle();
-      if(res.error){ console.warn('[supabase load]', res.error); setHint('Could not load ⟶ reload the page to edit'); return; }
+      if(res.error){ console.warn('[supabase load]', res.error); setHint('Could not load — reload the page to edit'); return; }
       if(res.data && res.data.content && typeof res.data.content.html === 'string' && res.data.content.html.length){
         root.innerHTML = res.data.content.html;
         stripBlobLinks(root);
-        setHint('Loaded ✓ ⟶ click any field to edit');
+        setHint('Loaded ✓ — click any field to edit');
       } else {
         setHint(IDLE);
       }
       ready = true;
       root.removeAttribute('inert');
-      setActive();
+      setActive(); // the page height just changed
     }catch(err){
       console.warn('[supabase load]', err);
-      setHint('Offline ⟶ reload the page to edit');
+      setHint('Offline — reload the page to edit');
     }
   }
 
   function scheduleSave(){
-    if(!ready) return;
+    if(!ready){ if(cvLogPending) log('scheduleSave skipped: page not ready (cloud copy not loaded)'); return; }
     clearTimeout(hintTimer);
     setHint('Saving…');
     clearTimeout(saveTimer);
@@ -1071,7 +1221,7 @@
 
   async function doSave(){
     if(!ready) return;
-    if(saving){ dirty = true; return; }
+    if(saving){ dirty = true; return; } // one save at a time, newest edits go last
     saving = true; dirty = false;
     try{
       var res = await sb.from(TABLE).upsert({
@@ -1079,7 +1229,11 @@
         content: { html: snapshot() },
         updated_at: new Date().toISOString()
       });
-      if(res.error){ console.warn('[supabase save]', res.error); setHint('Save failed ⟶ see console'); return; }
+      if(res.error){ console.warn('[supabase save]', res.error); log('Save error: ' + res.error.message + ' | details=' + JSON.stringify(res.error)); showDebug(); setHint('Save failed — see console'); return; }
+      if(cvLogPending){
+        cvLogPending = false;
+        log('Autosave finished — snapshot contains data-cv-path: ' + (snapshot().indexOf('data-cv-path') !== -1 ? 'yes' : 'no'));
+      }
       if(dirty){ setHint('Saving…'); }
       else {
         setHint('Saved ✓');
@@ -1087,13 +1241,15 @@
       }
     }catch(err){
       console.warn('[supabase save]', err);
-      setHint('Save failed ⟶ see console');
+      log('Save error: ' + (err && err.message ? err.message : String(err))); showDebug();
+      setHint('Save failed — see console');
     }finally{
       saving = false;
       if(dirty) doSave();
     }
   }
 
+  /* paste as plain text so copied web styling or markup never lands in the résumé */
   root.addEventListener('paste', function(e){
     var t = e.target && e.target.closest ? e.target.closest('[contenteditable]') : null;
     if(!t) return;
@@ -1102,6 +1258,7 @@
     if(text) document.execCommand('insertText', false, text);
   });
 
+  /* profile photos are shrunk before storing so the saved row (and live updates) stay small */
   function shrinkImage(file, max, done){
     var url = URL.createObjectURL(file), im = new Image();
     im.onload = function(){
@@ -1125,7 +1282,7 @@
     if(!(input.tagName === 'INPUT' && input.type === 'file')) return;
     var role = input.getAttribute('data-role');
     var file = input.files && input.files[0];
-    if(!file) return;
+    if(!file){ if(role === 'cv') log('CV picker closed with no file'); return; }
 
     if(role === 'avatar'){
       var zone = input.closest('.avatar-upload');
@@ -1138,50 +1295,60 @@
     }
 
     if(role === 'cv'){
-      var validExts = ['pdf', 'doc', 'docx'];
-      var ext = file.name.split('.').pop().toLowerCase();
-      
-      if(!validExts.includes(ext)){
-        setHint('Invalid file type. Accepts PDF, DOC, or DOCX only.');
-        input.value = '';
-        return;
-      }
-      if(file.size > 5 * 1024 * 1024){
-        setHint('File too large. Maximum size is 5 MB.');
-        input.value = '';
-        return;
-      }
-      
-      var zone = input.closest('.cv-upload');
-      setHint('Uploading CV...');
-      
-      (async function() {
-        try {
-          var { data: authData, error: authError } = await sb.auth.getUser();
-          if (authError || !authData.user) throw new Error('Not authenticated');
-          
-          var filePath = authData.user.id + '/cv.' + ext;
-          var { error: uploadError } = await sb.storage.from('cvs').upload(filePath, file, { upsert: true });
-          if (uploadError) throw uploadError;
-          
-          zone.setAttribute('data-cv-path', filePath);
-          zone.classList.add('filled');
-          
-          var label = zone.querySelector('#cv-label');
+      (async function(){
+        var stage = 'start';
+        try{
+          log('File selected: ' + file.name + ' size=' + file.size + ' type=' + file.type);
+          var ext = (file.name.indexOf('.') !== -1 ? file.name.split('.').pop() : '').toLowerCase();
+          log('Extension detected: ' + ext);
+
+          var bad = '';
+          if(ext !== 'pdf') bad = 'only PDF files are allowed (got "' + ext + '")';
+          else if(file.size === 0) bad = 'file is empty';
+          else if(file.size > 5 * 1024 * 1024) bad = 'file is larger than 5 MB';
+          if(bad){
+            log('Validation failed: ' + bad);
+            setHint('Upload failed — see debug panel');
+            showDebug();
+            return;
+          }
+          log('Validation passed');
+          setHint('Uploading CV…');
+
+          stage = 'getUser';
+          log('Getting user...');
+          var u = await sb.auth.getUser();
+          if(u.error) throw u.error;
+          var userId = u.data && u.data.user ? u.data.user.id : null;
+          log('User id: ' + userId);
+          if(!userId) throw new Error('No signed-in user');
+
+          stage = 'upload';
+          var filePath = userId + '/cv.pdf';
+          log('Uploading to cvs/' + filePath);
+          var up = await sb.storage.from('cvs').upload(filePath, file, { upsert: true, contentType: 'application/pdf' });
+          if(up.error) throw up.error;
+          log('Upload result: success');
+
+          stage = 'attach';
+          var zone2 = input.closest('.cv-upload');
+          zone2.classList.add('filled');
+          var label = zone2.querySelector('#cv-label');
           if(label) label.textContent = file.name;
-          
-          var removeBtn = zone.querySelector('#cv-remove');
-          if(removeBtn) removeBtn.style.display = 'inline';
-          
-          setHint('CV uploaded.');
+          var removeBtn = zone2.querySelector('.cv-remove');
+          if(removeBtn){ removeBtn.style.display = 'inline'; }
+          zone2.setAttribute('data-cv-path', filePath);
+          log('data-cv-path set to: ' + filePath + ' — now calling scheduleSave()');
+          cvLogPending = true;
           scheduleSave();
-        } catch(err) {
-          console.error('[CV Upload]', err);
-          var errMsg = (err.message || '').toLowerCase();
-          if(errMsg.includes('bucket not found')) setHint('Bucket not found.');
-          else if(errMsg.includes('row level security')) setHint('Permission denied. Check RLS policies.');
-          else setHint('Upload failed. ' + err.message);
-          input.value = '';
+          log('scheduleSave() invoked (ready=' + ready + ')');
+          setHint('CV uploaded ✓');
+        }catch(err){
+          log(errLine(err) + ' | stage=' + stage);
+          setHint('Upload failed — see debug panel');
+          showDebug();
+        }finally{
+          input.value = ''; // lets the same file be picked again after a failure
         }
       })();
     }
@@ -1202,33 +1369,15 @@
     if(e.target.classList.contains('cv-remove')){
       e.preventDefault();
       var zone = e.target.closest('.cv-upload');
-      var filePath = zone.getAttribute('data-cv-path');
-      
-      var finalizeRemove = function() {
-        zone.classList.remove('filled');
-        zone.removeAttribute('data-cv-path');
-        var label = zone.querySelector('#cv-label');
-        if(label) label.textContent = 'Attach CV (PDF, DOC, DOCX)';
-        e.target.style.display = 'none';
-        var inp = zone.querySelector('input[type=file]');
-        if(inp) inp.value = '';
-        scheduleSave();
-      };
-      
-      if (filePath) {
-        (async function() {
-          try {
-            var { error: removeError } = await sb.storage.from('cvs').remove([filePath]);
-            if (removeError) throw removeError;
-          } catch(err) {
-            console.warn('[CV Remove]', err);
-          } finally {
-            finalizeRemove();
-          }
-        })();
-      } else {
-        finalizeRemove();
-      }
+      zone.classList.remove('filled');
+      var label = zone.querySelector('#cv-label');
+      if(label) label.textContent = 'Attach CV (PDF)';
+      zone.removeAttribute('data-cv-path');
+      log('CV removed — data-cv-path cleared');
+      e.target.style.display = 'none';
+      var inp = zone.querySelector('input[type=file]');
+      if(inp) inp.value = '';
+      scheduleSave();
     }
     if(e.target.classList.contains('cert-file-remove')){
       var chip = e.target.closest('.cert-file-chip');
@@ -1257,13 +1406,13 @@
     disarmReset();
     clearTimeout(saveTimer);
     var wasReady = ready;
-    ready = false;
+    ready = false; // no autosave while resetting
     setHint('Resetting…');
     try{
       var res = await sb.from(TABLE).upsert({ id: ROW_ID, content: {}, updated_at: new Date().toISOString() });
-      if(res.error){ console.warn('[reset]', res.error); ready = wasReady; setHint('Reset failed ⟶ see console'); return; }
+      if(res.error){ console.warn('[reset]', res.error); ready = wasReady; setHint('Reset failed — see console'); return; }
     }catch(err){
-      console.warn('[reset]', err); ready = wasReady; setHint('Reset failed ⟶ see console'); return;
+      console.warn('[reset]', err); ready = wasReady; setHint('Reset failed — see console'); return;
     }
     location.reload();
   });
@@ -1274,6 +1423,7 @@
   var navQueued = false;
   function setActive(){
     navQueued = false;
+    /* live query on purpose: the page markup can be replaced after load, which orphans a saved list */
     var secs = document.querySelectorAll('main section[id]');
     if(!secs.length) return;
     var current = secs[0].id;
@@ -1308,8 +1458,6 @@
 </html>
 </script>
 
-<!-- ============== VIEWER PAGE TEMPLATE ============== -->
-<!-- Note: <\/script> is used inside to prevent the HTML parser from closing the template early -->
 <script type="text/template" id="tpl-viewer">
 <!DOCTYPE html>
 <html lang="en">
@@ -1322,44 +1470,133 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#120D0C; --line:rgba(255,255,255,0.12); --line-soft:rgba(255,255,255,0.06);
-    --ink:#F1E9E1; --ink-dim:#B9AC9F; --ink-faint:#7E7069;
-    --sanguine:#7A2027; --sanguine-bright:#B03A3F; --sanguine-deep:#4E1519;
-    --glass-fill: rgba(255,255,255,0.04); --glass-border: rgba(255,255,255,0.12);
+    --bg:#120D0C;
+    --line:rgba(255,255,255,0.12);
+    --line-soft:rgba(255,255,255,0.06);
+    --ink:#F1E9E1;
+    --ink-dim:#B9AC9F;
+    --ink-faint:#7E7069;
+    --sanguine:#7A2027;
+    --sanguine-bright:#B03A3F;
+    --sanguine-deep:#4E1519;
+    --glass-fill: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.12);
     --glass-shadow: 0 8px 32px rgba(0,0,0,0.37), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.2);
-    --radius-lg: 24px; --radius-md: 16px; --ease: cubic-bezier(.22,.61,.36,1);
+    --radius-lg: 24px;
+    --radius-md: 16px;
+    --ease: cubic-bezier(.22,.61,.36,1);
   }
+
   *{ box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
+
   body{
-    margin:0; background:var(--bg); color:var(--ink);
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
     font-family:"Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height:1.6; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; overflow-x:hidden;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x: hidden;
   }
+
   ::selection{ background:var(--sanguine-deep); color:var(--ink); }
   h1,h2,h3{ font-family:inherit; font-weight:500; letter-spacing:-0.03em; margin:0; color:var(--ink); }
   a{ color:inherit; }
 
-  #webgl-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; }
-  .stripes { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; background-image: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(176, 58, 63, 0.03) 40px, rgba(176, 58, 63, 0.03) 41px); }
-  .side-stripe { position: fixed; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(to bottom, var(--sanguine-deep), var(--sanguine-bright), var(--sanguine-deep)); z-index: 50; }
+  #webgl-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -2;
+  }
 
-  .glass{ position:relative; background:var(--glass-fill); -webkit-backdrop-filter:blur(20px) saturate(180%); backdrop-filter:blur(20px) saturate(180%); border:1px solid var(--glass-border); box-shadow:var(--glass-shadow); border-radius: var(--radius-lg); overflow: hidden; }
-  .glass::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.1)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; z-index: 1; }
-  .glass::after { content: ""; position: absolute; top: 0; left: 20%; right: 20%; height: 40%; background: radial-gradient(ellipse at center top, rgba(255,255,255,0.08), transparent 70%); pointer-events: none; z-index: 1; }
+  .stripes {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(176, 58, 63, 0.03) 40px,
+      rgba(176, 58, 63, 0.03) 41px
+    );
+  }
+
+  .side-stripe {
+    position: fixed;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--sanguine-deep), var(--sanguine-bright), var(--sanguine-deep));
+    z-index: 50;
+  }
+
+  .glass{
+    position:relative;
+    background:var(--glass-fill);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    border:1px solid var(--glass-border);
+    box-shadow:var(--glass-shadow);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.1));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .glass::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 20%; right: 20%;
+    height: 40%;
+    background: radial-gradient(ellipse at center top, rgba(255,255,255,0.08), transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+  }
 
   .wrap{ max-width:1180px; margin:0 auto; padding:0 48px; position:relative; }
   @media (max-width:860px){ .wrap{ padding:0 24px; } }
 
-  .rail{ position:fixed; top:50%; left:22px; transform:translateY(-50%); display:flex; flex-direction:column; align-items:center; gap:18px; padding:20px 11px; border-radius:999px; z-index:60; }
-  .rail button{ all:unset; width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.25); cursor:pointer; transition:all .3s var(--ease); }
+  .rail{
+    position:fixed; top:50%; left:22px; transform:translateY(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:18px;
+    padding:20px 11px; border-radius:999px; z-index:60;
+  }
+  .rail button{
+    all:unset; width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.25);
+    cursor:pointer; transition:all .3s var(--ease);
+  }
   .rail button:hover{ background:var(--ink-dim); transform: scale(1.4); }
   .rail button.active{ background:var(--sanguine-bright); transform:scale(2.2); box-shadow: 0 0 12px var(--sanguine-bright); }
   @media (max-width:860px){ .rail{ display:none; } }
 
-  .toolbar{ position:fixed; top:24px; right:24px; z-index:60; border-radius:999px; display:flex; align-items:center; gap:6px; padding:8px 8px 8px 16px; }
+  .toolbar{
+    position:fixed; top:24px; right:24px; z-index:60; border-radius:999px;
+    display:flex; align-items:center; gap:6px; padding:8px 8px 8px 16px;
+  }
   .toolbar span.hint{ font-size:12px; color:var(--ink-dim); margin-right:6px; white-space:nowrap; letter-spacing:0.02em; font-weight: 400; }
-  .toolbar button{ all:unset; cursor:pointer; font-family:inherit; font-weight:500; font-size:12px; color:var(--ink); padding:10px 16px; border-radius:999px; background:rgba(255,255,255,0.08); border:1px solid transparent; transition:all .2s var(--ease); }
+  .toolbar button{
+    all:unset; cursor:pointer; font-family:inherit; font-weight:500; font-size:12px; color:var(--ink);
+    padding:10px 16px; border-radius:999px; background:rgba(255,255,255,0.08); border:1px solid transparent;
+    transition:all .2s var(--ease);
+  }
   .toolbar button:hover{ background:rgba(176, 58, 63, 0.3); border-color:var(--sanguine-bright); color: #fff; }
   .toolbar button:active{ transform:scale(0.96); }
   @media (max-width:640px){ .toolbar span.hint{ display:none; } }
@@ -1380,14 +1617,19 @@
   #hero{ min-height:92vh; display:flex; flex-direction:column; justify-content:center; padding:150px 0 100px; }
 
   .hero-card{ padding:56px clamp(28px,5vw,64px); }
-  .hero-card::before { padding: 2px; background: linear-gradient(135deg, rgba(176,58,63,0.5), rgba(255,255,255,0.1) 40%, rgba(255,255,255,0.1) 60%, rgba(176,58,63,0.3)); }
+
+  .hero-card::before {
+    padding: 2px;
+    background: linear-gradient(135deg, rgba(176,58,63,0.5), rgba(255,255,255,0.1) 40%, rgba(255,255,255,0.1) 60%, rgba(176,58,63,0.3));
+  }
 
   .hero-top{ display:flex; align-items:center; gap:26px; margin-bottom:38px; flex-wrap:wrap; position: relative; z-index: 2; }
 
   .avatar-upload{
     width:88px; height:88px; border-radius:50%; flex:none; position:relative;
     border:1px solid var(--glass-border); display:flex; align-items:center; justify-content:center;
-    background:rgba(255,255,255,0.05); overflow:hidden;
+    background:rgba(255,255,255,0.05);
+    overflow:hidden;
   }
   .avatar-upload img{ width:100%; height:100%; object-fit:cover; display:none; }
   .avatar-upload.has-photo img{ display:block; }
@@ -1410,11 +1652,23 @@
   .cv-upload{
     display:inline-flex; align-items:center; gap:8px; padding:9px 16px 9px 12px;
     border-radius:999px; background:rgba(255,255,255,0.05); border:1px solid var(--line);
-    font-size:12px; font-weight:400; color:var(--ink-dim); transition:all .2s var(--ease);
+    font-size:12px; font-weight:400; color:var(--ink-dim);
   }
-  .cv-upload.filled{ border-color:var(--glass-border); cursor: pointer; }
-  .cv-upload.filled:hover { border-color: var(--sanguine-bright); color: var(--ink); background: rgba(176, 58, 63, 0.15); }
   .cv-upload svg{ width:14px; height:14px; flex:none; opacity:.85; }
+  .cv-upload[data-cv-path]{ cursor:pointer; transition:all .2s ease; }
+  .cv-upload[data-cv-path]:hover{ border-color:var(--sanguine-bright); background:rgba(176,58,63,0.15); color:var(--ink); }
+
+  /* debug panel */
+  #debug-panel{
+    position:fixed; left:12px; bottom:12px; z-index:9999;
+    width:min(560px, calc(100vw - 24px)); max-height:40vh; overflow:auto;
+    padding:8px 10px; border-radius:8px; text-align:left;
+    background:rgba(8,8,8,0.92); border:1px solid #333; color:#b8f2c0;
+    font:11px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    white-space:pre-wrap; word-break:break-word;
+  }
+  #debug-panel[hidden]{ display:none; }
+  #debug-panel .err{ color:#ff8a8a; }
 
   .two-col{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:80px; }
   @media (max-width:860px){ .two-col{ grid-template-columns:1fr; gap:32px; } }
@@ -1504,12 +1758,12 @@
       --line:#dcdcdc; --line-soft:#e8e8e8; --sanguine-bright:#7A2027;
       --glass-shadow:none; --glass-border:#dcdcdc; --glass-fill:#ffffff;
     }
-    #webgl-bg, .stripes, .rail, .toolbar, .side-stripe { display:none !important; }
+    #webgl-bg, .stripes, .rail, .toolbar, .side-stripe, #debug-panel { display:none !important; }
     .glass{ backdrop-filter:none !important; -webkit-backdrop-filter:none !important; box-shadow:none !important; border: 1px solid #dcdcdc !important; }
     .glass::before, .glass::after { display: none !important; }
     main{ padding-left:0; }
     section{ padding:40px 0; }
-    .avatar-upload, .cv-upload, .cert-attach{ display:none !important; }
+    .avatar-upload, .cv-upload { display:none !important; }
   }
 
   /* scroll + rail polish */
@@ -1544,6 +1798,7 @@
 
 <div class="toolbar glass">
   <span class="hint" id="save-hint">Read only view</span>
+  <button id="btn-debug" type="button">Show debug</button>
   <button id="btn-print">Save as PDF</button>
 </div>
 
@@ -1570,7 +1825,7 @@
         <span class="meta-pill" data-field data-placeholder="Edited by: someone">Edited by: someone</span>
         <span class="meta-pill" data-field data-placeholder="Edited by: someone">Edited by: someone</span>
 
-        <div class="cv-upload" id="cv-zone" style="cursor: pointer;">
+        <div class="cv-upload" id="cv-zone">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8.5L21 10.5z"/><path d="M14 3v7h7"/></svg>
           <span id="cv-label">No CV attached</span>
         </div>
@@ -1807,10 +2062,14 @@
 </div>
 </main>
 
+<div id="debug-panel" hidden></div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"><\/script>
 <script>
 (function(){
-  /* ============== SUPABASE CONFIG — READ ONLY ============== */
+  /* ============================================================
+     SUPABASE CONFIG — READ ONLY
+     ============================================================ */
   var SUPABASE_URL      = 'https://dtpubmqtsexlosoexjba.supabase.co';
   var SUPABASE_ANON_KEY = 'sb_publishable_t-foXT6JNdnFejto0uJqAA_6Y4gln6G';
 
@@ -1820,10 +2079,10 @@
 
   /* ============== WEBGL ANIMATED BACKGROUND ============== */
   const canvas = document.getElementById('webgl-bg');
-  const GL_SCALE = 0.5;
+  const GL_SCALE = 0.5; // the background is soft noise, so half resolution looks identical and scrolls far smoother
   const calmGL = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   const parentLite = (function(){ try{ return window.parent.document.documentElement.classList.contains('lite'); }catch(e){ return false; } })();
-  const gl = parentLite ? null : canvas.getContext('webgl');
+  const gl = parentLite ? null : canvas.getContext('webgl'); // lower-end device mode: skip WebGL entirely
 
   if (gl) {
     const resize = () => {
@@ -1960,6 +2219,7 @@
   var navQueued = false;
   function setActive(){
     navQueued = false;
+    /* live query on purpose: the page markup can be replaced after load, which orphans a saved list */
     var secs = document.querySelectorAll('main section[id]');
     if(!secs.length) return;
     var current = secs[0].id;
@@ -1991,21 +2251,55 @@
   var root = document.getElementById('resume-root');
   var hint = document.getElementById('save-hint');
 
-  function setHint(t){ if(hint) hint.textContent = t; }
+  /* ============== DEBUG PANEL ============== */
+  var dbgPanel = document.getElementById('debug-panel');
+  var dbgBtn = document.getElementById('btn-debug');
+  function pad2(n){ return (n < 10 ? '0' : '') + n; }
+  function setDebug(on){
+    if(dbgPanel) dbgPanel.hidden = !on;
+    if(dbgBtn) dbgBtn.textContent = on ? 'Hide debug' : 'Show debug';
+  }
+  function showDebug(){ setDebug(true); }
+  function log(msg){
+    var d = new Date();
+    var line = '[' + pad2(d.getHours()) + ':' + pad2(d.getMinutes()) + ':' + pad2(d.getSeconds()) + '] ' + msg;
+    console.log('[cv-debug]', msg);
+    if(!dbgPanel) return;
+    var row = document.createElement('div');
+    if(/error|failed|blocked/i.test(String(msg))) row.className = 'err';
+    row.textContent = line;
+    dbgPanel.appendChild(row);
+    while(dbgPanel.childNodes.length > 200) dbgPanel.removeChild(dbgPanel.firstChild);
+    dbgPanel.scrollTop = dbgPanel.scrollHeight;
+  }
+  function errLine(err){
+    var e = err || {}, det;
+    try{ det = JSON.stringify(err); }catch(x){ det = String(err); }
+    return 'Upload error: ' + (e.message || String(err)) + ' | code=' + (e.statusCode || 'n/a') + ' | details=' + det;
+  }
+  if(dbgBtn) dbgBtn.addEventListener('click', function(){ setDebug(dbgPanel.hidden); });
+  window.addEventListener('error', function(e){
+    if(e && e.message && /^ResizeObserver/.test(e.message)) return; // harmless browser notice
+    log('Page error: ' + (e && e.message) + ' (' + ((e && e.filename) || '') + ':' + ((e && e.lineno) || '') + ')');
+    showDebug();
+  });
+  window.addEventListener('unhandledrejection', function(e){
+    var r = e && e.reason;
+    log('Unhandled rejection: ' + ((r && r.message) || String(r)));
+    showDebug();
+  });
+  log('Debug panel ready');
 
-  var KEEP = { BR:1, B:1, STRONG:1, I:1, EM:1, U:1, SPAN:1, DIV:1, P:1 };
+  /* only plain text, line breaks and basic emphasis come across from the stored markup */
+  var KEEP = { BR:1, B:1, STRONG:1, I:1, EM:1, U:1, DIV:1, P:1, SPAN:1 };
   var DROP = { SCRIPT:1, STYLE:1, IFRAME:1, OBJECT:1, EMBED:1, TEMPLATE:1 };
   function copyClean(from, to){
     from.childNodes.forEach(function(n){
       if(n.nodeType === 3){ to.appendChild(document.createTextNode(n.nodeValue)); }
       else if(n.nodeType === 1){
         if(DROP[n.tagName]) return;
-        if(KEEP[n.tagName]){
-          var el = document.createElement(n.tagName.toLowerCase());
-          copyClean(n, el);
-          to.appendChild(el);
-        }
-        else copyClean(n, to);
+        if(KEEP[n.tagName]){ var el = document.createElement(n.tagName.toLowerCase()); copyClean(n, el); to.appendChild(el); }
+        else copyClean(n, to); // unwrap anything else, keep its text
       }
     });
   }
@@ -2015,6 +2309,7 @@
   }
 
   function applyContent(html){
+    log('applyContent called, html length=' + (typeof html === 'string' ? html.length : 'n/a'));
     if(!html || typeof html !== 'string') return;
 
     var doc;
@@ -2030,7 +2325,7 @@
       var dst = dstFields[i];
       dst.textContent = '';
       copyClean(src, dst);
-      if(!dst.textContent.trim()) dst.textContent = '';
+      if(!dst.textContent.trim()) dst.textContent = ''; // leftover <br> would hide the placeholder
       if(src.hasAttribute('data-placeholder')){
         dst.setAttribute('data-placeholder', src.getAttribute('data-placeholder'));
       } else {
@@ -2048,52 +2343,30 @@
       dAv.classList.toggle('has-photo', sAv.classList.contains('has-photo') && !!avSrc);
     }
 
-    var sCv = doc.querySelector('#cv-zone');
-    var dCv = root.querySelector('#cv-zone');
+    var sCv = doc.querySelector('#cv-label');
+    var dCv = root.querySelector('#cv-label');
+    var dCvZone = root.querySelector('#cv-zone');
+    log('cv-zone found? ' + (dCv ? 'yes' : 'no'));
+    var sCvZone = doc.querySelector('#cv-zone');
+    var path = sCvZone ? sCvZone.getAttribute('data-cv-path') : null;
+    log('data-cv-path from admin: ' + (path || 'none'));
     if(sCv && dCv){
-      var sLabel = sCv.querySelector('#cv-label');
-      var dLabel = dCv.querySelector('#cv-label');
-      var path = sCv.getAttribute('data-cv-path');
-      
+      var t = (sCv.textContent || '').trim();
+      var hasCv = t && t !== 'Attach CV (PDF)';
+      dCv.textContent = hasCv ? t : 'No CV attached';
+      if(dCvZone) dCvZone.classList.toggle('filled', !!hasCv);
+    }
+    if(dCvZone){
       if(path){
-        dCv.setAttribute('data-cv-path', path);
-        dCv.classList.add('filled');
-        if(sLabel && dLabel) dLabel.textContent = sLabel.textContent;
-        dCv.style.cursor = 'pointer';
-        dCv.title = 'Click to download CV';
-        
-        dCv.onclick = async function() {
-          var cvPath = dCv.getAttribute('data-cv-path');
-          if(!cvPath) return;
-          
-          var originalText = dLabel ? dLabel.textContent : '';
-          if (dLabel) dLabel.textContent = 'Preparing link...';
-          dCv.style.pointerEvents = 'none';
-          
-          try {
-            var { data, error } = await sb.storage.from('cvs').createSignedUrl(cvPath, 3600);
-            if (error) throw error;
-            
-            if (data && data.signedUrl) {
-              window.open(data.signedUrl, '_blank');
-            }
-          } catch(err) {
-            console.error('[CV Download]', err);
-            if (dLabel) dLabel.textContent = 'Error loading CV';
-            setTimeout(function() {
-              if (dLabel) dLabel.textContent = originalText;
-            }, 2000);
-          } finally {
-            dCv.style.pointerEvents = '';
-          }
-        };
+        dCvZone.setAttribute('data-cv-path', path);
+        dCvZone.setAttribute('role', 'button');
+        dCvZone.setAttribute('tabindex', '0');
+        dCvZone.setAttribute('title', 'Open CV');
       } else {
-        dCv.removeAttribute('data-cv-path');
-        dCv.classList.remove('filled');
-        if(dLabel) dLabel.textContent = 'No CV attached';
-        dCv.style.cursor = 'default';
-        dCv.title = '';
-        dCv.onclick = null;
+        dCvZone.removeAttribute('data-cv-path');
+        dCvZone.removeAttribute('role');
+        dCvZone.removeAttribute('tabindex');
+        dCvZone.removeAttribute('title');
       }
     }
 
@@ -2110,7 +2383,7 @@
       else { dLink.removeAttribute('href'); dLink.removeAttribute('rel'); }
       dChips[j].classList.toggle('show', sChips[j].classList.contains('show'));
     }
-    setActive();
+    setActive(); // content height changed
   }
 
   async function loadFromCloud(){
@@ -2142,7 +2415,47 @@
           })
       .subscribe();
   }catch(e){ console.warn('[realtime]', e); }
+  /* signing out destroys this page; release the channel so the next sign-in can subscribe cleanly */
   window.addEventListener('pagehide', function(){ try{ if(live) sb.removeChannel(live); }catch(e){} });
+
+  /* ============== CV OPEN (signed URL) ============== */
+  var cvZone = root.querySelector('#cv-zone');
+  async function openCv(){
+    var cvPath = cvZone ? cvZone.getAttribute('data-cv-path') : null;
+    if(!cvPath) return;
+    var tab = null;
+    try{ tab = window.open('about:blank', '_blank'); }catch(e){ tab = null; } // opened first so the pop-up blocker allows it
+    try{
+      log('createSignedUrl called for path: ' + cvPath);
+      var r = await sb.storage.from('cvs').createSignedUrl(cvPath, 60);
+      if(r.error || !r.data || !r.data.signedUrl){
+        var err = r.error || new Error('no signed URL returned');
+        log('Signed URL error: ' + err.message + ' | details=' + JSON.stringify(err));
+        showDebug();
+        if(tab) try{ tab.close(); }catch(e){}
+        return;
+      }
+      log('Signed URL result: ok');
+      log('Opening new tab');
+      if(tab){
+        try{ tab.opener = null; }catch(e){}
+        tab.location.replace(r.data.signedUrl);
+      } else {
+        log('Pop-up blocked — allow pop-ups for this site');
+        showDebug();
+      }
+    }catch(err2){
+      log('Signed URL error: ' + (err2 && err2.message ? err2.message : String(err2)));
+      showDebug();
+      if(tab) try{ tab.close(); }catch(e){}
+    }
+  }
+  if(cvZone){
+    cvZone.addEventListener('click', function(){ openCv(); });
+    cvZone.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openCv(); }
+    });
+  }
 
   loadFromCloud();
 })();
@@ -2152,7 +2465,6 @@
 </html>
 </script>
 
-<!-- ============== MAIN SHELL SCRIPT ============== -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function(){
@@ -2164,14 +2476,13 @@
   var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   window.__vanillaSb = sb; // shared with the embedded pages so they use the same session
 
-  /* ============== PAGES (embedded templates) ============== */
-  // The inner <\/script> tags prevent the HTML parser from closing the template early.
-  // We revert them to proper </script> tags before injecting into the iframe.
-  function fixScripts(html) {
-    return html.split('<\\/script>').join('</script>');
+  /* ============== PAGES (embedded, text/template) ============== */
+  /* inner closing script tags are stored as <\/script> so the outer block is not closed early */
+  function fixScripts(t){ return String(t || '').replace(/<\\\/script>/g, '<' + '\/script>'); }
+  function pageFor(role){
+    var el = document.getElementById(role === 'admin' ? 'tpl-admin' : 'tpl-viewer');
+    return el ? fixScripts(el.textContent).replace(/^\s+/, '') : '';
   }
-  var PAGE_ADMIN  = fixScripts(document.getElementById('tpl-admin').textContent);
-  var PAGE_VIEWER = fixScripts(document.getElementById('tpl-viewer').textContent);
 
   /* ============== THEME + LOWER-END DEVICE STATE ============== */
   var root = document.documentElement;
@@ -2408,7 +2719,7 @@
     unameEl.className = 'msg uname' + (state ? UNAME_CLASS[state] : '');
   }
   function unameReset(){
-    clearTimeout(unameTimer); unameReq++;
+    clearTimeout(unameTimer); unameReq++; // bumping the id drops any lookup still in flight
     unameChecked = ''; unameSet('');
   }
   async function checkUsername(uname){
@@ -2417,7 +2728,7 @@
     try{
       var r = await sb.from('profiles').select('id').eq('username', uname).maybeSingle();
       if(mine !== unameReq || mode !== 'up' || normalizeUsername(email.value) !== uname) return;
-      if(r.error){ console.warn('[username check]', r.error); unameSet(''); return; }
+      if(r.error){ console.warn('[username check]', r.error); unameSet(''); return; } // never block signup on a failed lookup
       unameChecked = uname;
       unameSet(r.data ? 'taken' : 'available');
     }catch(err){
@@ -2464,6 +2775,7 @@
     setBusy(true); say('');
     try{
       if(mode === 'up'){
+        /* last-moment lookup; a failed lookup never blocks signup, the unique index still catches duplicates */
         var c = await sb.from('profiles').select('id').eq('username', raw).maybeSingle();
         if(c.error){ console.warn('[username check]', c.error); }
         else if(c.data){
@@ -2480,6 +2792,7 @@
           setMode('in'); say('Account created. You can sign in now.', 'ok');
           return;
         }
+        /* session exists → onAuthStateChange takes it from here */
       } else {
         var s = await sb.auth.signInWithPassword({ email: usernameToEmail(raw), password: pw });
         if(s.error){ say(friendly(s.error), 'err'); return; }
@@ -2493,6 +2806,8 @@
 
   /* ============== ROLE + ROUTING ============== */
   async function fetchRole(user){
+    /* Ask the database the same question the security policies ask (public.is_admin),
+       so what the page shows and what the backend allows can never disagree. */
     try{
       var a = await sb.rpc('is_admin');
       if(!a.error && typeof a.data === 'boolean') return a.data ? 'admin' : 'viewer';
@@ -2512,16 +2827,16 @@
     var role = await fetchRole(session.user);
     $('who').textContent = (session.user.email || '').split('@')[0];
     $('role').textContent = role === 'admin' ? 'Admin' : 'Viewer';
-    frame.srcdoc = role === 'admin' ? PAGE_ADMIN : PAGE_VIEWER;
+    frame.srcdoc = pageFor(role);
     appEl.hidden = false;
     authEl.classList.add('leaving');
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ appEl.classList.add('in'); }); });
-    setTimeout(function(){ if(mountedFor !== session.user.id) return; authEl.hidden = true; stopGL(); }, 550);
+    setTimeout(function(){ if(mountedFor !== session.user.id) return; authEl.hidden = true; stopGL(); }, 550); // skip if signed out meanwhile
   }
 
   function showAuth(){
     mountedFor = null;
-    try{ sb.removeAllChannels(); }catch(err){ console.warn(err); }
+    try{ sb.removeAllChannels(); }catch(err){ console.warn(err); } // drop live-update channels from the page being closed
     appEl.classList.remove('in'); appEl.hidden = true;
     frame.removeAttribute('srcdoc'); frame.src = 'about:blank';
     authEl.hidden = false;
@@ -2538,7 +2853,7 @@
   sb.auth.onAuthStateChange(function(event, session){
     if(event === 'SIGNED_OUT'){ if(!appEl.hidden) showAuth(); return; }
     if(session && (event === 'SIGNED_IN' || event === 'INITIAL_SESSION')){
-      setTimeout(function(){ mount(session); }, 0);
+      setTimeout(function(){ mount(session); }, 0); // avoid awaiting supabase calls inside the auth callback
     }
   });
 
